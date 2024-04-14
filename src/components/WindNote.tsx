@@ -1,4 +1,10 @@
-import { MoreOutlined, UserOutlined, DeleteOutlined } from "@ant-design/icons";
+import {
+  MoreOutlined,
+  UserOutlined,
+  DeleteOutlined,
+  EditOutlined,
+  HeartOutlined,
+} from "@ant-design/icons";
 import { Avatar, Collapse, Divider, Dropdown, Menu, Space } from "antd";
 import React from "react";
 
@@ -10,10 +16,19 @@ const WindNote = () => {
     <Menu>
       <Menu>
         <Menu.Item
+          key="favorite"
+          icon={
+            <Space>
+              <HeartOutlined />
+              お気に入り
+            </Space>
+          }
+        ></Menu.Item>
+        <Menu.Item
           key="delete"
           icon={
             <Space>
-              <DeleteOutlined className="text-xl" /> 削除
+              <DeleteOutlined className="" /> 削除
             </Space>
           }
         ></Menu.Item>
@@ -21,7 +36,7 @@ const WindNote = () => {
           key="edit"
           icon={
             <Space>
-              <DeleteOutlined className="text-xl" /> 編集
+              <EditOutlined /> 編集
             </Space>
           }
         ></Menu.Item>
@@ -36,8 +51,9 @@ const WindNote = () => {
           {
             key: "1",
             label: (
-              <div className="flex justify-between">
+              <div className="flex justify-between items-center">
                 <Avatar size={30} icon={<UserOutlined />} />
+                <p>リーパン辛すぎた</p>
                 <Dropdown overlay={menu}>
                   <button>
                     <MoreOutlined />
@@ -45,7 +61,7 @@ const WindNote = () => {
                 </Dropdown>
               </div>
             ),
-            children: <p>aaa</p>,
+            children: <p>aaaaajjfiesjafi;ak</p>,
           },
         ]}
       />
