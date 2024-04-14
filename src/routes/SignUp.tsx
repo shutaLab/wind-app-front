@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { User } from "../types/user";
 import { validationShema } from "../utils/validationSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Button from "../components/Button";
 const SignUp = () => {
   const {
     register,
@@ -104,12 +105,7 @@ const SignUp = () => {
             </p>
           </div>
           <div className="flex items-center justify-between">
-            <button
-              className=" p-1 bg-custom-black text-white w-[45%] rounded-md transform hover:scale-95 duration-100"
-              type="submit"
-            >
-              SignUp
-            </button>
+            <Button text="SignUp" className="w-[45%]" />
             <a className="" href="#">
               Login here
             </a>

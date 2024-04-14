@@ -6,6 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SignUp from "./routes/SignUp";
 import Login from "./routes/Login";
+import WindNoteList from "./routes/WindNoteList";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -17,6 +18,7 @@ root.render(
         <Route index element={<App />} />
         <Route path="/signUp" element={<SignUp />} />
         <Route path="/logIn" element={<Login />} />
+        <Route path="/windNote" element={<WindNoteList />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

@@ -36,14 +36,8 @@ const Header = () => {
           </li>
         </ul>
       </div>
-      <Drawer
-        title="Basic Drawer"
-        closable={false}
-        onClose={onClose}
-        open={open}
-        placement="top"
-      >
-        <p>Some contents...</p>
+      <Drawer closable={false} onClose={onClose} open={open} placement="top">
+        <Link to="/windNote">ウィンドノート</Link>
         <p>Some contents...</p>
         <p>Some contents...</p>
       </Drawer>
