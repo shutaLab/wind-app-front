@@ -51,9 +51,12 @@ const WindNote = () => {
           {
             key: "1",
             label: (
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-center ">
                 <Avatar size={30} icon={<UserOutlined />} />
-                <p>リーパン辛すぎた</p>
+                <div className="flex-col ">
+                  <div className="text-xl">リーパン辛すぎた</div>
+                  <div>aa</div>
+                </div>
                 <Dropdown overlay={menu}>
                   <button>
                     <MoreOutlined />
