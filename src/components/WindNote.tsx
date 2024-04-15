@@ -51,17 +51,20 @@ const WindNote = () => {
           {
             key: "1",
             label: (
-              <div className="flex justify-between items-center ">
-                <Avatar size={30} icon={<UserOutlined />} />
-                <div className="flex-col ">
-                  <div className="text-xl">リーパン辛すぎた</div>
-                  <div>aa</div>
+              <div className="flex items-center ">
+                <div className="w-[20%]">
+                  <Avatar size={30} icon={<UserOutlined />} />
                 </div>
-                <Dropdown overlay={menu}>
-                  <button>
-                    <MoreOutlined />
-                  </button>
-                </Dropdown>
+                <div className="flex-col ">
+                  <div className="text-lg  text-gray">リーパン辛すぎた</div>
+                  <div className="">aa</div>
+                  <div className="flex">
+                    <HeartOutlined className="text-lg mr-4" />
+                    <DeleteOutlined className="text-lg mr-4" />
+                    <EditOutlined className="text-lg" />
+                  </div>
+                  <p>2いいね</p>
+                </div>
               </div>
             ),
             children: <p>aaaaajjfiesjafi;ak</p>,
