@@ -12,23 +12,23 @@ const Footer = () => {
     <div className="fixed bottom-0 left-0 right-0 p-3 shadow">
       <div className="flex justify-between">
         <div className=" flex-col text-center text-gray">
-          <HomeFilled className="text-2xl " />
+          <HomeFilled className="text-xl " />
           <p>ホーム</p>
         </div>
         <div className=" flex-col text-center text-gray">
-          <CalendarFilled className="text-2xl " />
+          <CalendarFilled className="text-xl " />
           <p>カレンダー</p>
         </div>
         <div className=" flex-col text-center text-gray">
-          <PlusOutlined className="text-2xl " />
+          <PlusOutlined className="text-xl " />
           <p>出艇</p>
         </div>
         <div className=" flex-col text-center text-gray">
-          <FormOutlined className="text-2xl " />
+          <FormOutlined className="text-xl " />
           <p>ノート</p>
         </div>
         <div className=" flex-col text-center text-gray">
-          <UserOutlined className="text-2xl " />
+          <UserOutlined className="text-xl " />
           <p>マイページ</p>
         </div>
       </div>
