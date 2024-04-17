@@ -17,7 +17,7 @@ const Header = () => {
 
   return (
     <header className="bg-cream w-full shadow fixed top-0 left-0 right-0">
-      <div className="flex items-center justify-between h-16 mx-5">
+      <div className="flex items-center justify-between h-14 mx-5">
         <li>
           <button onClick={showDrawer}>
             <MenuOutlined className="text-gray text-2xl" />
