@@ -8,6 +8,7 @@ import SignUp from "./routes/SignUp";
 import Login from "./routes/Login";
 import WindNoteList from "./routes/WindNoteList";
 import Home from "./routes/Home";
+import WindCalendar from "./routes/WindCalendar";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -21,6 +22,7 @@ root.render(
         <Route path="/logIn" element={<Login />} />
         <Route path="/windNote" element={<WindNoteList />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/calendar" element={<WindCalendar />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

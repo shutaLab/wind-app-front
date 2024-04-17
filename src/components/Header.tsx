@@ -16,7 +16,7 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-cream w-full shadow fixed top-0 left-0 right-0">
+    <header className="bg-cream w-full shadow fixed top-0 left-0 right-0 z-[999]">
       <div className="flex items-center justify-between h-14 mx-5">
         <li>
           <button onClick={showDrawer}>
