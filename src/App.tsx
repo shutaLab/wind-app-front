@@ -13,6 +13,7 @@ function App() {
         <Link to="/home">homeへ</Link>
         roguinn
       </Link>
+      <Link to="/calendar">カレンダー</Link>
       <Footer />
     </div>
   );
