@@ -1,5 +1,6 @@
 import {
   CalendarFilled,
+  EllipsisOutlined,
   FormOutlined,
   HomeFilled,
   PlusOutlined,
@@ -28,7 +29,7 @@ const Footer = () => {
           <p>ノート</p>
         </button>
         <button className=" flex-col text-center text-gray">
-          <UserOutlined className="text-xl " />
+          <EllipsisOutlined className="text-xl" />
           <p>マイページ</p>
         </button>
       </div>

@@ -8,7 +8,6 @@ import Footer from "../components/Footer";
 const WindNoteList = () => {
   return (
     <div>
-      <Header />
       <div className="flex h-10 justify-around mb-3">
         <div className="w-[60%]">
           <input
