@@ -11,39 +11,6 @@ import React from "react";
 const WindNote = () => {
   const text: string = "aa";
 
-  // ドロップダウンメニューのアイテム
-  const menu = (
-    <Menu>
-      <Menu>
-        <Menu.Item
-          key="favorite"
-          icon={
-            <Space>
-              <HeartOutlined />
-              お気に入り
-            </Space>
-          }
-        ></Menu.Item>
-        <Menu.Item
-          key="delete"
-          icon={
-            <Space>
-              <DeleteOutlined className="" /> 削除
-            </Space>
-          }
-        ></Menu.Item>
-        <Menu.Item
-          key="edit"
-          icon={
-            <Space>
-              <EditOutlined /> 編集
-            </Space>
-          }
-        ></Menu.Item>
-      </Menu>
-    </Menu>
-  );
-
   return (
     <div>
       <Collapse
@@ -51,13 +18,16 @@ const WindNote = () => {
           {
             key: "1",
             label: (
-              <div className="flex items-center ">
+              <div className="flex ">
                 <div className="w-[20%]">
-                  <Avatar size={30} icon={<UserOutlined />} />
+                  <Avatar size={35} icon={<UserOutlined />} />
                 </div>
-                <div className="flex-col ">
-                  <div className="text-lg  text-gray">リーパン辛すぎた</div>
-                  <div className="">aa</div>
+                <div className="flex-col w-[80%]">
+                  <div className="flex justify-between">
+                    <p>山田脩太</p>
+                    <p>2024/10/08</p>
+                  </div>
+                  <div className="  text-gray">リーパン辛すぎた</div>
                   <div className="flex">
                     <HeartOutlined className="text-lg mr-4" />
                     <DeleteOutlined className="text-lg mr-4" />
