@@ -20,7 +20,7 @@ const WindCalendar = () => {
           plugins={[dayGridPlugin, interactionPlugin]}
           initialView="dayGridMonth"
           selectable={true}
-          select={handleDateClick}
+          dateClick={handleDateClick}
         />
       </div>
       <Footer />
