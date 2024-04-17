@@ -9,7 +9,6 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 const WindCalendar = () => {
   return (
     <div>
-      <Header />
       <div className="">
         <FullCalendar
           height="60vh"
