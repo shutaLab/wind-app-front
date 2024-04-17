@@ -4,17 +4,19 @@ import { Badge, Calendar } from "antd";
 import type { Dayjs } from "dayjs";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-
+import FullCalendar from "@fullcalendar/react";
+import dayGridPlugin from "@fullcalendar/daygrid";
 const WindCalendar = () => {
-  const getMonthData = (value: Dayjs) => {
-    if (value.month() === 8) {
-      return 1394;
-    }
-  };
   return (
     <div>
       <Header />
-      <Calendar />
+      <div className="">
+        <FullCalendar
+          height="60vh"
+          plugins={[dayGridPlugin]}
+          initialView="dayGridMonth"
+        />
+      </div>
       <Footer />
     </div>
   );
