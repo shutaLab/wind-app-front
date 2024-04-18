@@ -9,7 +9,9 @@ module.exports = {
       'custom-black': '#444444', 
       'cream-white': '#FEFCF6',
       'cream': '#F6F1EB',
-      'gray': "#696969"
+      'gray': "#696969",
+      'green': "#7ccc7c",
+      'custom-red': "#FF4D4E"
     },
     },
     

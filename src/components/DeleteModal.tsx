@@ -1,4 +1,6 @@
-import { Button, Popconfirm } from "antd";
+import { Popconfirm } from "antd";
+import Button from "../components/Button";
+
 import React from "react";
 interface DeleteModalProps {
   confirm: () => void;
@@ -14,7 +16,7 @@ const DeleteModal: React.FC<DeleteModalProps> = ({ confirm, cancel }) => {
       okText="はい"
       cancelText="いいえ"
     >
-      <Button danger>削除</Button>
+      <Button className="bg-custom-red" text="削除" />
     </Popconfirm>
   );
 };
