@@ -36,7 +36,30 @@ const WindCalendar = () => {
         />
       </div>
       <p className="pl-2">12月15日</p>
-      <div className="w-full text-left flex items-center bg-cream-white shadow rounded-lg">
+      <div
+        onClick={handleDateClick}
+        className="w-full text-left flex items-center bg-cream-white shadow rounded-lg"
+      >
+        <div className="border-r-2 p-2">
+          <p className="w-full">19:00</p>
+          <p className="w-full">20:00</p>
+        </div>
+        <div className="p-3">鎌倉学生選手権</div>
+      </div>
+      <div
+        onClick={handleDateClick}
+        className="w-full text-left flex items-center bg-cream-white shadow rounded-lg"
+      >
+        <div className="border-r-2 p-2">
+          <p className="w-full">19:00</p>
+          <p className="w-full">20:00</p>
+        </div>
+        <div className="p-3">鎌倉学生選手権</div>
+      </div>
+      <div
+        onClick={handleDateClick}
+        className="w-full text-left flex items-center bg-cream-white shadow rounded-lg"
+      >
         <div className="border-r-2 p-2">
           <p className="w-full">19:00</p>
           <p className="w-full">20:00</p>
