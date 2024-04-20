@@ -25,11 +25,11 @@ const MyPage = () => {
         </div>
         <div className="flex justify-around mt-3">
           <Button
-            className="bg-custom-gray text-black font-bold"
+            className="bg-custom-gray text-black font-bold w-[45%]"
             text="プロフィールを編集"
           />
           <Button
-            className="bg-custom-gray text-black font-bold"
+            className="bg-custom-gray text-black font-bold w-[45%]"
             text="脩太に寄付する"
           />
         </div>
