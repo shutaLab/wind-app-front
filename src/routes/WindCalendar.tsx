@@ -68,7 +68,11 @@ const WindCalendar = () => {
           </Dropdown>
         </div>
       </div>
-      <Button className="h-full w-full mt-2" text="予定を追加" type="button" />
+      <Button
+        className="h-full w-full mt-2 bg-custom-black text-white"
+        text="予定を追加"
+        type="button"
+      />
       <Footer />
     </div>
   );

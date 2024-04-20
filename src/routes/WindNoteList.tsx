@@ -15,7 +15,11 @@ const WindNoteList = () => {
             placeholder="検索"
           />
         </div>
-        <Button className="h-full w-[30%]" text="ノートを追加" type="button" />
+        <Button
+          className="h-full w-[30%] bg-custom-black text-white"
+          text="ノートを追加"
+          type="button"
+        />
       </div>
       <div>
         <WindNote />
