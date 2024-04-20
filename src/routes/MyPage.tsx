@@ -3,6 +3,8 @@ import Footer from "../components/Footer";
 import { BellOutlined, MenuOutlined, UserOutlined } from "@ant-design/icons";
 import { Avatar, Tabs, TabsProps } from "antd";
 import Button from "../components/Button";
+import WindNote from "../components/WindNote";
+import Ranking from "../components/Ranking";
 
 const MyPage = () => {
   return (
@@ -35,10 +37,15 @@ const MyPage = () => {
         </div>
         <Tabs centered className="mt-3" size="large">
           <Tabs.TabPane tab="ノート一覧" key="1">
-            <div>wwww</div>
+            <div>
+              <WindNote />
+              <WindNote />
+            </div>
           </Tabs.TabPane>
           <Tabs.TabPane tab="月間出艇数ランキング" key="2">
-            <div>ww</div>
+            <div>
+              <Ranking />
+            </div>
           </Tabs.TabPane>
           <Tabs.TabPane tab="出艇数" key="3">
             <div>ww</div>

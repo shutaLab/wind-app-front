@@ -12,7 +12,7 @@ const WindNote = () => {
   const text: string = "aa";
 
   return (
-    <div className="">
+    <div className="mb-2">
       <Collapse
         items={[
           {
