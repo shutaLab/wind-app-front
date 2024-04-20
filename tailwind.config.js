@@ -11,7 +11,8 @@ module.exports = {
       'cream': '#F6F1EB',
       'gray': "#696969",
       'green': "#7ccc7c",
-      'custom-red': "#FF4D4E"
+      'custom-red': "#FF4D4E",
+      'custom-gray':'#B8B5B0'
     },
     },
     

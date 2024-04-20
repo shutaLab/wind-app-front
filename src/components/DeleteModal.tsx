@@ -16,7 +16,7 @@ const DeleteModal: React.FC<DeleteModalProps> = ({ confirm, cancel }) => {
       okText="はい"
       cancelText="いいえ"
     >
-      <Button className="bg-custom-red" text="削除" />
+      <Button text="削除" />
     </Popconfirm>
   );
 };

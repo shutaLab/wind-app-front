@@ -38,7 +38,7 @@ const WindCalendar = () => {
     },
     {
       key: "2",
-      label: <Button className="bg-green" text="編集" />,
+      label: <Button className="bg-blue-500" text="編集" />,
     },
   ];
 
@@ -69,7 +69,6 @@ const WindCalendar = () => {
         </div>
       </div>
       <Button className="h-full w-full mt-2" text="予定を追加" type="button" />
-      <DeleteModal confirm={confirm} cancel={cancel} />
       <Footer />
     </div>
   );
