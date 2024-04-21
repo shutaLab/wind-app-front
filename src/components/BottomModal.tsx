@@ -10,7 +10,7 @@ const BottomModal: React.FC<BottomModalProps> = ({ open, onClose }) => {
       title="Drawer with extra actions"
       placement="bottom"
       width={500}
-      height={700}
+      height="60vh"
       onClose={onClose}
       open={open}
       extra={
