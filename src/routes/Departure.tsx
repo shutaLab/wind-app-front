@@ -4,8 +4,9 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import resourceTimeGridPlugin from "@fullcalendar/resource-timegrid";
-import { Button } from "antd";
 import BottomModal from "../components/BottomModal";
+import Button from "../components/Button";
+import DepartureFloatButton from "../components/DepartureFloatButton";
 
 const Departure = () => {
   const resources = [
@@ -84,10 +85,11 @@ const Departure = () => {
           plugins={[resourceTimeGridPlugin]}
           initialView="resourceTimeGrid"
           resources={resources}
+          height="70vh"
           events={events}
           initialDate="2023-06-14"
           slotMinTime="09:00:00"
-          slotMaxTime="17:00:00"
+          slotMaxTime="18:00:00"
           allDaySlot={false}
           locale="ja"
           schedulerLicenseKey="CC-Attribution-NonCommercial-NoDerivatives"
@@ -95,8 +97,13 @@ const Departure = () => {
       </div>
       <div>
         <h1>本日の出艇者</h1>
-        <Button onClick={showDrawer}>見る</Button>
+        <Button
+          className=" bg-custom-black text-white"
+          text="見る"
+          onClick={showDrawer}
+        />
         <BottomModal open={open} onClose={onClose} />
+        <DepartureFloatButton />
       </div>
       <Footer />
     </div>

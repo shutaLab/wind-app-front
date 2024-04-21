@@ -1,4 +1,5 @@
-import { Button, Drawer, DrawerProps, RadioChangeEvent, Space } from "antd";
+import { Drawer, DrawerProps, RadioChangeEvent, Space } from "antd";
+import Button from "./Button";
 import React, { useState } from "react";
 interface BottomModalProps {
   open: boolean;
@@ -7,7 +8,7 @@ interface BottomModalProps {
 const BottomModal: React.FC<BottomModalProps> = ({ open, onClose }) => {
   return (
     <Drawer
-      title="Drawer with extra actions"
+      title="本日の出艇者"
       placement="bottom"
       width={500}
       height="60vh"
@@ -15,10 +16,11 @@ const BottomModal: React.FC<BottomModalProps> = ({ open, onClose }) => {
       open={open}
       extra={
         <Space>
-          <Button onClick={onClose}>Cancel</Button>
-          <Button type="primary" onClick={onClose}>
-            OK
-          </Button>
+          <Button
+            className="bg-custom-black text-white w-16"
+            text="OK"
+            onClick={onClose}
+          />
         </Space>
       }
     >
