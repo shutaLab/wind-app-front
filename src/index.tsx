@@ -10,6 +10,7 @@ import WindNoteList from "./routes/WindNoteList";
 import Home from "./routes/Home";
 import WindCalendar from "./routes/WindCalendar";
 import MyPage from "./routes/MyPage";
+import Departure from "./routes/Departure";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -25,6 +26,7 @@ root.render(
         <Route path="/home" element={<Home />} />
         <Route path="/calendar" element={<WindCalendar />} />
         <Route path="/myPage" element={<MyPage />} />
+        <Route path="/departure" element={<Departure />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
