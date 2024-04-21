@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import Footer from "../components/Footer";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import resourceTimeGridPlugin from "@fullcalendar/resource-timegrid";
+import { Button } from "antd";
+import BottomModal from "../components/BottomModal";
 
 const Departure = () => {
   const resources = [
-    { id: "a", title: "Task A" },
-    { id: "b", title: "Task B" },
+    { id: "a", title: "山田脩太" },
+    { id: "b", title: "𩜙平名春人" },
     { id: "c", title: "Task C" },
     { id: "d", title: "Task D" },
     { id: "e", title: "Task E" },
@@ -67,6 +69,14 @@ const Departure = () => {
       title: "Event 3",
     },
   ];
+  const [open, setOpen] = useState(false);
+
+  const showDrawer = () => {
+    setOpen(true);
+  };
+  const onClose = () => {
+    setOpen(false);
+  };
   return (
     <div className="demo-app">
       <div className="demo-app-main">
@@ -79,7 +89,14 @@ const Departure = () => {
           slotMinTime="09:00:00"
           slotMaxTime="17:00:00"
           allDaySlot={false}
+          locale="ja"
+          schedulerLicenseKey="CC-Attribution-NonCommercial-NoDerivatives"
         />
+      </div>
+      <div>
+        <h1>本日の出艇者</h1>
+        <Button onClick={showDrawer}>見る</Button>
+        <BottomModal open={open} onClose={onClose} />
       </div>
       <Footer />
     </div>

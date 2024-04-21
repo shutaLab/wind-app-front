@@ -53,6 +53,7 @@ const WindCalendar = () => {
           selectable={true}
           locale="ja"
           businessHours={true}
+          schedulerLicenseKey="CC-Attribution-NonCommercial-NoDerivatives"
         />
       </div>
       <p className="pl-2">12月15日</p>
