@@ -51,12 +51,8 @@ const WindNoteList = () => {
       </div> */}
       <Footer />
       <Drawer>
-        <DrawerTrigger>Open</DrawerTrigger>
+        <DrawerTrigger>ノートを追加</DrawerTrigger>
         <DrawerContent>
-          <DrawerHeader>
-            <DrawerTitle>Are you absolutely sure?</DrawerTitle>
-            <DrawerDescription>This action cannot be undone.</DrawerDescription>
-          </DrawerHeader>
           <DrawerFooter>
             <Button>Submit</Button>
             <DrawerClose>
