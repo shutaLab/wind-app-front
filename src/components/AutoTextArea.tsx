@@ -3,7 +3,7 @@ import React, { useRef, useEffect } from "react";
 const AutoAdjustTextarea = ({ className = "", placeholder = "", ...props }) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const baseClasses =
-    "w-full resize-none transition-all duration-150 bg-white border borer-gray-400 outline-none";
+    "w-full resize-none transition-all duration-150 bg-white border borer-gray-400 outline-none ]";
 
   useEffect(() => {
     const handleResize = () => {

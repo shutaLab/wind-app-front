@@ -50,13 +50,7 @@ const DrawerContent = React.forwardRef<
       {...props}
     >
       <div className="mx-auto mt-4 h-2 w-[100px] rounded-full bg-muted" />
-      <div className="mt-10 p-4">
-        <input
-          className="w-full transition-all duration-150 bg-white border border-gray-300 outline-none mb-3"
-          placeholder="タイトル"
-        />
-        <AutoAdjustTextarea placeholder="内容" />
-      </div>
+
       {children}
     </DrawerPrimitive.Content>
   </DrawerPortal>
