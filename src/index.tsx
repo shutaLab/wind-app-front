@@ -11,12 +11,14 @@ import Home from "./routes/Home";
 import WindCalendar from "./routes/WindCalendar";
 import MyPage from "./routes/MyPage";
 import Departure from "./routes/Departure";
+import Meta from "./components/Meta";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
+    <Meta />
     <BrowserRouter>
       <Routes>
         <Route index element={<App />} />
