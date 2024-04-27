@@ -37,10 +37,7 @@ const MyPage = () => {
         </div>
         <Tabs centered className="mt-3" size="large">
           <Tabs.TabPane tab="ノート一覧" key="1">
-            <div>
-              <WindNote />
-              <WindNote />
-            </div>
+            <div></div>
           </Tabs.TabPane>
           <Tabs.TabPane tab="月間出艇数ランキング" key="2">
             <div>

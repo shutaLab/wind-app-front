@@ -1,8 +1,4 @@
-import {
-  CommentOutlined,
-  CustomerServiceOutlined,
-  PlusOutlined,
-} from "@ant-design/icons";
+import { CommentOutlined, HolderOutlined } from "@ant-design/icons";
 import { FloatButton } from "antd";
 import React from "react";
 
@@ -11,12 +7,15 @@ const DepartureFloatButton = () => {
     <>
       <FloatButton.Group
         trigger="click"
-        type="primary"
-        style={{ right: 30, bottom: 50 }}
-        icon={<PlusOutlined className="" />}
+        type="default"
+        style={{ right: 30, bottom: 60 }}
+        icon={<HolderOutlined />}
       >
-        <FloatButton />
-        <FloatButton icon={<CommentOutlined />} />
+        <FloatButton style={{ width: 60, height: 60 }} />
+        <FloatButton
+          style={{ width: 60, height: 60 }}
+          icon={<CommentOutlined />}
+        />
       </FloatButton.Group>
     </>
   );

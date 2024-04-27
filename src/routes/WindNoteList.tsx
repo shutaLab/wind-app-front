@@ -1,11 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import { Input } from "antd";
 import Button from "../components/Button";
 import WindNote from "../components/WindNote";
 import Footer from "../components/Footer";
+import axios from "axios";
+import { Note } from "../types/Note";
 
 const WindNoteList = () => {
+  const getNote = async () => {
+    const { data } = await axios.get<Note[]>(
+      "http://localhost:8000/api/windNote"
+    );
+    setNotes(data);
+  };
+
+  const [notes, setNotes] = useState<Note[]>([]);
+  useEffect(() => {
+    getNote();
+  }, []);
   return (
     <div>
       <div className="flex h-10 justify-around mb-3">
@@ -22,7 +35,7 @@ const WindNoteList = () => {
         />
       </div>
       <div>
-        <WindNote />
+        <WindNote notes={notes} />
       </div>
       <Footer />
     </div>
