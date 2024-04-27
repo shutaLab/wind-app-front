@@ -10,7 +10,7 @@ import { Note } from "../types/Note";
 const WindNoteList = () => {
   const getNote = async () => {
     const { data } = await axios.get<Note[]>(
-      "http://localhost:8000/api/windNote"
+      "https://serene-hollows-70259-0e810f44b7df.herokuapp.com/api/windNote"
     );
     setNotes(data);
   };
