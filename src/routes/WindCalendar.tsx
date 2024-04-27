@@ -57,7 +57,7 @@ const WindCalendar = () => {
         />
       </div>
       <p className="pl-2">12月15日</p>
-      <div className="w-full text-left flex items-center bg-cream-white shadow rounded-lg">
+      <div className="w-full text-left flex items-center bg-custom-white shadow rounded-lg">
         <div className="border-r-2 p-2">
           <p className="w-full">19:00</p>
           <p className="w-full">20:00</p>
@@ -70,7 +70,7 @@ const WindCalendar = () => {
         </div>
       </div>
       <Button
-        className="h-full w-full mt-2 bg-custom-black text-white"
+        className="h-full w-full mt-2 bg-custom-gray text-white"
         text="予定を追加"
         type="button"
       />
