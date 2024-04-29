@@ -22,8 +22,8 @@ const MyPage = () => {
     setValue(newValue);
   };
   return (
-    <div className="px-3">
-      <div>
+    <div className="">
+      <div className="px-3">
         <header className="text-right mb-3">
           <MenuIcon fontSize="large" className="text-gray-500 " />
         </header>

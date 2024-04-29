@@ -1,37 +1,60 @@
 import { BottomNavigation, BottomNavigationAction } from "@mui/material";
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import { HomeOutlined } from "@mui/icons-material";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import TripOriginOutlinedIcon from "@mui/icons-material/TripOriginOutlined";
+import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
+import EditNoteOutlinedIcon from "@mui/icons-material/EditNoteOutlined";
+
 const Footer = () => {
-  const [bnValue, setBnValue] = useState();
+  const [bnValue, setBnValue] = useState<string | null>(null); // 初期値を null に設定
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // マウント時に bnValue の初期値を設定
+  useEffect(() => {
+    const path = location.pathname.split("/")[1];
+    setBnValue(path || "home");
+  }, []);
+
+  // URLパスの変更時に bnValue を更新
+  useEffect(() => {
+    const path = location.pathname.split("/")[1];
+    setBnValue(path || "home");
+  }, [location.pathname]);
+
   return (
     <div>
       <BottomNavigation
-        showLabels={true}
-        sx={{ position: "absolute", bottom: 0, width: "100%" }}
+        sx={{ position: "fixed", bottom: 0, width: "100%" }}
         value={bnValue}
-        onChange={(event, value) => setBnValue(value)}
+        onChange={(event, value) => {
+          setBnValue(value);
+          navigate(`/${value}`);
+        }}
       >
         <BottomNavigationAction
-          label="ホーム"
           value="home"
-          onClick={() => navigate("/home")}
+          className="m-0 p-0"
           icon={<HomeOutlined />}
         />
         <BottomNavigationAction
-          label="出艇"
+          value="calendar"
+          icon={<CalendarMonthOutlinedIcon />}
+        />
+
+        <BottomNavigationAction
           value="departure"
-          onClick={() => navigate("/departure")}
           icon={<TripOriginOutlinedIcon />}
         />
         <BottomNavigationAction
-          label="マイページ"
+          value="windNote"
+          icon={<EditNoteOutlinedIcon />}
+        />
+        <BottomNavigationAction
           value="myPage"
-          onClick={() => navigate("/myPage")}
           icon={<PersonOutlineOutlinedIcon />}
         />
       </BottomNavigation>
