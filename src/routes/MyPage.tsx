@@ -2,15 +2,19 @@ import React, { useState } from "react";
 import Footer from "../components/Footer";
 import Button from "../components/Button";
 import Ranking from "../components/Ranking";
-import { Avatar, Box, Tab, Tabs } from "@mui/material";
+import {
+  Avatar,
+  BottomNavigation,
+  BottomNavigationAction,
+  Box,
+  Tab,
+  Tabs,
+} from "@mui/material";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { styled } from "@mui/material/styles";
 import MenuIcon from "@mui/icons-material/Menu";
-const StyledTab = styled(Tab)(({ theme }) => ({
-  "&.Mui-selected": {
-    color: "#FF9800", // 選択された状態の文字色をオレンジ色に変更
-  },
-}));
+import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+
 const MyPage = () => {
   const [value, setValue] = useState(0);
 
@@ -36,7 +40,7 @@ const MyPage = () => {
           <p>東京海洋大学3年</p>
           <p>31-50</p>
         </div>
-        <div className="flex justify-around mt-3">
+        <div className="flex justify-around my-3">
           <Button
             className="border border-gray-300 text-black font-bold w-[45%]"
             text="プロフィールを編集"
