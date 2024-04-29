@@ -2,11 +2,9 @@ import React, { useEffect, useState } from "react";
 import Button from "../components/Button";
 
 // import Button from "../components/Button";
-import WindNote from "../components/WindNote";
 import Footer from "../components/Footer";
 import axios from "axios";
 import { Note } from "../types/Note";
-import { DatePicker, Modal } from "antd";
 import AutoAdjustTextarea from "../components/AutoTextArea";
 import {
   Dialog,
@@ -67,7 +65,6 @@ const WindNoteList = () => {
                 placeholder="タイトル"
               />
               <AutoAdjustTextarea className="my-4" placeholder="内容" />
-              <DatePicker className="w-full" />
             </DialogContentText>
           </DialogContent>
           <DialogActions>
@@ -81,7 +78,7 @@ const WindNoteList = () => {
         </Dialog>
       </div>
       <div>
-        <WindNote notes={notes} />
+        <p>ノートが入ります</p>
         <p>
           {notes.map((note) => (
             <p>{note.title}</p>

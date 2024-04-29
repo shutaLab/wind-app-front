@@ -4,9 +4,7 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import resourceTimeGridPlugin from "@fullcalendar/resource-timegrid";
-import BottomModal from "../components/BottomModal";
 import Button from "../components/Button";
-import DepartureFloatButton from "../components/DepartureFloatButton";
 
 const Departure = () => {
   const resources = [
@@ -102,8 +100,6 @@ const Departure = () => {
           text="見る"
           onClick={showDrawer}
         />
-        <BottomModal open={open} onClose={onClose} />
-        <DepartureFloatButton />
       </div>
       <Footer />
     </div>

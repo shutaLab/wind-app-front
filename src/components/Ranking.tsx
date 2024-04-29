@@ -1,4 +1,3 @@
-import { CrownOutlined } from "@ant-design/icons";
 import React from "react";
 
 const Ranking = () => {

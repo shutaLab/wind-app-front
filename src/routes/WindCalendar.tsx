@@ -1,46 +1,17 @@
 import React, { useState } from "react";
-import type {
-  BadgeProps,
-  CalendarProps,
-  MenuProps,
-  PopconfirmProps,
-} from "antd";
-import { Badge, Calendar, Dropdown, message } from "antd";
+
 import type { Dayjs } from "dayjs";
-import Header from "../components/Header";
 import Footer from "../components/Footer";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import Button from "../components/Button";
-import ModalComp from "../components/DeleteModal";
-import DeleteModal from "../components/DeleteModal";
-import { MoreOutlined } from "@ant-design/icons";
+
 const WindCalendar = () => {
   const [toggleOpen, setToggleOpen] = useState(false);
   const handleDateClick = () => {
     alert("たっぷしたな");
   };
-
-  const confirm: PopconfirmProps["onConfirm"] = (e) => {
-    message.success("削除しました");
-  };
-
-  const cancel: PopconfirmProps["onCancel"] = (e) => {
-    console.log(e);
-    message.error("キャンセルしました");
-  };
-
-  const items: MenuProps["items"] = [
-    {
-      key: "1",
-      label: <DeleteModal confirm={confirm} cancel={cancel} />,
-    },
-    {
-      key: "2",
-      label: <Button className="bg-blue-500" text="編集" />,
-    },
-  ];
 
   const eventToggle = () => {};
   return (
@@ -64,9 +35,6 @@ const WindCalendar = () => {
         </div>
         <div className="p-3 flex justify-between w-full">
           <p>鎌倉学生選手権</p>
-          <Dropdown menu={{ items }} placement="bottom">
-            <MoreOutlined />
-          </Dropdown>
         </div>
       </div>
       <Button
