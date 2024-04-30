@@ -28,10 +28,10 @@ const Header = () => {
             className="w-full shadow appearance-none border rounded py-2 px-3 mb-3 text-gray-700 leading-tight focus:outline-none focus:border-black h-full"
             placeholder="検索"
           /> */}
-          <SearchIcon sx={{ width: "35px", height: "35px" }} />
+          <SearchIcon sx={{ width: "30px", height: "30px" }} />
         </div>
         <button
-          className="text-white bg-custom-green w-10 h-10 rounded-md mx-3"
+          className="text-white bg-custom-green w-8 h-8 rounded-md mx-3"
           onClick={handleClickOpen}
         >
           <EditIcon />
