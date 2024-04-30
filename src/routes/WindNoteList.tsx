@@ -12,6 +12,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  Fab,
 } from "@mui/material";
 import { DateSelect } from "../components/DateSelect";
 import WindNote from "../components/WindNote";
@@ -44,6 +45,7 @@ const WindNoteList = () => {
           ))} */}
         </p>
       </div>
+
       <Footer />
     </div>
   );
