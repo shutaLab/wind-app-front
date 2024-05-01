@@ -18,6 +18,7 @@ module.exports = {
     },
     extend: {
       colors: {
+        'custom-blue': '#5BBABA',
         'custom-gray': '#444444',
         'custom-white': '#FEFCF6',
         'custom-green': '#238F76',

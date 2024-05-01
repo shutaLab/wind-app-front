@@ -12,6 +12,8 @@ import WindCalendar from "./routes/WindCalendar";
 import MyPage from "./routes/MyPage";
 import Departure from "./routes/Departure";
 import Meta from "./components/Meta";
+import NoteTimeline from "./components/NoteTimeline";
+import QuestionList from "./routes/QuestionList";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -29,6 +31,8 @@ root.render(
         <Route path="/calendar" element={<WindCalendar />} />
         <Route path="/myPage" element={<MyPage />} />
         <Route path="/departure" element={<Departure />} />
+        <Route path="/question" element={<QuestionList />} />
+        <Route path="/timeline" element={<NoteTimeline />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

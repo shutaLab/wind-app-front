@@ -5,7 +5,7 @@ import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import { Avatar } from "@mui/material";
 const WindNote = () => {
   return (
-    <div>
+    <div className="">
       <div className="border-b p-2">
         <div className=" flex p-2">
           <div className="">

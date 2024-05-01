@@ -10,7 +10,7 @@ import { DateSelect } from "./DateSelect";
 import EditIcon from "@mui/icons-material/Edit";
 import Button from "./Button";
 import SearchIcon from "@mui/icons-material/Search";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 const Header = () => {
   const [open, setOpen] = React.useState(false);
   const handleClickOpen = () => {
@@ -63,16 +63,25 @@ const Header = () => {
           </DialogActions>
         </Dialog>
       </div>
-      <div className="flex justify-center">
-        <div className="p-1 border rounded-lg w-[20%] text-center mr-1">
-          <Link to="">ノート</Link>
-        </div>
-        <div className="p-1 border rounded-lg w-[20%] text-center mr-1">
-          <Link to="">質問</Link>
-        </div>
-        <div className="p-1 border rounded-lg w-[30%] text-center">
-          <Link to="">タイムライン</Link>
-        </div>
+      <div className="flex justify-center mb-3">
+        <NavLink
+          className="p-1 border rounded-lg w-[30%] text-center"
+          to="/windNote"
+        >
+          ノート
+        </NavLink>
+        <NavLink
+          className="p-1 border rounded-lg w-[30%] text-center ml-2"
+          to="/question"
+        >
+          質問
+        </NavLink>
+        <NavLink
+          className="p-1 border rounded-lg w-[30%] text-center ml-2"
+          to="/timeline"
+        >
+          タイムライン
+        </NavLink>
       </div>
     </div>
   );
