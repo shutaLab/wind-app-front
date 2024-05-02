@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Dialog,
   DialogActions,
@@ -11,8 +11,11 @@ import EditIcon from "@mui/icons-material/Edit";
 import Button from "./Button";
 import SearchIcon from "@mui/icons-material/Search";
 import { Link, NavLink } from "react-router-dom";
+import CreateNoteModal from "./CreateNoteModal";
 const Header = () => {
   const [open, setOpen] = React.useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  console.log(searchOpen);
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -20,49 +23,32 @@ const Header = () => {
   const handleClose = () => {
     setOpen(false);
   };
+  const searchClick = () => {
+    setSearchOpen(!searchOpen);
+  };
   return (
     <div>
       <div className="flex h-14 mb-3 p-2 shadow-md  items-center justify-end">
-        <div className="">
-          {/* <input
-            className="w-full shadow appearance-none border rounded py-2 px-3 mb-3 text-gray-700 leading-tight focus:outline-none focus:border-black h-full"
-            placeholder="検索"
-          /> */}
+        <button className="" onClick={searchClick}>
           <SearchIcon sx={{ width: "30px", height: "30px" }} />
-        </div>
+        </button>
         <button
           className="text-white bg-custom-green w-8 h-8 rounded-md mx-3"
           onClick={handleClickOpen}
         >
           <EditIcon />
         </button>
-        <Dialog
-          sx={{ zIndex: 1 }}
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
-          <DialogContent>
-            <DialogContentText>
-              <input
-                className="border boerder-gray-400 w-full "
-                placeholder="タイトル"
-              />
-              <AutoAdjustTextarea className="my-4" placeholder="内容" />
-            </DialogContentText>
-            <DateSelect />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose} text="キャンセル" />
-            <Button
-              className="bg-custom-green text-white"
-              onClick={handleClose}
-              text="追加"
-            />
-          </DialogActions>
-        </Dialog>
+        <CreateNoteModal open={open} handleClose={handleClose} />
       </div>
+      {searchOpen == true && (
+        <div className=" text-center mb-2 mx-4">
+          <input
+            className="w-full h-10  bg-custom-white rounded-md border border-gray-700 px-2"
+            placeholder="検索"
+          />
+        </div>
+      )}
+
       <div className="flex justify-center mb-3">
         <NavLink
           className="p-1 border rounded-lg w-[30%] text-center"

@@ -3,14 +3,16 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import { Avatar } from "@mui/material";
-const WindNote = () => {
+import { Note } from "../types/Note";
+
+const WindNote = ({ note }: { note: Note }) => {
   return (
     <div className="">
       <div className="border-b p-2">
-        <div className=" flex p-2">
+        <div className=" flex p-2 justify-between">
           <div className="">
-            <h1 className=" font-bold text-lg">リーパン辛すぎた</h1>
-            <p>内容が入ります内容が入ります内容が入ります内容が入ります</p>
+            <h1 className=" font-bold text-lg">{note.title}</h1>
+            <p>{note.content}</p>
           </div>
           <div>
             <MoreHorizIcon className=" text-gray-600" />

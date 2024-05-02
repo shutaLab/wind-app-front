@@ -36,14 +36,9 @@ const WindNoteList = () => {
     <div>
       <Header />
       <div>
-        <WindNote />
-        <WindNote />
-        <WindNote />
-        <p>
-          {/* {notes.map((note) => (
-            <p>{note.title}</p>
-          ))} */}
-        </p>
+        {notes.map((note) => (
+          <WindNote note={note} />
+        ))}
       </div>
 
       <Footer />

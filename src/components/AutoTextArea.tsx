@@ -1,16 +1,18 @@
 import React, { useRef, useEffect } from "react";
 
-const AutoAdjustTextarea = ({ className = "", placeholder = "", ...props }) => {
+const AutoAdjustTextarea = React.forwardRef<
+  HTMLTextAreaElement,
+  React.TextareaHTMLAttributes<HTMLTextAreaElement>
+>(({ className = "", placeholder = "", ...props }, ref) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const baseClasses =
-    "w-full resize-none transition-all duration-150 bg-white border borer-gray-400 outline-none ]";
+    "w-full resize-none transition-all duration-150 bg-white border border-gray-400 outline-none";
 
   useEffect(() => {
     const handleResize = () => {
       if (textareaRef.current) {
-        textareaRef.current.style.height = "0px";
-        const scrollHeight = textareaRef.current.scrollHeight;
-        textareaRef.current.style.height = `${Math.max(scrollHeight, 40)}px`;
+        textareaRef.current.style.height = "auto";
+        textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
       }
     };
 
@@ -27,15 +29,23 @@ const AutoAdjustTextarea = ({ className = "", placeholder = "", ...props }) => {
     };
   }, []);
 
+  useEffect(() => {
+    if (typeof ref === "function") {
+      ref(textareaRef.current);
+    } else if (ref) {
+      ref.current = textareaRef.current;
+    }
+  }, [ref]);
+
   return (
     <textarea
       ref={textareaRef}
       className={`${baseClasses} ${className}`}
       rows={1}
-      placeholder={placeholder} // placeholderを設定
+      placeholder={placeholder}
       {...props}
     />
   );
-};
+});
 
 export default AutoAdjustTextarea;

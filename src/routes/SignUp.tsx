@@ -2,7 +2,7 @@ import "../index.css";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { User } from "../types/user";
-import { validationShema } from "../utils/validationSchema";
+import { signUpValidationShema } from "../utils/validationSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Button from "../components/Button";
 const SignUp = () => {
@@ -12,7 +12,7 @@ const SignUp = () => {
     formState: { errors },
   } = useForm<User>({
     mode: "onChange",
-    resolver: zodResolver(validationShema),
+    resolver: zodResolver(signUpValidationShema),
   });
 
   const onsubmit = (data: User) => {

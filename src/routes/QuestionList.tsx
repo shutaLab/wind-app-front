@@ -1,6 +1,7 @@
 import React from "react";
 import Header from "../components/Header";
 import Question from "../components/Question";
+import Footer from "../components/Footer";
 
 const QuestionList = () => {
   return (
@@ -9,6 +10,7 @@ const QuestionList = () => {
       <Question />
       <Question />
       <Question />
+      <Footer />
     </div>
   );
 };
