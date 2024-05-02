@@ -15,7 +15,15 @@ export const signUpValidationShema = z.object({
 });
 
 export const createNoteValidationShema = z.object({
-  title: z.string().min(1, { message: "必須です" }),
-  content: z.string().min(1, { message: "必須です" }),
-  // date: z.coerce.date(),
+  title: z.string().min(1, { message: "タイトルを入力してください" }),
+  content: z.string().min(1, { message: "内容を入力してください" }),
+  date: z.string({
+    required_error: "日にちを選んでください",
+  }),
+});
+
+export const createQuestionValidationShema = z.object({
+  question: z.string().min(1, {
+    message: "質問を入力してください",
+  }),
 });

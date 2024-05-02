@@ -23,7 +23,7 @@ export function DateSelect() {
         <Button
           variant={"outline"}
           className={cn(
-            "w-[100%] justify-start text-left font-normal",
+            "w-[100%] justify-start text-left font-normal rounded-none",
             !date && "text-muted-foreground"
           )}
         >
@@ -31,7 +31,7 @@ export function DateSelect() {
           {date ? format(date, "PPP") : <span>日付</span>}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-auto p-0">
+      <PopoverContent className="w-auto p-0 z-[9999]">
         <Calendar
           mode="single"
           selected={date}

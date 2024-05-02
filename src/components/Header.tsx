@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Dialog,
   DialogActions,
@@ -10,18 +10,34 @@ import { DateSelect } from "./DateSelect";
 import EditIcon from "@mui/icons-material/Edit";
 import Button from "./Button";
 import SearchIcon from "@mui/icons-material/Search";
-import { Link, NavLink } from "react-router-dom";
-import CreateNoteModal from "./CreateNoteModal";
+import { Link, NavLink, useLocation } from "react-router-dom";
+import CreateNoteModal from "./CreateNote";
+import CreateModal from "./CreateModal";
 const Header = () => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-  console.log(searchOpen);
+  const [currentLocation, setCurrentLocation] = useState("");
+  const location = useLocation();
+  console.log(currentLocation);
+  useEffect(() => {
+    setCurrentLocation(location.pathname);
+  }, []);
   const handleClickOpen = () => {
     setOpen(true);
   };
 
   const handleClose = () => {
     setOpen(false);
+  };
+  const clickModalOpen = () => {
+    setModalOpen(true);
+    console.log("モーダル");
+  };
+
+  const clickModalClose = () => {
+    setModalOpen(false);
+    console.log("キャンセル");
   };
   const searchClick = () => {
     setSearchOpen(!searchOpen);
@@ -34,11 +50,16 @@ const Header = () => {
         </button>
         <button
           className="text-white bg-custom-green w-8 h-8 rounded-md mx-3"
-          onClick={handleClickOpen}
+          onClick={clickModalOpen}
         >
           <EditIcon />
         </button>
-        <CreateNoteModal open={open} handleClose={handleClose} />
+
+        <CreateModal
+          modalOpen={modalOpen}
+          clickModalClose={clickModalClose}
+          currentLocation={currentLocation}
+        />
       </div>
       {searchOpen == true && (
         <div className=" text-center mb-2 mx-4">
