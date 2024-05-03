@@ -22,13 +22,7 @@ const Header = () => {
   useEffect(() => {
     setCurrentLocation(location.pathname);
   }, []);
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
   const clickModalOpen = () => {
     setModalOpen(true);
     console.log("モーダル");

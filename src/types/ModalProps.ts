@@ -8,3 +8,9 @@ export interface CreateModalProps {
   clickModalClose: () => void;
   currentLocation: string;
 }
+
+export interface EditModalProps {
+  modalOpen: boolean;
+  clickModalClose: () => void;
+  currentLocation: string;
+}

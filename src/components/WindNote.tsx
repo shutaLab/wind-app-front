@@ -10,28 +10,24 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "../@/components/ui/dropdown-menu";
-import { Button } from "../@/components/ui/button";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "../@/components/ui/alert-dialog";
+import NoteAlertDialog from "./NoteAlertDialog";
+import EditNoteModal from "./EditNoteModal";
 
 const WindNote = ({ note }: { note: Note }) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const openDialog = () => {
     setIsDialogOpen(true);
   };
-
   const closeDialog = () => {
     setIsDialogOpen(false);
+  };
+  const clickModalOpen = () => {
+    setModalOpen(true);
+  };
+  const clickModalClose = () => {
+    setModalOpen(false);
   };
 
   return (
@@ -56,7 +52,10 @@ const WindNote = ({ note }: { note: Note }) => {
                 >
                   削除
                 </DropdownMenuItem>
-                <DropdownMenuItem className="text-gray-600">
+                <DropdownMenuItem
+                  onClick={clickModalOpen}
+                  className="text-gray-600"
+                >
                   編集
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -74,21 +73,11 @@ const WindNote = ({ note }: { note: Note }) => {
           <p className="text-gray-500">4月20日</p>
         </div>
       </div>
-      <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <AlertDialogContent className="w-[90%] rounded-sm">
-          <AlertDialogHeader>
-            <AlertDialogTitle className=" font-normal">
-              本当に削除しますか？
-            </AlertDialogTitle>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel onClick={closeDialog}>
-              キャンセル
-            </AlertDialogCancel>
-            <AlertDialogAction onClick={closeDialog}>削除</AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+      <NoteAlertDialog
+        isDialogOpen={isDialogOpen}
+        setIsDialogOpen={setIsDialogOpen}
+      />
+      <EditNoteModal modalOpen={modalOpen} clickModalClose={clickModalClose} />
     </div>
   );
 };

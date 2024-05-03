@@ -60,7 +60,7 @@ const CreateNote: React.FC<CreateModalProps> = ({ clickModalClose }) => {
         <div className="flex justify-end items-center">
           <a onClick={clickModalClose}>キャンセル</a>
           <Button className="ml-3 bg-custom-green" type="submit">
-            質問する
+            投稿する
           </Button>
         </div>
       </form>
