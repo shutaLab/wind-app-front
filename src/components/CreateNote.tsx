@@ -1,5 +1,4 @@
 import React from "react";
-import { DateSelect } from "./DateSelect";
 import { CreateModalProps } from "../types/ModalProps";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -8,6 +7,7 @@ import { createNoteValidationShema } from "../utils/validationSchema";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormMessage,
@@ -16,7 +16,7 @@ import { z } from "zod";
 import { ShadTextarea } from "../@/components/ui/textarea";
 import { Button } from "../@/components/ui/button";
 import { Input } from "../@/components/ui/input";
-import MenuBookIcon from "@mui/icons-material/MenuBook";
+import { DatePickerForm } from "./DateSelect";
 
 const CreateNote: React.FC<CreateModalProps> = ({ clickModalClose }) => {
   const form = useForm<Note>({
@@ -55,18 +55,8 @@ const CreateNote: React.FC<CreateModalProps> = ({ clickModalClose }) => {
             </FormItem>
           )}
         />
-        <FormField<Note>
-          control={form.control}
-          name="date"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <DateSelect />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <DatePickerForm form={form} />
+
         <div className="flex justify-end items-center">
           <a onClick={clickModalClose}>キャンセル</a>
           <Button className="ml-3 bg-custom-green" type="submit">

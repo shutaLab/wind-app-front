@@ -5,18 +5,17 @@ import Button from "../components/Button";
 import Footer from "../components/Footer";
 import axios from "axios";
 import { Note } from "../types/Note";
-import AutoAdjustTextarea from "../components/AutoTextArea";
-import {
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  Fab,
-} from "@mui/material";
-import { DateSelect } from "../components/DateSelect";
 import WindNote from "../components/WindNote";
 import Header from "../components/Header";
+import { DatePickerForm } from "../components/DateSelect";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@radix-ui/react-dropdown-menu";
 
 const WindNoteList = () => {
   const getNote = async () => {
