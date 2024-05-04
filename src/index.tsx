@@ -14,26 +14,46 @@ import Departure from "./routes/Departure";
 import Meta from "./components/Meta";
 import NoteTimeline from "./routes/NoteTimeline";
 import QuestionList from "./routes/QuestionList";
-
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  QueryClient,
+  QueryClientProvider,
+} from "react-query";
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+    },
+    mutations: {
+      retry: false,
+    },
+  },
+});
+
 root.render(
   <React.StrictMode>
-    <Meta />
-    <BrowserRouter>
-      <Routes>
-        <Route index element={<App />} />
-        <Route path="/signUp" element={<SignUp />} />
-        <Route path="/logIn" element={<Login />} />
-        <Route path="/windNote" element={<WindNoteList />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/calendar" element={<WindCalendar />} />
-        <Route path="/myPage" element={<MyPage />} />
-        <Route path="/departure" element={<Departure />} />
-        <Route path="/question" element={<QuestionList />} />
-        <Route path="/timeline" element={<NoteTimeline />} />
-      </Routes>
-    </BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <Meta />
+      <BrowserRouter>
+        <Routes>
+          <Route index element={<App />} />
+          <Route path="/signUp" element={<SignUp />} />
+          <Route path="/logIn" element={<Login />} />
+          <Route path="/windNote" element={<WindNoteList />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/calendar" element={<WindCalendar />} />
+          <Route path="/myPage" element={<MyPage />} />
+          <Route path="/departure" element={<Departure />} />
+          <Route path="/question" element={<QuestionList />} />
+          <Route path="/timeline" element={<NoteTimeline />} />
+        </Routes>
+      </BrowserRouter>
+    </QueryClientProvider>
   </React.StrictMode>
 );

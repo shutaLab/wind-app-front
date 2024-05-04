@@ -3,10 +3,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { Note } from "../types/Note";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  createNoteValidationShema,
-  createQuestionValidationShema,
-} from "../utils/validationSchema";
+import { createQuestionValidationShema } from "../utils/validationSchema";
 import { z } from "zod";
 import {
   Form,

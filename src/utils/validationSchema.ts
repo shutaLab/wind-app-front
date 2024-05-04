@@ -14,12 +14,10 @@ export const signUpValidationShema = z.object({
     .regex(/^[A-Za-z0-9]+-[A-Za-z0-9]+$/, "ハイフンは必須です"),
 });
 
-export const createNoteValidationShema = z.object({
+export const NoteValidationShema = z.object({
   title: z.string({ required_error: "タイトルを入力してください" }),
   content: z.string({ required_error: "内容を入力してください" }),
-  date: z.string({
-    required_error: "日にちを選んでください",
-  }),
+  // date: z.coerce.date().optional(),
 });
 
 export const createQuestionValidationShema = z.object({

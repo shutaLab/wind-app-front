@@ -5,7 +5,6 @@ import { Note } from "../types/Note";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   createAnswerValidationShema,
-  createNoteValidationShema,
   createQuestionValidationShema,
 } from "../utils/validationSchema";
 import { z } from "zod";
