@@ -3,3 +3,9 @@ export interface Note {
   // date: Date | null;
   content: string;
 }
+
+export interface DeleteNote {
+  id: number;
+  title: string;
+  content: string;
+}

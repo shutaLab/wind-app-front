@@ -28,6 +28,7 @@ const CreateNote: React.FC<CreateModalProps> = ({ clickModalClose }) => {
   function onSubmit(values: z.infer<typeof NoteValidationShema>) {
     console.log(values);
     createNote.mutate(values);
+    clickModalClose();
   }
 
   return (

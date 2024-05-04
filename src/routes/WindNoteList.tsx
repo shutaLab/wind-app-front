@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import axios from "axios";
-import { Note } from "../types/Note";
+import { DeleteNote, Note } from "../types/Note";
 import WindNote from "../components/WindNote";
 import Header from "../components/Header";
 import { useQuery } from "react-query";
 import { useNotes } from "../queries/TaskQuery";
 const WindNoteList = () => {
   const { data: notes, status } = useNotes() as {
-    data: Note[] | undefined;
+    data: DeleteNote[] | undefined;
     status: string;
   };
   if (!notes || notes.length <= 0) {

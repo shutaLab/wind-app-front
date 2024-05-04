@@ -3,7 +3,7 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import { Avatar } from "@mui/material";
-import { Note } from "../types/Note";
+import { DeleteNote, Note } from "../types/Note";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,7 +13,7 @@ import {
 import NoteAlertDialog from "./NoteAlertDialog";
 import EditNoteModal from "./EditNoteModal";
 
-const WindNote = ({ note }: { note: Note }) => {
+const WindNote = ({ note }: { note: DeleteNote }) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -23,6 +23,7 @@ const WindNote = ({ note }: { note: Note }) => {
   const closeDialog = () => {
     setIsDialogOpen(false);
   };
+
   const clickModalOpen = () => {
     setModalOpen(true);
   };
@@ -76,6 +77,7 @@ const WindNote = ({ note }: { note: Note }) => {
       <NoteAlertDialog
         isDialogOpen={isDialogOpen}
         setIsDialogOpen={setIsDialogOpen}
+        noteId={note.id}
       />
       <EditNoteModal modalOpen={modalOpen} clickModalClose={clickModalClose} />
     </div>

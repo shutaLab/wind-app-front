@@ -16,3 +16,12 @@ export const useCreateNote = () => {
     },
   });
 };
+export const useDeleteNote = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation(api.deleteNote, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("notes");
+    },
+  });
+};

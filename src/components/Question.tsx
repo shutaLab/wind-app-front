@@ -81,10 +81,10 @@ const Question = () => {
           </button>
         </div>
       </div>
-      <NoteAlertDialog
+      {/* <NoteAlertDialog
         isDialogOpen={isDialogOpen}
         setIsDialogOpen={setIsDialogOpen}
-      />
+      /> */}
       <EditQuestionModal
         modalOpen={modalOpen}
         clickModalClose={clickModalClose}
