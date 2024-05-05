@@ -18,7 +18,7 @@ export const createNote = async (values: Note) => {
   );
   return data;
 };
-export const deleteNote = async (id: Number) => {
+export const deleteNote = async (id: number) => {
   const { data } = await axios.delete<DeleteNote>(
     `https://serene-hollows-70259-0e810f44b7df.herokuapp.com/api/windNote/${id}`
   );

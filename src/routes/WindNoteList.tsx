@@ -11,10 +11,6 @@ const WindNoteList = () => {
     data: DeleteNote[] | undefined;
     status: string;
   };
-  if (!notes || notes.length <= 0) {
-    <h1 className="text-4xl text-center text-red-400">ないです</h1>;
-  }
-  console.log(notes);
   return (
     <div>
       <Header />

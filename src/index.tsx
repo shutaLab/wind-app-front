@@ -13,6 +13,8 @@ import MyPage from "./routes/MyPage";
 import Departure from "./routes/Departure";
 import Meta from "./components/Meta";
 import NoteTimeline from "./routes/NoteTimeline";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import QuestionList from "./routes/QuestionList";
 import {
   useQuery,
@@ -41,6 +43,7 @@ root.render(
     <QueryClientProvider client={queryClient}>
       <Meta />
       <BrowserRouter>
+        <ToastContainer hideProgressBar={true} />
         <Routes>
           <Route index element={<App />} />
           <Route path="/signUp" element={<SignUp />} />
