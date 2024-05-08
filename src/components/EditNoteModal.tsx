@@ -1,7 +1,7 @@
 import { Dialog, DialogContent } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { Note } from "../types/Note";
+import { DeleteNote, Note } from "../types/Note";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { NoteValidationShema } from "../utils/validationSchema";
 import { z } from "zod";
@@ -15,23 +15,34 @@ import {
 import { Input } from "../@/components/ui/input";
 import { Button } from "../@/components/ui/button";
 import { ShadTextarea } from "../@/components/ui/textarea";
+import { useDeleteNote, useUpdateNote } from "../queries/TaskQuery";
 
 interface EditNoteModalProps {
   modalOpen: boolean;
   clickModalClose: () => void;
+  note: DeleteNote;
 }
 
 const EditNoteModal: React.FC<EditNoteModalProps> = ({
   modalOpen,
   clickModalClose,
+  note,
 }) => {
-  const form = useForm<Note>({
-    resolver: zodResolver(NoteValidationShema),
-  });
+  const updateNote = useUpdateNote();
 
   function onSubmit(values: z.infer<typeof NoteValidationShema>) {
     console.log(values);
+    updateNote.mutate({ id: note.id, values: values });
+    clickModalClose();
   }
+
+  const form = useForm<Note>({
+    resolver: zodResolver(NoteValidationShema),
+    defaultValues: {
+      title: note.title,
+      content: note.content,
+    },
+  });
 
   return (
     <div>
@@ -51,7 +62,11 @@ const EditNoteModal: React.FC<EditNoteModalProps> = ({
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input {...field} placeholder="タイトル" />
+                      <Input
+                        {...field}
+                        defaultValue={note.title}
+                        placeholder="タイトル"
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -60,6 +75,7 @@ const EditNoteModal: React.FC<EditNoteModalProps> = ({
               <FormField
                 control={form.control}
                 name="content"
+                defaultValue={note.content}
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>

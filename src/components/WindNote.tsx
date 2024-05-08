@@ -13,6 +13,8 @@ import {
 import NoteAlertDialog from "./NoteAlertDialog";
 import EditNoteModal from "./EditNoteModal";
 
+import { useDeleteNote, useUpdateNote } from "../queries/TaskQuery";
+
 const WindNote = ({ note }: { note: DeleteNote }) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
@@ -30,6 +32,8 @@ const WindNote = ({ note }: { note: DeleteNote }) => {
   const clickModalClose = () => {
     setModalOpen(false);
   };
+
+  const updateNote = useUpdateNote();
 
   return (
     <div className="">
@@ -79,7 +83,11 @@ const WindNote = ({ note }: { note: DeleteNote }) => {
         setIsDialogOpen={setIsDialogOpen}
         noteId={note.id}
       />
-      <EditNoteModal modalOpen={modalOpen} clickModalClose={clickModalClose} />
+      <EditNoteModal
+        modalOpen={modalOpen}
+        clickModalClose={clickModalClose}
+        note={note}
+      />
     </div>
   );
 };

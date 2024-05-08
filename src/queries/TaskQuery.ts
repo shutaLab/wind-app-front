@@ -22,6 +22,19 @@ export const useCreateNote = () => {
     },
   });
 };
+export const useUpdateNote = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation(api.updateNote, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("notes");
+      toast.success("編集しました");
+    },
+    onError: () => {
+      toast.error("に失敗しました");
+    },
+  });
+};
 export const useDeleteNote = () => {
   const queryClient = useQueryClient();
 
