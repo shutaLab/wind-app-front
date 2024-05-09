@@ -14,7 +14,7 @@ import {
 } from "../@/components/ui/form";
 import { Button } from "../@/components/ui/button";
 import { ShadTextarea } from "../@/components/ui/textarea";
-import { Question } from "../types/Question";
+import { WindQuestion } from "../types/Question";
 
 interface ModalProps {
   modalOpen: boolean;
@@ -25,7 +25,7 @@ const EditQuestionModal: React.FC<ModalProps> = ({
   modalOpen,
   clickModalClose,
 }) => {
-  const form = useForm<Question>({
+  const form = useForm<WindQuestion>({
     resolver: zodResolver(createQuestionValidationShema),
   });
 
@@ -45,9 +45,9 @@ const EditQuestionModal: React.FC<ModalProps> = ({
           <Form {...form}>
             <h1 className="mb-4 text-center font-bold">質問を編集する</h1>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-              <FormField<Question>
+              <FormField<WindQuestion>
                 control={form.control}
-                name="question"
+                name="content"
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>

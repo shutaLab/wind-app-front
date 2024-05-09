@@ -1,6 +1,4 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import axios from "axios";
-import { Note } from "../types/Note";
 import * as api from "../api/noteApi";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

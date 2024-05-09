@@ -7,7 +7,6 @@ import { NoteValidationShema } from "../utils/validationSchema";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormMessage,
@@ -16,8 +15,6 @@ import { z } from "zod";
 import { ShadTextarea } from "../@/components/ui/textarea";
 import { Button } from "../@/components/ui/button";
 import { Input } from "../@/components/ui/input";
-// import { DatePickerForm } from "./DateSelect";
-import { createNote } from "../api/noteApi";
 import { useCreateNote } from "../queries/TaskQuery";
 const CreateNote: React.FC<CreateModalProps> = ({ clickModalClose }) => {
   const createNote = useCreateNote();

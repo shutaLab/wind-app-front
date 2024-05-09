@@ -12,22 +12,26 @@ import {
 } from "../@/components/ui/form";
 import { ShadTextarea } from "../@/components/ui/textarea";
 import { createQuestionValidationShema } from "../utils/validationSchema";
-import { Question } from "../types/Question";
 import { CreateModalProps } from "../types/ModalProps";
+import { WindQuestion } from "../types/Question";
+import { useCreateQuestion } from "../queries/QuestionQuery";
 const CreateQuestion: React.FC<CreateModalProps> = ({ clickModalClose }) => {
-  const form = useForm<Question>({
+  const createQuestion = useCreateQuestion();
+  const form = useForm<WindQuestion>({
     resolver: zodResolver(createQuestionValidationShema),
   });
   function onSubmit(values: z.infer<typeof createQuestionValidationShema>) {
     console.log(values);
+    createQuestion.mutate(values);
+    clickModalClose();
   }
   return (
     <Form {...form}>
       <h1 className="mb-4 text-center font-bold">質問を投稿する</h1>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <FormField<Question>
+        <FormField<WindQuestion>
           control={form.control}
-          name="question"
+          name="content"
           render={({ field }) => (
             <FormItem>
               <FormControl>

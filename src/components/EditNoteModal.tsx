@@ -15,7 +15,7 @@ import {
 import { Input } from "../@/components/ui/input";
 import { Button } from "../@/components/ui/button";
 import { ShadTextarea } from "../@/components/ui/textarea";
-import { useDeleteNote, useUpdateNote } from "../queries/TaskQuery";
+import { useUpdateNote } from "../queries/TaskQuery";
 
 interface EditNoteModalProps {
   modalOpen: boolean;

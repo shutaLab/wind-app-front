@@ -21,8 +21,8 @@ export const NoteValidationShema = z.object({
 });
 
 export const createQuestionValidationShema = z.object({
-  question: z.string({ required_error: "質問を入力してください" }),
+  content: z.string({ required_error: "質問を入力してください" }),
 });
 export const createAnswerValidationShema = z.object({
-  answer: z.string({ required_error: "回答を入力してください" }),
+  content: z.string({ required_error: "回答を入力してください" }),
 });

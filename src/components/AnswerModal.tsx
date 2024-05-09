@@ -17,7 +17,7 @@ import {
 } from "../@/components/ui/form";
 import { Button } from "../@/components/ui/button";
 import { ShadTextarea } from "../@/components/ui/textarea";
-import { Answer, Question } from "../types/Question";
+import { Answer } from "../types/Question";
 
 interface ModalProps {
   modalOpen: boolean;
@@ -47,7 +47,7 @@ const AnserModal: React.FC<ModalProps> = ({ modalOpen, clickModalClose }) => {
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
               <FormField<Answer>
                 control={form.control}
-                name="answer"
+                name="content"
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>

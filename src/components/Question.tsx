@@ -10,7 +10,9 @@ import {
   DropdownMenuTrigger,
 } from "../@/components/ui/dropdown-menu";
 import AnserModal from "./AnswerModal";
-const Question = () => {
+import QuestionAlertDialog from "./QuestionAlertDialog";
+import { WindQuestion } from "../types/Question";
+const Question = ({ question }: { question: WindQuestion }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isAnswerOpen, setIsAnswerOpen] = useState(false);
@@ -65,7 +67,7 @@ const Question = () => {
           </div>
         </div>
         <div className="px-3 my-5">
-          <p>質問が入ります質問が入ります</p>
+          <p>{question.content}</p>
         </div>
         <div className=" flex justify-end px-2">
           <div className="flex text-gray-500">
@@ -90,6 +92,11 @@ const Question = () => {
         clickModalClose={clickModalClose}
       />
       <AnserModal modalOpen={isAnswerOpen} clickModalClose={clickAnswerClose} />
+      <QuestionAlertDialog
+        isDialogOpen={isDialogOpen}
+        setIsDialogOpen={setIsDialogOpen}
+        questionId={1}
+      />
     </div>
   );
 };
