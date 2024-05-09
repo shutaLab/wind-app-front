@@ -24,8 +24,8 @@ const QuestionAlertDialog: React.FC<QuestionAlertDialogProps> = ({
   const deleteNote = useDeleteNote();
 
   const handleDeleteNote = () => {
-    // deleteNote.mutate(questionId);
-    // setIsDialogOpen(false);
+    deleteNote.mutate(questionId);
+    setIsDialogOpen(false);
   };
   return (
     <div>

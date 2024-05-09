@@ -14,23 +14,30 @@ import {
 } from "../@/components/ui/form";
 import { Button } from "../@/components/ui/button";
 import { ShadTextarea } from "../@/components/ui/textarea";
-import { WindQuestion } from "../types/Question";
+import { WindIdQuestion, WindQuestion } from "../types/Question";
+import { useUpdateQuestion } from "../queries/QuestionQuery";
 
 interface ModalProps {
   modalOpen: boolean;
   clickModalClose: () => void;
+  question: WindIdQuestion;
 }
 
 const EditQuestionModal: React.FC<ModalProps> = ({
   modalOpen,
   clickModalClose,
+  question,
 }) => {
+  const updateQuestion = useUpdateQuestion();
+
   const form = useForm<WindQuestion>({
     resolver: zodResolver(createQuestionValidationShema),
   });
 
   function onSubmit(values: z.infer<typeof createQuestionValidationShema>) {
     console.log(values);
+    updateQuestion.mutate({ id: question.id, values: values });
+    clickModalClose();
   }
 
   return (
@@ -48,6 +55,7 @@ const EditQuestionModal: React.FC<ModalProps> = ({
               <FormField<WindQuestion>
                 control={form.control}
                 name="content"
+                defaultValue={question.content}
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>

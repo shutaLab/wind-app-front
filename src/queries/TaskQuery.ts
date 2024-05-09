@@ -26,10 +26,10 @@ export const useUpdateNote = () => {
   return useMutation(api.updateNote, {
     onSuccess: () => {
       queryClient.invalidateQueries("notes");
-      toast.success("編集しました");
+      toast.success("ノートを編集しました");
     },
     onError: () => {
-      toast.error("に失敗しました");
+      toast.error("ノートの編集に失敗しました");
     },
   });
 };

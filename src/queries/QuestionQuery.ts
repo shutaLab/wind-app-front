@@ -20,3 +20,30 @@ export const useCreateQuestion = () => {
     },
   });
 };
+
+export const useUpdateQuestion = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation(api.updateQuestion, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("questions");
+      toast.success("質問を編集しました");
+    },
+    onError: () => {
+      toast.error("質問の編集に失敗しました");
+    },
+  });
+};
+export const useDeleteQuestion = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation(api.deleteQuestion, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("questions");
+      toast.success("質問を削除しました");
+    },
+    onError: () => {
+      toast.error("質問の削除に失敗しました");
+    },
+  });
+};

@@ -11,8 +11,8 @@ import {
 } from "../@/components/ui/dropdown-menu";
 import AnserModal from "./AnswerModal";
 import QuestionAlertDialog from "./QuestionAlertDialog";
-import { WindQuestion } from "../types/Question";
-const Question = ({ question }: { question: WindQuestion }) => {
+import { WindIdQuestion, WindQuestion } from "../types/Question";
+const Question = ({ question }: { question: WindIdQuestion }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isAnswerOpen, setIsAnswerOpen] = useState(false);
@@ -39,9 +39,9 @@ const Question = ({ question }: { question: WindQuestion }) => {
     <div>
       <div className="border-b-2 py-4">
         <div className="flex justify-between px-3 ">
-          <p className=" bg-red-600 rounded-lg text-white text-sm text-center w-[15%]">
-            30分前
-          </p>
+          <div className="bg-red-600  rounded-lg w-[15%] items-center my-auto">
+            <p className="   text-white text-sm text-center ">30分前</p>
+          </div>
           <div>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -90,6 +90,7 @@ const Question = ({ question }: { question: WindQuestion }) => {
       <EditQuestionModal
         modalOpen={modalOpen}
         clickModalClose={clickModalClose}
+        question={question}
       />
       <AnserModal modalOpen={isAnswerOpen} clickModalClose={clickAnswerClose} />
       <QuestionAlertDialog
