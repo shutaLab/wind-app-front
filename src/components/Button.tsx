@@ -13,7 +13,8 @@ const Button: React.FC<ButtonProps> = ({
   onClick,
   ...rest
 }) => {
-  const baseClasses = "p-2 rounded-md transform hover:scale-95 duration-100";
+  const baseClasses =
+    "px-2 py-1 rounded-md transform hover:scale-95 duration-100";
 
   return (
     <button
