@@ -33,7 +33,7 @@ const DepartureTable = () => {
   return (
     <div className="">
       <div className="text-center">
-        <TabContext value={value}>
+        {/* <TabContext value={value}>
           <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
             <TabList
               onChange={handleChange}
@@ -46,7 +46,7 @@ const DepartureTable = () => {
           </Box>
           <TabPanel value="1">Item One</TabPanel>
           <TabPanel value="2">Item Two</TabPanel>
-        </TabContext>
+        </TabContext> */}
       </div>
       <div>
         <Table>

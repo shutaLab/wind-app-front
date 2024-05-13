@@ -80,7 +80,7 @@ const Departure = () => {
   return (
     <div className="demo-app">
       <div className="demo-app-main">
-        {/* <FullCalendar
+        <FullCalendar
           plugins={[resourceTimeGridPlugin]}
           initialView="resourceTimeGrid"
           resources={resources}
@@ -92,7 +92,7 @@ const Departure = () => {
           allDaySlot={false}
           locale="ja"
           schedulerLicenseKey="CC-Attribution-NonCommercial-NoDerivatives"
-        /> */}
+        />
       </div>
       <div>
         <Button
