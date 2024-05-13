@@ -9,6 +9,7 @@ const QuestionList = () => {
   const { data: questions } = useQuestions() as {
     data: WindIdQuestion[] | undefined;
   };
+  console.log(questions);
   return (
     <div>
       <Header />

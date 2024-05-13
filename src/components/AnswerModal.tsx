@@ -3,10 +3,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { Note } from "../types/Note";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  createAnswerValidationShema,
-  createQuestionValidationShema,
-} from "../utils/validationSchema";
+import { createAnswerValidationShema } from "../utils/validationSchema";
 import { z } from "zod";
 import {
   Form,
@@ -17,20 +14,30 @@ import {
 } from "../@/components/ui/form";
 import { Button } from "../@/components/ui/button";
 import { ShadTextarea } from "../@/components/ui/textarea";
-import { Answer } from "../types/Question";
+import { WindAnswer } from "../types/Question";
+import { createAnswer } from "../api/answerApi";
+import { useCreateAnswer } from "../queries/AnswerQuery";
 
 interface ModalProps {
   modalOpen: boolean;
   clickModalClose: () => void;
+  question_id: number;
 }
 
-const AnserModal: React.FC<ModalProps> = ({ modalOpen, clickModalClose }) => {
-  const form = useForm<Answer>({
+const AnserModal: React.FC<ModalProps> = ({
+  modalOpen,
+  clickModalClose,
+  question_id,
+}) => {
+  const form = useForm<WindAnswer>({
     resolver: zodResolver(createAnswerValidationShema),
   });
 
+  const createAnswer = useCreateAnswer();
   function onSubmit(values: z.infer<typeof createAnswerValidationShema>) {
     console.log(values);
+    createAnswer.mutate({ question_id: question_id, values: values });
+    clickModalClose();
   }
 
   return (
@@ -45,7 +52,7 @@ const AnserModal: React.FC<ModalProps> = ({ modalOpen, clickModalClose }) => {
           <Form {...form}>
             <h1 className="mb-4 text-center font-bold">質問に回答する</h1>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-              <FormField<Answer>
+              <FormField<WindAnswer>
                 control={form.control}
                 name="content"
                 render={({ field }) => (

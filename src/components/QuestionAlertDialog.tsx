@@ -8,7 +8,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "../@/components/ui/alert-dialog";
-import { useDeleteNote } from "../queries/TaskQuery";
+import { useDeleteQuestion } from "../queries/QuestionQuery";
 
 interface QuestionAlertDialogProps {
   isDialogOpen: boolean;
@@ -21,10 +21,10 @@ const QuestionAlertDialog: React.FC<QuestionAlertDialogProps> = ({
   setIsDialogOpen,
   questionId,
 }) => {
-  const deleteNote = useDeleteNote();
+  const deleteQuestion = useDeleteQuestion();
 
   const handleDeleteNote = () => {
-    deleteNote.mutate(questionId);
+    deleteQuestion.mutate(questionId);
     setIsDialogOpen(false);
   };
   return (
