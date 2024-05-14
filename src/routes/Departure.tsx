@@ -129,7 +129,10 @@ const Departure = () => {
             </DrawerHeader>
             <DrawerFooter>
               <DrawerClose>
-                <Button text="キャンセル" />
+                <Button
+                  className="w-full bg-custom-gray mt-3 text-white"
+                  text="キャンセル"
+                />
               </DrawerClose>
             </DrawerFooter>
           </DrawerContent>
