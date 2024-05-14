@@ -6,6 +6,16 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import resourceTimeGridPlugin from "@fullcalendar/resource-timegrid";
 import Button from "../components/Button";
 import DepartureTable from "../components/DepartureTable";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "../@/components/ui/drawer";
 
 const Departure = () => {
   const resources = [
@@ -79,31 +89,53 @@ const Departure = () => {
   };
   return (
     <div className="demo-app">
-      <div className="demo-app-main">
-        <FullCalendar
-          plugins={[resourceTimeGridPlugin]}
-          initialView="resourceTimeGrid"
-          resources={resources}
-          height="70vh"
-          events={events}
-          initialDate="2023-06-14"
-          slotMinTime="09:00:00"
-          slotMaxTime="18:00:00"
-          allDaySlot={false}
-          locale="ja"
-          schedulerLicenseKey="CC-Attribution-NonCommercial-NoDerivatives"
-        />
-      </div>
-      <div>
-        <Button
-          className=" bg-custom-black text-white"
-          text="見る"
-          onClick={showDrawer}
-        />
-      </div>
       <div>
         <DepartureTable />
       </div>
+      <div className="mx-5 mt-3">
+        <Button
+          className="w-full bg-custom-green text-white"
+          text="出艇する"
+          onClick={showDrawer}
+        />
+        <Drawer>
+          <DrawerTrigger className="w-full">
+            <Button
+              className="w-full bg-custom-gray mt-3 text-white"
+              text="チャートを見る"
+              onClick={showDrawer}
+            />
+          </DrawerTrigger>
+          <DrawerContent>
+            <DrawerHeader>
+              <DrawerDescription>
+                <div className="demo-app-main">
+                  <FullCalendar
+                    plugins={[resourceTimeGridPlugin]}
+                    initialView="resourceTimeGrid"
+                    resources={resources}
+                    height="70vh"
+                    events={events}
+                    initialDate="2023-06-14"
+                    slotMinTime="09:00:00"
+                    slotMaxTime="18:00:00"
+                    allDaySlot={false}
+                    locale="ja"
+                    contentHeight="auto"
+                    schedulerLicenseKey="CC-Attribution-NonCommercial-NoDerivatives"
+                  />
+                </div>
+              </DrawerDescription>
+            </DrawerHeader>
+            <DrawerFooter>
+              <DrawerClose>
+                <Button text="キャンセル" />
+              </DrawerClose>
+            </DrawerFooter>
+          </DrawerContent>
+        </Drawer>
+      </div>
+      <div></div>
       <Footer />
     </div>
   );

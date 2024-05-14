@@ -71,6 +71,48 @@ const DepartureTable = () => {
               <TableCell>15:00</TableCell>
               <TableCell className="">美咲</TableCell>
             </TableRow>
+            <TableRow>
+              <TableCell className="font-medium">山田脩太</TableCell>
+              <TableCell>10:00</TableCell>
+              <TableCell>15:00</TableCell>
+              <TableCell className="">美咲</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="font-medium">山田脩太</TableCell>
+              <TableCell>10:00</TableCell>
+              <TableCell>15:00</TableCell>
+              <TableCell className="">美咲</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="font-medium">山田脩太</TableCell>
+              <TableCell>10:00</TableCell>
+              <TableCell>15:00</TableCell>
+              <TableCell className="">美咲</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="font-medium">山田脩太</TableCell>
+              <TableCell>10:00</TableCell>
+              <TableCell>15:00</TableCell>
+              <TableCell className="">美咲</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="font-medium">山田脩太</TableCell>
+              <TableCell>10:00</TableCell>
+              <TableCell>15:00</TableCell>
+              <TableCell className="">美咲</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="font-medium">山田脩太</TableCell>
+              <TableCell>10:00</TableCell>
+              <TableCell>15:00</TableCell>
+              <TableCell className="">美咲</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="font-medium">山田脩太</TableCell>
+              <TableCell>10:00</TableCell>
+              <TableCell>15:00</TableCell>
+              <TableCell className="">美咲</TableCell>
+            </TableRow>
           </TableBody>
         </Table>
       </div>
