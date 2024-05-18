@@ -6,27 +6,76 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import Button from "../components/Button";
-
+import styled from "@emotion/styled";
 const WindCalendar = () => {
   const [toggleOpen, setToggleOpen] = useState(false);
   const handleDateClick = () => {
     alert("たっぷしたな");
   };
 
+  const StyleWrapper = styled.div`
+    .fc .fc-toolbar.fc-header-toolbar {
+      margin-bottom: 0;
+    }
+    .fc .fc-toolbar-title {
+      font-size: 1.3rem;
+      color: #37362f;
+    }
+    .fc .fc-button-primary {
+      font-size: 0.75rem;
+      background-color: #ffffff00;
+      color: #acaba9;
+      border: none;
+      outline: none;
+    }
+    .fc .fc-toolbar {
+      justify-content: center;
+    }
+
+    .fc-today-button {
+      background-color: #ffffff00;
+      color: #37362f;
+      border: none;
+      outline: none;
+    }
+    .fc .fc-button-primary:not(:disabled):active,
+    .fc .fc-button-primary:not(:disabled).fc-button-active {
+      background-color: #ffffff00;
+      color: #acaba9;
+      box-shadow: none;
+    }
+    .fc .fc-button-primary:not(:disabled):focus,
+    .fc .fc-button-primary:not(:disabled).fc-button-focus {
+      background-color: #ffffff00;
+      color: #acaba9;
+      box-shadow: none;
+    }
+    .fc .fc-today-button:disabled {
+      opacity: 1;
+    }
+  `;
+
   const eventToggle = () => {};
   return (
     <div>
       <div className="px-3">
         <div className="">
-          <FullCalendar
-            height="60vh"
-            plugins={[dayGridPlugin, interactionPlugin]}
-            initialView="dayGridMonth"
-            selectable={true}
-            locale="ja"
-            businessHours={true}
-            schedulerLicenseKey="CC-Attribution-NonCommercial-NoDerivatives"
-          />
+          <StyleWrapper>
+            <FullCalendar
+              headerToolbar={{
+                start: "prev",
+                center: "title",
+                end: "next",
+              }}
+              height="60vh"
+              plugins={[dayGridPlugin, interactionPlugin]}
+              initialView="dayGridMonth"
+              selectable={true}
+              locale="ja"
+              businessHours={true}
+              schedulerLicenseKey="CC-Attribution-NonCommercial-NoDerivatives"
+            />
+          </StyleWrapper>
         </div>
         <p className="pl-2">12月15日</p>
         <div className="w-full text-left flex items-center bg-custom-white shadow rounded-lg">

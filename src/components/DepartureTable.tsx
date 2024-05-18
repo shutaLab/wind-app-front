@@ -3,7 +3,6 @@ import Footer from "../components/Footer";
 import Ranking from "../components/Ranking";
 
 import { TabContext, TabList, TabPanel } from "@mui/lab";
-import { styled } from "@mui/material/styles";
 import MenuIcon from "@mui/icons-material/Menu";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import {
@@ -22,8 +21,50 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import resourceTimeGridPlugin from "@fullcalendar/resource-timegrid";
-
+import styled from "@emotion/styled";
 const DepartureTable = () => {
+  const StyleWrapper = styled.div`
+    .fc .fc-toolbar.fc-header-toolbar {
+      margin-bottom: 0;
+    }
+    .fc .fc-toolbar-title {
+      font-size: 1.3rem;
+      color: #37362f;
+    }
+    .fc .fc-button-primary {
+      font-size: 0.75rem;
+      background-color: #ffffff00;
+      color: #acaba9;
+      border: none;
+      outline: none;
+    }
+    .fc .fc-toolbar {
+      justify-content: center;
+    }
+
+    .fc-today-button {
+      background-color: #ffffff00;
+      color: #37362f;
+      border: none;
+      outline: none;
+    }
+    .fc .fc-button-primary:not(:disabled):active,
+    .fc .fc-button-primary:not(:disabled).fc-button-active {
+      background-color: #ffffff00;
+      color: #acaba9;
+      box-shadow: none;
+    }
+    .fc .fc-button-primary:not(:disabled):focus,
+    .fc .fc-button-primary:not(:disabled).fc-button-focus {
+      background-color: #ffffff00;
+      color: #acaba9;
+      box-shadow: none;
+    }
+    .fc .fc-today-button:disabled {
+      opacity: 1;
+    }
+  `;
+
   const [value, setValue] = useState(0);
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
@@ -93,22 +134,24 @@ const DepartureTable = () => {
   ];
   return (
     <div className="">
-      <div className="text-center"></div>
-      <div className="demo-app-main">
-        <FullCalendar
-          plugins={[resourceTimeGridPlugin]}
-          initialView="resourceTimeGrid"
-          resources={resources}
-          height="70vh"
-          events={events}
-          initialDate="2023-06-14"
-          slotMinTime="09:00:00"
-          slotMaxTime="18:00:00"
-          allDaySlot={false}
-          locale="ja"
-          contentHeight="auto"
-          schedulerLicenseKey="CC-Attribution-NonCommercial-NoDerivatives"
-        />
+      <div className="px-3">
+        <StyleWrapper>
+          <FullCalendar
+            headerToolbar={{ start: "prev", center: "title", end: "next" }}
+            plugins={[resourceTimeGridPlugin]}
+            initialView="resourceTimeGrid"
+            resources={resources}
+            height="70vh"
+            events={events}
+            initialDate="2023-06-14"
+            slotMinTime="09:00:00"
+            slotMaxTime="18:00:00"
+            allDaySlot={false}
+            locale="ja"
+            contentHeight="auto"
+            schedulerLicenseKey="CC-Attribution-NonCommercial-NoDerivatives"
+          />
+        </StyleWrapper>
       </div>
     </div>
   );

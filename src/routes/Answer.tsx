@@ -1,22 +1,24 @@
 import React, { useState } from "react";
+import { WindIdQuestion } from "../types/Question";
+import { useParams } from "react-router-dom";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
-import EditQuestionModal from "./EditQuestionModal";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "../@/components/ui/dropdown-menu";
-import AnserModal from "./AnswerModal";
-import QuestionAlertDialog from "./QuestionAlertDialog";
-import { WindIdQuestion, WindQuestion } from "../types/Question";
-import { Link } from "react-router-dom";
-import Answer from "../routes/Answer";
-const Question = ({ question }: { question: WindIdQuestion }) => {
+import AnserModal from "../components/AnswerModal";
+import { Avatar } from "@mui/material";
+const Answer = () => {
+  const params = useParams();
   const [modalOpen, setModalOpen] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isAnswerOpen, setIsAnswerOpen] = useState(false);
+
   const clickModalOpen = () => {
     setModalOpen(true);
   };
@@ -38,6 +40,7 @@ const Question = ({ question }: { question: WindIdQuestion }) => {
 
   return (
     <div>
+      <Header />
       <div className="border-b-2 py-4">
         <div className="flex justify-between px-3 ">
           <div className="bg-red-600  rounded-lg w-[15%] items-center my-auto">
@@ -68,16 +71,11 @@ const Question = ({ question }: { question: WindIdQuestion }) => {
           </div>
         </div>
         <div className="px-3 my-5">
-          <p>{question.content}</p>
+          <p>内容が入ります</p>
         </div>
         <div className=" flex justify-end px-2">
-          <Link
-            to={`/question/${question.id}/answer`}
-            className="flex text-gray-500"
-          >
-            <p>回答数</p>
-            <p>{question.answers.length}</p>
-          </Link>
+          <p className="text-gray-500">回答数</p>
+          <p className="text-gray-500">3</p>
           <button
             className="flex text-custom-blue font-nomal ml-3"
             onClick={clickAnswerOpen}
@@ -87,27 +85,26 @@ const Question = ({ question }: { question: WindIdQuestion }) => {
           </button>
         </div>
       </div>
-      {/* <NoteAlertDialog
-        isDialogOpen={isDialogOpen}
-        setIsDialogOpen={setIsDialogOpen}
-      /> */}
-      <EditQuestionModal
-        modalOpen={modalOpen}
-        clickModalClose={clickModalClose}
-        question={question}
-      />
+      <div className="p-3 border-b-2">
+        <div className="flex items-center mb-2">
+          <Avatar />
+          <p className="ml-3 text-xl font-bold text-custom-blue">山田脩太</p>
+        </div>
+        <div>
+          <p className=" text-gray-500">
+            回答がはいります回答がはいります回答がはいります回答がはいります
+            回答がはいります
+          </p>
+        </div>
+      </div>
+      <Footer />
       <AnserModal
         modalOpen={isAnswerOpen}
         clickModalClose={clickAnswerClose}
-        question_id={question.id}
-      />
-      <QuestionAlertDialog
-        isDialogOpen={isDialogOpen}
-        setIsDialogOpen={setIsDialogOpen}
-        questionId={question.id}
+        question_id={1}
       />
     </div>
   );
 };
 
-export default Question;
+export default Answer;

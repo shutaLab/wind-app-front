@@ -39,11 +39,9 @@ const Departure = () => {
     setOpen(false);
   };
   return (
-    <div className="demo-app">
-      <div>
-        <DepartureTable />
-      </div>
-      <div className="mx-5 mt-3">
+    <div className="">
+      <DepartureTable />
+      <div className="px-3 mt-3">
         <Button
           className="w-full bg-custom-green text-white"
           text="出艇する"

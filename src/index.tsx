@@ -23,6 +23,7 @@ import {
   QueryClient,
   QueryClientProvider,
 } from "react-query";
+import Answer from "./routes/Answer";
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
@@ -55,6 +56,7 @@ root.render(
           <Route path="/departure" element={<Departure />} />
           <Route path="/question" element={<QuestionList />} />
           <Route path="/timeline" element={<NoteTimeline />} />
+          <Route path="/question/:id/answer" element={<Answer />} />
         </Routes>
       </BrowserRouter>
     </QueryClientProvider>
