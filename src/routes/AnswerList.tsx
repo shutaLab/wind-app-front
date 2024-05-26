@@ -13,12 +13,16 @@ import {
 } from "../@/components/ui/dropdown-menu";
 import AnserModal from "../components/AnswerModal";
 import { Avatar } from "@mui/material";
-const Answer = () => {
-  const params = useParams();
+import { useShowQuestion } from "../queries/QuestionQuery";
+import Answer from "../components/Answer";
+const AnswerList = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isAnswerOpen, setIsAnswerOpen] = useState(false);
-
+  const { id } = useParams();
+  const questionId = Number(id);
+  const { data } = useShowQuestion(questionId);
+  const answers = data?.answers;
   const clickModalOpen = () => {
     setModalOpen(true);
   };
@@ -71,7 +75,7 @@ const Answer = () => {
           </div>
         </div>
         <div className="px-3 my-5">
-          <p>内容が入ります</p>
+          <p>{data?.question.content}</p>
         </div>
         <div className=" flex justify-end px-2">
           <p className="text-gray-500">回答数</p>
@@ -85,26 +89,17 @@ const Answer = () => {
           </button>
         </div>
       </div>
-      <div className="p-3 border-b-2">
-        <div className="flex items-center mb-2">
-          <Avatar />
-          <p className="ml-3 text-xl font-bold text-custom-blue">山田脩太</p>
-        </div>
-        <div>
-          <p className=" text-gray-500">
-            回答がはいります回答がはいります回答がはいります回答がはいります
-            回答がはいります
-          </p>
-        </div>
-      </div>
+      {answers?.map((answer) => (
+        <Answer answer={answer} />
+      ))}
       <Footer />
       <AnserModal
         modalOpen={isAnswerOpen}
         clickModalClose={clickAnswerClose}
-        question_id={1}
+        question_id={questionId}
       />
     </div>
   );
 };
 
-export default Answer;
+export default AnswerList;

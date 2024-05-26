@@ -12,7 +12,7 @@ import AnserModal from "./AnswerModal";
 import QuestionAlertDialog from "./QuestionAlertDialog";
 import { WindIdQuestion, WindQuestion } from "../types/Question";
 import { Link } from "react-router-dom";
-import Answer from "../routes/Answer";
+import Answer from "../routes/AnswerList";
 const Question = ({ question }: { question: WindIdQuestion }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);

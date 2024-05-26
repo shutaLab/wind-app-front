@@ -1,5 +1,9 @@
 import axios from "axios";
-import { WindIdQuestion, WindQuestion } from "../types/Question";
+import {
+  WindIdQuestion,
+  WindQuestion,
+  WindQuestiondayo,
+} from "../types/Question";
 
 export const getQuestions = async () => {
   const { data } = await axios.get<WindQuestion[]>(
@@ -14,6 +18,13 @@ export const createQuestion = async (values: WindQuestion) => {
     {
       content: values.content,
     }
+  );
+  return data;
+};
+
+export const showQuestion = async (id: number) => {
+  const { data } = await axios.get<WindQuestiondayo>(
+    `https://serene-hollows-70259-0e810f44b7df.herokuapp.com/api/question/${id}`
   );
   return data;
 };

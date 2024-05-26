@@ -23,7 +23,7 @@ import {
   QueryClient,
   QueryClientProvider,
 } from "react-query";
-import Answer from "./routes/Answer";
+import Answer from "./routes/AnswerList";
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );

@@ -21,6 +21,10 @@ export const useCreateQuestion = () => {
   });
 };
 
+export const useShowQuestion = (id: number) => {
+  return useQuery(["question", id], () => api.showQuestion(id));
+};
+
 export const useUpdateQuestion = () => {
   const queryClient = useQueryClient();
 
