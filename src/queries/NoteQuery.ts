@@ -20,6 +20,11 @@ export const useCreateNote = () => {
     },
   });
 };
+
+export const useShowNote = (id: number) => {
+  return useQuery(["notes", id], () => api.showNote(id));
+};
+
 export const useUpdateNote = () => {
   const queryClient = useQueryClient();
 

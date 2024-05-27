@@ -24,6 +24,7 @@ import {
   QueryClientProvider,
 } from "react-query";
 import Answer from "./routes/AnswerList";
+import WindNote from "./routes/WindNote";
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
@@ -50,6 +51,7 @@ root.render(
           <Route path="/signUp" element={<SignUp />} />
           <Route path="/logIn" element={<Login />} />
           <Route path="/windNote" element={<WindNoteList />} />
+          <Route path="/windNote/:id" element={<WindNote />} />
           <Route path="/home" element={<Home />} />
           <Route path="/calendar" element={<WindCalendar />} />
           <Route path="/myPage" element={<MyPage />} />

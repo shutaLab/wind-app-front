@@ -79,7 +79,7 @@ const AnswerList = () => {
         </div>
         <div className=" flex justify-end px-2">
           <p className="text-gray-500">回答数</p>
-          <p className="text-gray-500">3</p>
+          <p className="text-gray-500">{answers?.length}</p>
           <button
             className="flex text-custom-blue font-nomal ml-3"
             onClick={clickAnswerOpen}

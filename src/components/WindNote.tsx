@@ -13,7 +13,8 @@ import {
 import NoteAlertDialog from "./NoteAlertDialog";
 import EditNoteModal from "./EditNoteModal";
 
-import { useDeleteNote, useUpdateNote } from "../queries/TaskQuery";
+import { useDeleteNote, useUpdateNote } from "../queries/NoteQuery";
+import { Link } from "react-router-dom";
 
 const WindNote = ({ note }: { note: DeleteNote }) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -35,13 +36,17 @@ const WindNote = ({ note }: { note: DeleteNote }) => {
 
   const updateNote = useUpdateNote();
 
+  const truncateText = (text: string, length: number) => {
+    return text.length > length ? text.substring(0, length) + "..." : text;
+  };
+
   return (
-    <div className="">
+    <Link to={`/windNote/${note.id}`}>
       <div className="border-b p-2">
         <div className=" flex p-2 justify-between">
           <div className="">
             <h1 className=" font-bold text-lg">{note.title}</h1>
-            <p>{note.content}</p>
+            <p className="">{truncateText(note.content, 15)}</p>
           </div>
           <div>
             <DropdownMenu>
@@ -88,7 +93,7 @@ const WindNote = ({ note }: { note: DeleteNote }) => {
         clickModalClose={clickModalClose}
         note={note}
       />
-    </div>
+    </Link>
   );
 };
 

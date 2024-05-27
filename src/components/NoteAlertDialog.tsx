@@ -8,7 +8,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "../@/components/ui/alert-dialog";
-import { useDeleteNote } from "../queries/TaskQuery";
+import { useDeleteNote } from "../queries/NoteQuery";
 
 interface NoteAlertDialogProps {
   isDialogOpen: boolean;

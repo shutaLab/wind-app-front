@@ -5,7 +5,7 @@ import { DeleteNote, Note } from "../types/Note";
 import WindNote from "../components/WindNote";
 import Header from "../components/Header";
 import { useQuery } from "react-query";
-import { useNotes } from "../queries/TaskQuery";
+import { useNotes } from "../queries/NoteQuery";
 const WindNoteList = () => {
   const { data: notes, status } = useNotes() as {
     data: DeleteNote[] | undefined;

@@ -18,6 +18,14 @@ export const createNote = async (values: Note) => {
   );
   return data;
 };
+
+export const showNote = async (id: number) => {
+  const { data } = await axios.get<Note>(
+    `https://serene-hollows-70259-0e810f44b7df.herokuapp.com/api/windNote/${id}`
+  );
+  return data;
+};
+
 export const updateNote = async ({
   id,
   values,

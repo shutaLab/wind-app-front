@@ -15,7 +15,7 @@ import { z } from "zod";
 import { ShadTextarea } from "../@/components/ui/textarea";
 import { Button } from "../@/components/ui/button";
 import { Input } from "../@/components/ui/input";
-import { useCreateNote } from "../queries/TaskQuery";
+import { useCreateNote } from "../queries/NoteQuery";
 const CreateNote: React.FC<CreateModalProps> = ({ clickModalClose }) => {
   const createNote = useCreateNote();
   const form = useForm<Note>({
