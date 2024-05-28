@@ -15,7 +15,9 @@ const Answer: React.FC<AnswerProps> = ({ answer }) => {
           <p className="ml-3 text-xl font-bold text-custom-blue">山田脩太</p>
         </div>
         <div>
-          <p className=" text-gray-500">{answer.content}</p>
+          <p className=" text-gray-500 whitespace-pre-line break-all">
+            {answer.content}
+          </p>
         </div>
       </div>
     </>

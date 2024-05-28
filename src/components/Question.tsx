@@ -68,7 +68,7 @@ const Question = ({ question }: { question: WindIdQuestion }) => {
           </div>
         </div>
         <div className="px-3 my-5">
-          <p>{question.content}</p>
+          <p className="whitespace-pre-line break-all">{question.content}</p>
         </div>
         <div className=" flex justify-end px-2">
           <Link
