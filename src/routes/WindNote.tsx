@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useShowNote } from "../queries/NoteQuery";
 import { Note } from "../types/Note";
-import Header from "../components/Header";
 import { Avatar } from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -18,6 +17,7 @@ import AnserModal from "../components/AnswerModal";
 import QuestionAlertDialog from "../components/QuestionAlertDialog";
 import NoteAlertDialog from "../components/NoteAlertDialog";
 import EditNoteModal from "../components/EditNoteModal";
+import NoteHeader from "../components/NoteHeader";
 const WindNote = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -48,7 +48,7 @@ const WindNote = () => {
 
   return (
     <div className="">
-      <Header />
+      <NoteHeader />
       <div className=" p-2 mb-[100px]">
         <div className="flex p-2 items-start justify-between">
           <div>

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { WindIdQuestion } from "../types/Question";
 import { useParams } from "react-router-dom";
-import Header from "../components/Header";
 import Footer from "../components/Footer";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
@@ -16,6 +15,7 @@ import { Avatar } from "@mui/material";
 import { useShowQuestion } from "../queries/QuestionQuery";
 import Answer from "../components/Answer";
 import QuestionAlertDialog from "../components/QuestionAlertDialog";
+import NoteHeader from "../components/NoteHeader";
 const AnswerList = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -45,7 +45,7 @@ const AnswerList = () => {
 
   return (
     <div>
-      <Header />
+      <NoteHeader />
       <div className="border-b-2 py-4">
         <div className="flex justify-between px-3 ">
           <div className="bg-red-600  rounded-lg w-[15%] items-center my-auto">

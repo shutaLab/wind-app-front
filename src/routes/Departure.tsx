@@ -28,7 +28,7 @@ import {
   TableHeader,
   TableRow,
 } from "../@/components/ui/table";
-import Header from "../components/Header";
+import NoteHeader from "../components/NoteHeader";
 
 const Departure = () => {
   const [open, setOpen] = useState(false);
@@ -41,7 +41,7 @@ const Departure = () => {
   };
   return (
     <div className="">
-      <Header />
+      <NoteHeader />
       <DepartureTable />
       <div className="px-3 mt-3">
         <Button

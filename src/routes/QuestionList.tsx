@@ -1,9 +1,9 @@
 import React from "react";
-import Header from "../components/Header";
 import Question from "../components/Question";
 import Footer from "../components/Footer";
 import { useQuestions } from "../queries/QuestionQuery";
 import { WindIdQuestion, WindQuestion } from "../types/Question";
+import NoteHeader from "../components/NoteHeader";
 
 const QuestionList = () => {
   const { data: questions } = useQuestions() as {
@@ -12,7 +12,7 @@ const QuestionList = () => {
   console.log(questions);
   return (
     <div>
-      <Header />
+      <NoteHeader />
       <div>
         {questions?.map((question) => (
           <Question question={question} />

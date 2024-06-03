@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import type { Dayjs } from "dayjs";
 import Footer from "../components/Footer";
 import FullCalendar from "@fullcalendar/react";
@@ -7,8 +6,8 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import Button from "../components/Button";
 import styled from "@emotion/styled";
-import Header from "../components/Header";
 import CreateCalendarEvent from "../components/CreateCalendarEvent";
+import Header from "../components/Header";
 const WindCalendar = () => {
   const [open, setOpen] = useState(false);
 
@@ -66,7 +65,6 @@ const WindCalendar = () => {
     }
   `;
 
-  const eventToggle = () => {};
   return (
     <div>
       <Header />

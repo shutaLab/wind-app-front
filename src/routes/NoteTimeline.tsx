@@ -1,11 +1,11 @@
 import React from "react";
-import Header from "../components/Header";
 import Footer from "../components/Footer";
+import NoteHeader from "../components/NoteHeader";
 
 const NoteTimeline = () => {
   return (
     <div>
-      <Header />
+      <NoteHeader />
       <h1>タイムライン</h1>
       <Footer />
     </div>
