@@ -38,13 +38,14 @@ export const useUpdateQuestion = () => {
     },
   });
 };
-export const useDeleteQuestion = () => {
+export const useDeleteQuestion = (navigate: (path: string) => void) => {
   const queryClient = useQueryClient();
 
   return useMutation(api.deleteQuestion, {
     onSuccess: () => {
       queryClient.invalidateQueries("questions");
       toast.success("質問を削除しました");
+      navigate("/question");
     },
     onError: () => {
       toast.error("質問の削除に失敗しました");

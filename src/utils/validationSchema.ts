@@ -23,6 +23,15 @@ export const NoteValidationShema = z.object({
 export const createQuestionValidationShema = z.object({
   content: z.string({ required_error: "質問を入力してください" }),
 });
+
 export const createAnswerValidationShema = z.object({
   content: z.string({ required_error: "回答を入力してください" }),
+});
+
+export const CalendarEventValidationShema = z.object({
+  title: z.string({ required_error: "タイトルを入力してください" }),
+  content: z.string().optional(),
+  start_date: z.string({ required_error: "開始日を入力してください" }),
+  end_date: z.string({ required_error: "開始日を入力してください" }),
+  is_abtent: z.boolean({ required_error: "選んでください" }),
 });

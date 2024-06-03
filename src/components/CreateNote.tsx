@@ -1,5 +1,5 @@
 import React from "react";
-import { CreateModalProps } from "../types/ModalProps";
+import { CreateHeaderModalProps } from "../types/ModalProps";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Note } from "../types/Note";
@@ -16,7 +16,7 @@ import { ShadTextarea } from "../@/components/ui/textarea";
 import { Button } from "../@/components/ui/button";
 import { Input } from "../@/components/ui/input";
 import { useCreateNote } from "../queries/NoteQuery";
-const CreateNote: React.FC<CreateModalProps> = ({ clickModalClose }) => {
+const CreateNote: React.FC<CreateHeaderModalProps> = ({ clickModalClose }) => {
   const createNote = useCreateNote();
   const form = useForm<Note>({
     resolver: zodResolver(NoteValidationShema),

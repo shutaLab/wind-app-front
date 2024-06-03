@@ -12,10 +12,12 @@ import {
 } from "../@/components/ui/form";
 import { ShadTextarea } from "../@/components/ui/textarea";
 import { createQuestionValidationShema } from "../utils/validationSchema";
-import { CreateModalProps } from "../types/ModalProps";
+import { CreateHeaderModalProps } from "../types/ModalProps";
 import { WindQuestion } from "../types/Question";
 import { useCreateQuestion } from "../queries/QuestionQuery";
-const CreateQuestion: React.FC<CreateModalProps> = ({ clickModalClose }) => {
+const CreateQuestion: React.FC<CreateHeaderModalProps> = ({
+  clickModalClose,
+}) => {
   const createQuestion = useCreateQuestion();
   const form = useForm<WindQuestion>({
     resolver: zodResolver(createQuestionValidationShema),

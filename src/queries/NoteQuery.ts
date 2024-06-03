@@ -38,13 +38,14 @@ export const useUpdateNote = () => {
     },
   });
 };
-export const useDeleteNote = () => {
+export const useDeleteNote = (navigate: (path: string) => void) => {
   const queryClient = useQueryClient();
 
   return useMutation(api.deleteNote, {
     onSuccess: () => {
       queryClient.invalidateQueries("notes");
       toast.success("削除しました");
+      navigate("/windNote");
     },
     onError: () => {
       toast.error("削除に失敗しました");

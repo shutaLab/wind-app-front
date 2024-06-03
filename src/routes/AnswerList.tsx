@@ -15,6 +15,7 @@ import AnserModal from "../components/AnswerModal";
 import { Avatar } from "@mui/material";
 import { useShowQuestion } from "../queries/QuestionQuery";
 import Answer from "../components/Answer";
+import QuestionAlertDialog from "../components/QuestionAlertDialog";
 const AnswerList = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -97,6 +98,11 @@ const AnswerList = () => {
         modalOpen={isAnswerOpen}
         clickModalClose={clickAnswerClose}
         question_id={questionId}
+      />
+      <QuestionAlertDialog
+        isDialogOpen={isDialogOpen}
+        setIsDialogOpen={setIsDialogOpen}
+        questionId={questionId}
       />
     </div>
   );

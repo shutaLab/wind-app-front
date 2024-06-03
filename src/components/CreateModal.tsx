@@ -1,11 +1,12 @@
 import { Dialog, DialogActions, DialogContent } from "@mui/material";
 import React from "react";
-import { CreateModalProps } from "../types/ModalProps";
+import { CreateHeaderModalProps } from "../types/ModalProps";
 import CreateQuestion from "./CreateQuestion";
 import { Button } from "../@/components/ui/button";
 import CreateNote from "./CreateNote";
+import CreateCalendarEvent from "./CreateCalendarEvent";
 
-const CreateModal: React.FC<CreateModalProps> = ({
+const CreateModal: React.FC<CreateHeaderModalProps> = ({
   modalOpen,
   clickModalClose,
   currentLocation,

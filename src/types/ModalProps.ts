@@ -3,7 +3,7 @@ export interface CreateNoteModalProps {
   handleClose: () => void;
 }
 
-export interface CreateModalProps {
+export interface CreateHeaderModalProps {
   modalOpen: boolean;
   clickModalClose: () => void;
   currentLocation: string;

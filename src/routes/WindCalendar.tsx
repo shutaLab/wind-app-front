@@ -7,10 +7,21 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import Button from "../components/Button";
 import styled from "@emotion/styled";
+import Header from "../components/Header";
+import CreateCalendarEvent from "../components/CreateCalendarEvent";
 const WindCalendar = () => {
-  const [toggleOpen, setToggleOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+
   const handleDateClick = () => {
     alert("たっぷしたな");
+  };
+
+  const clickModalOpen = () => {
+    setOpen(true);
+  };
+
+  const clickModalClose = () => {
+    setOpen(false);
   };
 
   const StyleWrapper = styled.div`
@@ -58,6 +69,7 @@ const WindCalendar = () => {
   const eventToggle = () => {};
   return (
     <div>
+      <Header />
       <div className="px-3">
         <div className="">
           <StyleWrapper>
@@ -90,10 +102,11 @@ const WindCalendar = () => {
         <Button
           className="h-full w-full mt-2 bg-custom-gray text-white"
           text="予定を追加"
-          type="button"
+          onClick={clickModalOpen}
         />
       </div>
       <Footer />
+      <CreateCalendarEvent open={open} handleClose={clickModalClose} />
     </div>
   );
 };

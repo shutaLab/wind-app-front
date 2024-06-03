@@ -9,6 +9,7 @@ import {
   AlertDialogTitle,
 } from "../@/components/ui/alert-dialog";
 import { useDeleteQuestion } from "../queries/QuestionQuery";
+import { useNavigate } from "react-router-dom";
 
 interface QuestionAlertDialogProps {
   isDialogOpen: boolean;
@@ -21,7 +22,9 @@ const QuestionAlertDialog: React.FC<QuestionAlertDialogProps> = ({
   setIsDialogOpen,
   questionId,
 }) => {
-  const deleteQuestion = useDeleteQuestion();
+  const navigate = useNavigate();
+
+  const deleteQuestion = useDeleteQuestion(navigate);
 
   const handleDeleteNote = () => {
     deleteQuestion.mutate(questionId);

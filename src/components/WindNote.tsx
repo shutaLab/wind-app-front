@@ -41,13 +41,13 @@ const WindNote = ({ note }: { note: DeleteNote }) => {
   };
 
   return (
-    <Link to={`/windNote/${note.id}`}>
+    <>
       <div className="border-b p-2">
         <div className=" flex p-2 justify-between">
-          <div className="">
+          <Link to={`/windNote/${note.id}`}>
             <h1 className=" font-bold text-lg">{note.title}</h1>
             <p className="">{truncateText(note.content, 15)}</p>
-          </div>
+          </Link>
           <div>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -93,7 +93,7 @@ const WindNote = ({ note }: { note: DeleteNote }) => {
         clickModalClose={clickModalClose}
         note={note}
       />
-    </Link>
+    </>
   );
 };
 

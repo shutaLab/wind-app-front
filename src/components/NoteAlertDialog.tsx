@@ -9,6 +9,7 @@ import {
   AlertDialogTitle,
 } from "../@/components/ui/alert-dialog";
 import { useDeleteNote } from "../queries/NoteQuery";
+import { useNavigate } from "react-router-dom";
 
 interface NoteAlertDialogProps {
   isDialogOpen: boolean;
@@ -21,7 +22,9 @@ const NoteAlertDialog: React.FC<NoteAlertDialogProps> = ({
   setIsDialogOpen,
   noteId,
 }) => {
-  const deleteNote = useDeleteNote();
+  const navigate = useNavigate();
+
+  const deleteNote = useDeleteNote(navigate);
 
   const handleDeleteNote = () => {
     deleteNote.mutate(noteId);

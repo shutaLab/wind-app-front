@@ -68,16 +68,13 @@ const Question = ({ question }: { question: WindIdQuestion }) => {
           </div>
         </div>
         <div className="px-3 my-5">
-          <p className="whitespace-pre-line break-all">{question.content}</p>
-        </div>
-        <div className=" flex justify-end px-2">
-          <Link
-            to={`/question/${question.id}/answer`}
-            className="flex text-gray-500"
-          >
-            <p>回答数</p>
-            <p>{question.answers.length}</p>
+          <Link to={`/question/${question.id}/answer`} className="">
+            <p className="whitespace-pre-line break-all">{question.content}</p>
           </Link>
+        </div>
+        <div className=" flex justify-end px-2 text-gray-500">
+          <p>回答数</p>
+          <p>{question.answers.length}</p>
           <button
             className="flex text-custom-blue font-nomal ml-3"
             onClick={clickAnswerOpen}
