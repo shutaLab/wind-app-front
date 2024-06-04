@@ -2,8 +2,10 @@ import React from "react";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
+  FormLabel,
   FormMessage,
 } from "../@/components/ui/form";
 import { useForm } from "react-hook-form";
@@ -25,6 +27,7 @@ import { format } from "date-fns";
 import { ja } from "date-fns/locale";
 import { CalendarIcon } from "lucide-react";
 import { Calendar } from "../@/components/ui/calendar";
+import { Checkbox } from "../@/components/ui/checkbox";
 
 const CreateCalendarEvent: React.FC<CreateNoteModalProps> = ({
   open,
@@ -57,7 +60,7 @@ const CreateCalendarEvent: React.FC<CreateNoteModalProps> = ({
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input className="mb-5" {...field} placeholder="タイトル" />
+                    <Input className="mb-1" {...field} placeholder="タイトル" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -69,54 +72,124 @@ const CreateCalendarEvent: React.FC<CreateNoteModalProps> = ({
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input className="" {...field} placeholder="内容" />
+                    <Input className="mb-1" {...field} placeholder="内容" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
+            <div className="flex justify-between">
+              <FormField
+                control={form.control}
+                name="start_date"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col w-[50%]">
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <FormControl>
+                          <Button
+                            variant={"outline"}
+                            className={cn(
+                              "w-full pl-3 text-left font-normal mb-1",
+                              !field.value && "text-muted-foreground"
+                            )}
+                          >
+                            {field.value ? (
+                              format(new Date(field.value), "yyyy-MM-dd", {
+                                locale: ja,
+                              })
+                            ) : (
+                              <span>開始日付</span>
+                            )}
+                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                          </Button>
+                        </FormControl>
+                      </PopoverTrigger>
+                      <PopoverContent
+                        className="w-auto p-0 z-[9999]"
+                        align="start"
+                      >
+                        <Calendar
+                          mode="single"
+                          selected={
+                            field.value ? new Date(field.value) : undefined
+                          }
+                          onSelect={(date) =>
+                            field.onChange(date ? date.toISOString() : null)
+                          }
+                          initialFocus
+                        />
+                      </PopoverContent>
+                    </Popover>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="end_date"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col w-[50%]">
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <FormControl>
+                          <Button
+                            variant={"outline"}
+                            className={cn(
+                              "w-full pl-3 text-left font-normal mb-1",
+                              !field.value && "text-muted-foreground"
+                            )}
+                          >
+                            {field.value ? (
+                              format(new Date(field.value), "yyyy-MM-dd", {
+                                locale: ja,
+                              })
+                            ) : (
+                              <span>終了日付</span>
+                            )}
+                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                          </Button>
+                        </FormControl>
+                      </PopoverTrigger>
+                      <PopoverContent
+                        className="w-auto p-0 z-[9999]"
+                        align="start"
+                      >
+                        <Calendar
+                          mode="single"
+                          selected={
+                            field.value ? new Date(field.value) : undefined
+                          }
+                          onSelect={(date) =>
+                            field.onChange(date ? date.toISOString() : null)
+                          }
+                          initialFocus
+                        />
+                      </PopoverContent>
+                    </Popover>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
             <FormField
               control={form.control}
-              name="start_date"
+              name="is_absent"
               render={({ field }) => (
-                <FormItem className="flex flex-col">
-                  <Popover>
-                    <PopoverTrigger asChild>
-                      <FormControl>
-                        <Button
-                          variant={"outline"}
-                          className={cn(
-                            "w-full pl-3 text-left font-normal",
-                            !field.value && "text-muted-foreground"
-                          )}
-                        >
-                          {field.value ? (
-                            format(new Date(field.value), "yyyy-MM-dd", {
-                              locale: ja,
-                            })
-                          ) : (
-                            <span>日付を選択</span>
-                          )}
-                          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                        </Button>
-                      </FormControl>
-                    </PopoverTrigger>
-                    <PopoverContent
-                      className="w-auto p-0 z-[9999]"
-                      align="start"
-                    >
-                      <Calendar
-                        mode="single"
-                        selected={
-                          field.value ? new Date(field.value) : undefined
+                <FormItem className="rounded-md border p-2 shadow">
+                  <div className="flex items-center w-full">
+                    <FormControl>
+                      <Checkbox
+                        checked={field.value}
+                        onCheckedChange={(checked) =>
+                          field.onChange(checked as boolean)
                         }
-                        onSelect={(date) =>
-                          field.onChange(date ? date.toISOString() : null)
-                        }
-                        initialFocus
                       />
-                    </PopoverContent>
-                  </Popover>
+                    </FormControl>
+                    <FormLabel className="w-full ml-3 text-gray-500">
+                      欠席連絡
+                    </FormLabel>
+                  </div>
                   <FormMessage />
                 </FormItem>
               )}
