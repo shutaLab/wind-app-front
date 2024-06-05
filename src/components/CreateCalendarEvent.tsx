@@ -2,7 +2,6 @@ import React from "react";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -28,6 +27,7 @@ import { ja } from "date-fns/locale";
 import { CalendarIcon } from "lucide-react";
 import { Calendar } from "../@/components/ui/calendar";
 import { Checkbox } from "../@/components/ui/checkbox";
+import { useCreateCalendaarEvent } from "../queries/CalenarQuery";
 
 const CreateCalendarEvent: React.FC<CreateNoteModalProps> = ({
   open,
@@ -36,15 +36,20 @@ const CreateCalendarEvent: React.FC<CreateNoteModalProps> = ({
   const form = useForm<CalendarType>({
     resolver: zodResolver(CalendarEventValidationShema),
   });
+  const createEvent = useCreateCalendaarEvent();
 
   function onsubmit(values: z.infer<typeof CalendarEventValidationShema>) {
+    const formatISODate = (date: string | null) =>
+      date ? new Date(date).toISOString().split(".")[0] + "Z" : "";
+
     const formattedValues = {
       ...values,
-      start_date: values.start_date
-        ? new Date(values.start_date).toISOString()
-        : null,
+      start: formatISODate(values.start),
+      end: formatISODate(values.end),
     };
+
     console.log(formattedValues);
+    createEvent.mutate(formattedValues);
     handleClose();
   }
 
@@ -81,7 +86,7 @@ const CreateCalendarEvent: React.FC<CreateNoteModalProps> = ({
             <div className="flex justify-between">
               <FormField
                 control={form.control}
-                name="start_date"
+                name="start"
                 render={({ field }) => (
                   <FormItem className="flex flex-col w-[50%]">
                     <Popover>
@@ -90,7 +95,7 @@ const CreateCalendarEvent: React.FC<CreateNoteModalProps> = ({
                           <Button
                             variant={"outline"}
                             className={cn(
-                              "w-full pl-3 text-left font-normal mb-1",
+                              "w-full pl-3 text-left font-normal",
                               !field.value && "text-muted-foreground"
                             )}
                           >
@@ -115,7 +120,9 @@ const CreateCalendarEvent: React.FC<CreateNoteModalProps> = ({
                             field.value ? new Date(field.value) : undefined
                           }
                           onSelect={(date) =>
-                            field.onChange(date ? date.toISOString() : null)
+                            field.onChange(
+                              date ? date.toISOString().split(".")[0] + "Z" : ""
+                            )
                           }
                           initialFocus
                         />
@@ -127,7 +134,7 @@ const CreateCalendarEvent: React.FC<CreateNoteModalProps> = ({
               />
               <FormField
                 control={form.control}
-                name="end_date"
+                name="end"
                 render={({ field }) => (
                   <FormItem className="flex flex-col w-[50%]">
                     <Popover>
@@ -136,7 +143,7 @@ const CreateCalendarEvent: React.FC<CreateNoteModalProps> = ({
                           <Button
                             variant={"outline"}
                             className={cn(
-                              "w-full pl-3 text-left font-normal mb-1",
+                              "w-full pl-3 text-left font-normal",
                               !field.value && "text-muted-foreground"
                             )}
                           >
@@ -161,7 +168,9 @@ const CreateCalendarEvent: React.FC<CreateNoteModalProps> = ({
                             field.value ? new Date(field.value) : undefined
                           }
                           onSelect={(date) =>
-                            field.onChange(date ? date.toISOString() : null)
+                            field.onChange(
+                              date ? date.toISOString().split(".")[0] + "Z" : ""
+                            )
                           }
                           initialFocus
                         />

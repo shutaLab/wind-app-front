@@ -14,8 +14,8 @@ export const createCalendarEvent = async (values: Calendar) => {
     {
       title: values.title,
       content: values.content,
-      start_date: values.start_date,
-      end_date: values.end_date,
+      start: values.start,
+      end: values.end,
       is_absent: values.is_absent,
     }
   );

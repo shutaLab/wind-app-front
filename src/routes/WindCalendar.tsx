@@ -8,9 +8,11 @@ import Button from "../components/Button";
 import styled from "@emotion/styled";
 import CreateCalendarEvent from "../components/CreateCalendarEvent";
 import Header from "../components/Header";
+import { useGetCalendarEvent } from "../queries/CalenarQuery";
 const WindCalendar = () => {
   const [open, setOpen] = useState(false);
-
+  const { data } = useGetCalendarEvent();
+  console.log(data);
   const handleDateClick = () => {
     alert("たっぷしたな");
   };
@@ -82,6 +84,7 @@ const WindCalendar = () => {
               initialView="dayGridMonth"
               selectable={true}
               locale="ja"
+              events={data}
               businessHours={true}
               schedulerLicenseKey="CC-Attribution-NonCommercial-NoDerivatives"
             />

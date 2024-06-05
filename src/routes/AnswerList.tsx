@@ -23,6 +23,7 @@ const AnswerList = () => {
   const { id } = useParams();
   const questionId = Number(id);
   const { data } = useShowQuestion(questionId);
+  console.log(data);
   const answers = data?.answers;
   const clickModalOpen = () => {
     setModalOpen(true);
