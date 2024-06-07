@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import type { Dayjs } from "dayjs";
+import React, { useState, useEffect } from "react";
 import Footer from "../components/Footer";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
@@ -9,13 +8,16 @@ import styled from "@emotion/styled";
 import CreateCalendarEvent from "../components/CreateCalendarEvent";
 import Header from "../components/Header";
 import { useGetCalendarEvent } from "../queries/CalenarQuery";
+import { format } from "date-fns";
+import { ja } from "date-fns/locale";
+import StyleWrapper from "../components/StyleWrapper";
+import EventList from "../components/EventsList";
+
 const WindCalendar = () => {
   const [open, setOpen] = useState(false);
   const { data } = useGetCalendarEvent();
-  console.log(data);
-  const handleDateClick = () => {
-    alert("たっぷしたな");
-  };
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const today = format(selectedDate, "MM月dd日", { locale: ja });
 
   const clickModalOpen = () => {
     setOpen(true);
@@ -25,47 +27,20 @@ const WindCalendar = () => {
     setOpen(false);
   };
 
-  const StyleWrapper = styled.div`
-    .fc .fc-toolbar.fc-header-toolbar {
-      margin-bottom: 0;
-    }
-    .fc .fc-toolbar-title {
-      font-size: 1.3rem;
-      color: #37362f;
-    }
-    .fc .fc-button-primary {
-      font-size: 0.75rem;
-      background-color: #ffffff00;
-      color: #acaba9;
-      border: none;
-      outline: none;
-    }
-    .fc .fc-toolbar {
-      justify-content: center;
-    }
+  // 今日の日付に対応するイベントをフィルタリング
+  const eventsOnSelectedDate = data?.filter((event) => {
+    const eventStart = new Date(event.start);
+    const eventEnd = new Date(event.end);
+    const todayStart = new Date(selectedDate);
+    const todayEnd = new Date(selectedDate);
+    console.log(todayStart, todayEnd);
 
-    .fc-today-button {
-      background-color: #ffffff00;
-      color: #37362f;
-      border: none;
-      outline: none;
-    }
-    .fc .fc-button-primary:not(:disabled):active,
-    .fc .fc-button-primary:not(:disabled).fc-button-active {
-      background-color: #ffffff00;
-      color: #acaba9;
-      box-shadow: none;
-    }
-    .fc .fc-button-primary:not(:disabled):focus,
-    .fc .fc-button-primary:not(:disabled).fc-button-focus {
-      background-color: #ffffff00;
-      color: #acaba9;
-      box-shadow: none;
-    }
-    .fc .fc-today-button:disabled {
-      opacity: 1;
-    }
-  `;
+    // set the time to the start of the day for accurate comparison
+    todayStart.setHours(0, 0, 0, 0);
+    todayEnd.setHours(23, 59, 59, 999);
+
+    return eventStart <= todayEnd && eventEnd >= todayStart;
+  });
 
   return (
     <div>
@@ -86,20 +61,13 @@ const WindCalendar = () => {
               locale="ja"
               events={data}
               businessHours={true}
+              displayEventTime={false}
               schedulerLicenseKey="CC-Attribution-NonCommercial-NoDerivatives"
+              dateClick={(info) => setSelectedDate(new Date(info.date))}
             />
           </StyleWrapper>
         </div>
-        <p className="pl-2">12月15日</p>
-        <div className="w-full text-left flex items-center bg-custom-white shadow rounded-lg">
-          <div className="border-r-2 p-2">
-            <p className="w-full">19:00</p>
-            <p className="w-full">20:00</p>
-          </div>
-          <div className="p-3 flex justify-between w-full">
-            <p>鎌倉学生選手権</p>
-          </div>
-        </div>
+        <EventList events={eventsOnSelectedDate || []} date={today} />
         <Button
           className="h-full w-full mt-2 bg-custom-gray text-white"
           text="予定を追加"
