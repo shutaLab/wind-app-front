@@ -50,9 +50,9 @@ const WindCalendar = () => {
   });
 
   return (
-    <div className="">
+    <div className="flex flex-col min-h-screen">
       <Header />
-      <div className="px-3">
+      <div className="px-3 flex-grow overflow-auto">
         <div className="mb-4">
           <StyleWrapper>
             <FullCalendar
@@ -61,7 +61,7 @@ const WindCalendar = () => {
                 center: "title",
                 end: "next",
               }}
-              height="auto"
+              height="60vh"
               plugins={[dayGridPlugin, interactionPlugin]}
               initialView="dayGridMonth"
               selectable={true}
