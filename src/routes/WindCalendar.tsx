@@ -50,10 +50,10 @@ const WindCalendar = () => {
   });
 
   return (
-    <div>
+    <div className="">
       <Header />
       <div className="px-3">
-        <div className="">
+        <div className="mb-4">
           <StyleWrapper>
             <FullCalendar
               headerToolbar={{
@@ -61,7 +61,7 @@ const WindCalendar = () => {
                 center: "title",
                 end: "next",
               }}
-              height="60vh"
+              height="auto"
               plugins={[dayGridPlugin, interactionPlugin]}
               initialView="dayGridMonth"
               selectable={true}
@@ -76,7 +76,7 @@ const WindCalendar = () => {
         </div>
         <EventList events={eventsOnSelectedDate || []} date={today} />
         <Button
-          className="h-full w-full mt-2 bg-custom-gray text-white"
+          className="h-full w-full mt-2 bg-custom-gray text-white mb-20"
           text="予定を追加"
           onClick={clickModalOpen}
         />

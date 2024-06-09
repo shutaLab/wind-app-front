@@ -26,7 +26,7 @@ const Footer = () => {
   }, [location.pathname]);
 
   return (
-    <div className="">
+    <div className="fixed bottom-0 w-full">
       <BottomNavigation
         sx={{ position: "fixed", bottom: 0, width: "100%" }}
         value={bnValue}
