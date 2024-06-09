@@ -10,11 +10,11 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "../@/components/ui/dropdown-menu";
-import NoteAlertDialog from "./NoteAlertDialog";
 import EditNoteModal from "./EditNoteModal";
 
 import { useDeleteNote, useUpdateNote } from "../queries/NoteQuery";
 import { Link } from "react-router-dom";
+import DeleteAlertDialog from "./DeleteAlertDialog";
 
 const WindNote = ({ note }: { note: DeleteNote }) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -83,7 +83,7 @@ const WindNote = ({ note }: { note: DeleteNote }) => {
           <p className="text-gray-500">4月20日</p>
         </div>
       </div>
-      <NoteAlertDialog
+      <DeleteAlertDialog
         isDialogOpen={isDialogOpen}
         setIsDialogOpen={setIsDialogOpen}
         noteId={note.id}

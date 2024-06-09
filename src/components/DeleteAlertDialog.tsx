@@ -17,7 +17,7 @@ interface NoteAlertDialogProps {
   noteId: number;
 }
 
-const NoteAlertDialog: React.FC<NoteAlertDialogProps> = ({
+const DeleteAlertDialog: React.FC<NoteAlertDialogProps> = ({
   isDialogOpen,
   setIsDialogOpen,
   noteId,
@@ -53,4 +53,4 @@ const NoteAlertDialog: React.FC<NoteAlertDialogProps> = ({
   );
 };
 
-export default NoteAlertDialog;
+export default DeleteAlertDialog;

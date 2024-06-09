@@ -15,7 +15,7 @@ import {
 } from "../@/components/ui/dropdown-menu";
 import AnserModal from "../components/AnswerModal";
 import QuestionAlertDialog from "../components/QuestionAlertDialog";
-import NoteAlertDialog from "../components/NoteAlertDialog";
+import NoteAlertDialog from "../components/DeleteAlertDialog";
 import EditNoteModal from "../components/EditNoteModal";
 import NoteHeader from "../components/NoteHeader";
 const WindNote = () => {
