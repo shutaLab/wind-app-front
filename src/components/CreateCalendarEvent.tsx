@@ -24,10 +24,10 @@ import {
 import { cn } from "../@/lib/utils";
 import { format } from "date-fns";
 import { ja } from "date-fns/locale";
-import { CalendarIcon } from "lucide-react";
 import { Calendar } from "../@/components/ui/calendar";
 import { Checkbox } from "../@/components/ui/checkbox";
 import { useCreateCalendaarEvent } from "../queries/CalenarQuery";
+import { CalendarIcon } from "lucide-react";
 
 const CreateCalendarEvent: React.FC<CreateNoteModalProps> = ({
   open,
@@ -43,10 +43,17 @@ const CreateCalendarEvent: React.FC<CreateNoteModalProps> = ({
     const formatISODate = (date: string | null) =>
       date ? new Date(date).toISOString().split(".")[0] + "Z" : "";
 
+    const addOneDay = (date: string | null) => {
+      if (!date) return "";
+      const newDate = new Date(date);
+      newDate.setDate(newDate.getDate() + 1);
+      return newDate.toISOString().split(".")[0] + "Z";
+    };
+
     const formattedValues = {
       ...values,
       start: formatISODate(values.start),
-      end: formatISODate(values.end),
+      end: addOneDay(values.end),
     };
 
     console.log(formattedValues);

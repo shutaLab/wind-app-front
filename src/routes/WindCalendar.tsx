@@ -33,13 +33,20 @@ const WindCalendar = () => {
     const eventEnd = new Date(event.end);
     const todayStart = new Date(selectedDate);
     const todayEnd = new Date(selectedDate);
-    console.log(todayStart, todayEnd);
 
     // set the time to the start of the day for accurate comparison
     todayStart.setHours(0, 0, 0, 0);
     todayEnd.setHours(23, 59, 59, 999);
 
-    return eventStart <= todayEnd && eventEnd >= todayStart;
+    // イベントの終了日を調整
+    eventEnd.setDate(eventEnd.getDate() - 1);
+
+    // Check if the event is on the selected date
+    return (
+      (eventStart >= todayStart && eventStart <= todayEnd) ||
+      (eventEnd >= todayStart && eventEnd <= todayEnd) ||
+      (eventStart <= todayStart && eventEnd >= todayEnd)
+    );
   });
 
   return (
