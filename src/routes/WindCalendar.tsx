@@ -50,9 +50,9 @@ const WindCalendar = () => {
   });
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="">
       <Header />
-      <div className="px-3 flex-grow overflow-auto">
+      <div className="px-3">
         <div className="mb-4">
           <StyleWrapper>
             <FullCalendar
