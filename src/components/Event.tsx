@@ -37,6 +37,7 @@ const Event: React.FC<EventProps> = ({ event }) => {
         <div className="flex">
           <EventIcon className="text-gray-500 mr-2" />
           <div className="flex flex-col text-left">
+            {event.is_absent ? <p className="">欠席連絡</p> : <></>}
             <p className="text-lg">{event.title}</p>
             <p className="text-sm">{event.content}</p>
           </div>

@@ -18,6 +18,7 @@ import QuestionAlertDialog from "../components/QuestionAlertDialog";
 import NoteAlertDialog from "../components/DeleteAlertDialog";
 import EditNoteModal from "../components/EditNoteModal";
 import NoteHeader from "../components/NoteHeader";
+import HeaderTab from "../components/HeaderTab";
 const WindNote = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -49,6 +50,7 @@ const WindNote = () => {
   return (
     <div className="">
       <NoteHeader />
+      <HeaderTab />
       <div className=" p-2 mb-[100px]">
         <div className="flex p-2 items-start justify-between">
           <div>

@@ -4,6 +4,7 @@ import Footer from "../components/Footer";
 import { useQuestions } from "../queries/QuestionQuery";
 import { WindIdQuestion, WindQuestion } from "../types/Question";
 import NoteHeader from "../components/NoteHeader";
+import HeaderTab from "../components/HeaderTab";
 
 const QuestionList = () => {
   const { data: questions } = useQuestions() as {
@@ -13,6 +14,7 @@ const QuestionList = () => {
   return (
     <div>
       <NoteHeader />
+      <HeaderTab />
       <div>
         {questions?.map((question) => (
           <Question question={question} />

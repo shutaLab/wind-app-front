@@ -14,10 +14,7 @@ ul, li {
   color: white;
 }
 
-/* styles.css
-.fc-event.absent {
-  background-color: red !important;
-  border-color: red !important;
+.fc-event.is-absent {
+  background-color: #E34449 !important;
+  border-color: #E34449 !important;
 }
- */
-

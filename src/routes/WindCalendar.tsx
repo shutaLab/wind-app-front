@@ -4,7 +4,6 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import Button from "../components/Button";
-import styled from "@emotion/styled";
 import CreateCalendarEvent from "../components/CreateCalendarEvent";
 import Header from "../components/Header";
 import { useGetCalendarEvent } from "../queries/CalenarQuery";
@@ -12,7 +11,9 @@ import { format } from "date-fns";
 import { ja } from "date-fns/locale";
 import StyleWrapper from "../components/StyleWrapper";
 import EventList from "../components/EventsList";
-
+import { EventApi } from "@fullcalendar/core";
+import "../App";
+import NoteHeader from "../components/NoteHeader";
 const WindCalendar = () => {
   const [open, setOpen] = useState(false);
   const { data } = useGetCalendarEvent();
@@ -49,9 +50,16 @@ const WindCalendar = () => {
     );
   });
 
+  const eventClassNames = ({ event }: { event: EventApi }) => {
+    if (event.extendedProps.is_absent) {
+      return ["is-absent"];
+    }
+    return [];
+  };
+
   return (
     <div className="flex flex-col min-h-screen">
-      <Header />
+      <NoteHeader />
       <div className="flex-grow overflow-y-auto px-3">
         <div className="mb-4">
           <StyleWrapper>
@@ -61,7 +69,7 @@ const WindCalendar = () => {
                 center: "title",
                 end: "next",
               }}
-              height="auto"
+              height="60vh"
               plugins={[dayGridPlugin, interactionPlugin]}
               initialView="dayGridMonth"
               selectable={true}
@@ -71,6 +79,7 @@ const WindCalendar = () => {
               displayEventTime={false}
               schedulerLicenseKey="CC-Attribution-NonCommercial-NoDerivatives"
               dateClick={(info) => setSelectedDate(new Date(info.date))}
+              eventClassNames={eventClassNames}
             />
           </StyleWrapper>
         </div>

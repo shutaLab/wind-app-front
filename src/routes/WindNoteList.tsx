@@ -6,6 +6,7 @@ import WindNote from "../components/WindNote";
 import { useQuery } from "react-query";
 import { useNotes } from "../queries/NoteQuery";
 import NoteHeader from "../components/NoteHeader";
+import HeaderTab from "../components/HeaderTab";
 const WindNoteList = () => {
   const { data: notes, status } = useNotes() as {
     data: DeleteNote[] | undefined;
@@ -14,6 +15,7 @@ const WindNoteList = () => {
   return (
     <div>
       <NoteHeader />
+      <HeaderTab />
       <div>
         {notes?.map((note) => (
           <WindNote note={note} />
