@@ -3,13 +3,13 @@ import { DeleteNote, Favorite, Note } from "../types/Note";
 
 export const getNotes = async () => {
   const { data } = await axios.get<Note[]>(
-    "http://localhost:8000/api/windNote"
+    "https://serene-hollows-70259-0e810f44b7df.herokuapp.com/api/windNote"
   );
   return data;
 };
 export const createNote = async (values: Note) => {
   const { data } = await axios.post<Note>(
-    "http://localhost:8000/api/windNote",
+    "https://serene-hollows-70259-0e810f44b7df.herokuapp.com/api/windNote",
     {
       title: values.title,
       content: values.content,
@@ -48,14 +48,14 @@ export const deleteNote = async (id: number) => {
 
 export const showFavorite = async (id: number) => {
   const { data } = await axios.get<Favorite>(
-    `http://localhost:8000/api/windNote/${id}/favorite`
+    `https://serene-hollows-70259-0e810f44b7df.herokuapp.com/api/windNote/${id}/favorite`
   );
   return data;
 };
 
 export const updateFavorite = async (id: number) => {
   const { data } = await axios.put<Favorite>(
-    `http://localhost:8000/api/windNote/${id}/favorite`
+    `https://serene-hollows-70259-0e810f44b7df.herokuapp.com/api/windNote/${id}/favorite`
   );
   return data;
 };

@@ -8,16 +8,21 @@ export const getUser = async () => {
   return data;
 };
 export const getCsrfCookie = async () => {
-  await axios.get("http://localhost:8000/sanctum/csrf-cookie");
+  await axios.get(
+    "https://serene-hollows-70259-0e810f44b7df.herokuapp.com/sanctum/csrf-cookie"
+  );
 };
 // ログインリクエストを送信する関数
 export const login = async (values: User) => {
   try {
     await getCsrfCookie();
-    const response = await axios.post("http://localhost:8000/api/login", {
-      email: values.email,
-      password: values.password,
-    });
+    const response = await axios.post(
+      "https://serene-hollows-70259-0e810f44b7df.herokuapp.com/api/login",
+      {
+        email: values.email,
+        password: values.password,
+      }
+    );
     return response.data;
   } catch (error) {
     console.error("Login error:", error);
@@ -34,6 +39,8 @@ export const signUp = async (values: User) => {
 };
 
 export const logout = async () => {
-  const { data } = await axios.post<User>("http://localhost:8000/api/logout");
+  const { data } = await axios.post<User>(
+    "https://serene-hollows-70259-0e810f44b7df.herokuapp.com/api/logout"
+  );
   return data;
 };
