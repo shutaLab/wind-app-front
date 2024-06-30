@@ -5,7 +5,6 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import Button from "../components/Button";
 import CreateCalendarEvent from "../components/CreateCalendarEvent";
-import Header from "../components/Header";
 import { useGetCalendarEvent } from "../queries/CalenarQuery";
 import { format } from "date-fns";
 import { ja } from "date-fns/locale";
@@ -14,6 +13,7 @@ import EventList from "../components/EventsList";
 import { EventApi } from "@fullcalendar/core";
 import "../App";
 import NoteHeader from "../components/NoteHeader";
+import axios from "axios";
 const WindCalendar = () => {
   const [open, setOpen] = useState(false);
   const { data } = useGetCalendarEvent();

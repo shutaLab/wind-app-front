@@ -5,6 +5,7 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 import CreateModal from "./CreateModal";
 import { Badge } from "@mui/material";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
+import LogoutIcon from "@mui/icons-material/Logout";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,11 +13,13 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from "../@/components/ui/dropdown-menu";
+import { useLogout, useUser } from "../queries/AuthQuery";
 const NoteHeader = () => {
   const [open, setOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [currentLocation, setCurrentLocation] = useState("");
+  console.log(currentLocation);
   const location = useLocation();
   useEffect(() => {
     setCurrentLocation(location.pathname);
@@ -35,12 +38,27 @@ const NoteHeader = () => {
     setSearchOpen(!searchOpen);
   };
 
+  const logoutOutMutation = useLogout();
+
+  // const { data: user, isLoading: userLoading, isError: userError } = useUser();
+  // console.log(user);
+
   return (
     <div>
       <div className="flex h-14 mb-3 p-2 shadow-md  items-center justify-end">
-        <button className="" onClick={searchClick}>
-          <SearchIcon sx={{ width: "30px", height: "30px" }} />
+        {["/windNote", "/question", "/timeLine"].includes(currentLocation) && (
+          <button className="" onClick={searchClick}>
+            <SearchIcon sx={{ width: "30px", height: "30px" }} />
+          </button>
+        )}
+        <button
+          onClick={() => {
+            logoutOutMutation.mutate();
+          }}
+        >
+          <LogoutIcon />
         </button>
+
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <button className="mx-3">

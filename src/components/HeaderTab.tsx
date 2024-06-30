@@ -20,7 +20,7 @@ const HeaderTab = () => {
         className="p-1 border rounded-lg w-[30%] text-center ml-2"
         to="/timeline"
       >
-        タイムライン
+        ランキング
       </NavLink>
     </div>
   );

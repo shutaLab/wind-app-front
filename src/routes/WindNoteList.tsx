@@ -12,13 +12,14 @@ const WindNoteList = () => {
     data: DeleteNote[] | undefined;
     status: string;
   };
+  console.log(notes);
   return (
     <div>
       <NoteHeader />
       <HeaderTab />
       <div>
         {notes?.map((note) => (
-          <WindNote note={note} />
+          <WindNote key={note.id} note={note} />
         ))}
       </div>
 

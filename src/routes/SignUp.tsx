@@ -5,6 +5,8 @@ import { User } from "../types/user";
 import { signUpValidationShema } from "../utils/validationSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Button from "../components/Button";
+import { useSignUp } from "../queries/AuthQuery";
+import { z } from "zod";
 const SignUp = () => {
   const {
     register,
@@ -15,17 +17,17 @@ const SignUp = () => {
     resolver: zodResolver(signUpValidationShema),
   });
 
-  const onsubmit = (data: User) => {
+  const signUpMutation = useSignUp();
+
+  const onsubmit = (data: z.infer<typeof signUpValidationShema>) => {
     console.log(data);
+    signUpMutation.mutate(data);
   };
   return (
     <div className="flex justify-center items-center min-h-screen">
-      <div className="w-full max-w-xs md:max-w-lg">
-        <form
-          onSubmit={handleSubmit(onsubmit)}
-          className="bg-cream-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
-        >
-          <div className="mb-4">
+      <div className="w-full max-w-xs md:max-w-lg p-3">
+        <form onSubmit={handleSubmit(onsubmit)} className="">
+          {/* <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2">
               name
             </label>
@@ -39,11 +41,8 @@ const SignUp = () => {
             <p className=" text-red-700">
               {errors.name?.message as React.ReactNode}
             </p>
-          </div>
+          </div> */}
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
-              name
-            </label>
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 mb-3 text-gray-700 leading-tight focus:outline-none focus:border-black"
               id="email"
@@ -56,21 +55,18 @@ const SignUp = () => {
             </p>
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
-              Password
-            </label>
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 mb-3 text-gray-700  leading-tight focus:outline-none focus:border-black"
               id="password"
               type="password"
-              placeholder="******************"
+              placeholder="パスワード"
               {...register("password")}
             />
             <p className=" text-red-700">
               {errors.password?.message as React.ReactNode}
             </p>
           </div>
-          <div className="mb-4">
+          {/* <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2">
               Grade
             </label>
@@ -88,8 +84,8 @@ const SignUp = () => {
             <p className=" text-red-700">
               {errors.grade?.message as React.ReactNode}
             </p>
-          </div>
-          <div className="mb-4">
+          </div> */}
+          {/* <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2">
               SailNo.
             </label>
@@ -103,11 +99,16 @@ const SignUp = () => {
             <p className=" text-red-700">
               {errors.sailNo?.message as React.ReactNode}
             </p>
+          </div> */}
+          <div className="">
+            <Button
+              text="新規登録"
+              className=" bg-custom-green text-white w-full"
+            />
           </div>
-          <div className="flex items-center justify-between">
-            <Button text="SignUp" className="w-[45%]" />
-            <a className="" href="#">
-              Login here
+          <div className="flex justify-center mt-2">
+            <a className=" text-sm hover:text-gray-300" href="login">
+              ログインはこちら
             </a>
           </div>
         </form>

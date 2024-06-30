@@ -7,14 +7,14 @@ import {
 
 export const getQuestions = async () => {
   const { data } = await axios.get<WindQuestion[]>(
-    "https://serene-hollows-70259-0e810f44b7df.herokuapp.com/api/question"
+    "http://localhost:8000/api/question"
   );
   return data;
 };
 
 export const createQuestion = async (values: WindQuestion) => {
   const { data } = await axios.post<WindQuestion>(
-    "https://serene-hollows-70259-0e810f44b7df.herokuapp.com/api/question",
+    "http://localhost:8000/api/question",
     {
       content: values.content,
     }
@@ -24,7 +24,7 @@ export const createQuestion = async (values: WindQuestion) => {
 
 export const showQuestion = async (id: number) => {
   const { data } = await axios.get<WindQuestiondayo>(
-    `https://serene-hollows-70259-0e810f44b7df.herokuapp.com/api/question/${id}`
+    `http://localhost:8000/api/question/${id}`
   );
   return data;
 };
@@ -37,7 +37,7 @@ export const updateQuestion = async ({
   values: WindQuestion;
 }) => {
   const { data } = await axios.put<WindQuestion>(
-    `https://serene-hollows-70259-0e810f44b7df.herokuapp.com/api/question/${id}`,
+    `http://localhost:8000/api/question/${id}`,
     values
   );
   return data;
@@ -45,7 +45,7 @@ export const updateQuestion = async ({
 
 export const deleteQuestion = async (id: number) => {
   const { data } = await axios.delete<WindIdQuestion>(
-    `https://serene-hollows-70259-0e810f44b7df.herokuapp.com/api/question/${id}`
+    `http://localhost:8000/api/question/${id}`
   );
   return data;
 };

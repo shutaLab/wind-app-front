@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import { Avatar } from "@mui/material";
 import { DeleteNote, Note } from "../types/Note";
@@ -12,7 +13,12 @@ import {
 } from "../@/components/ui/dropdown-menu";
 import EditNoteModal from "./EditNoteModal";
 
-import { useDeleteNote, useUpdateNote } from "../queries/NoteQuery";
+import {
+  useDeleteNote,
+  useShowFavorite,
+  useUpdateFavorite,
+  useUpdateNote,
+} from "../queries/NoteQuery";
 import { Link } from "react-router-dom";
 import DeleteAlertDialog from "./DeleteAlertDialog";
 
@@ -34,8 +40,13 @@ const WindNote = ({ note }: { note: DeleteNote }) => {
     setModalOpen(false);
   };
 
+  const updateFavorite = useUpdateFavorite();
   const updateNote = useUpdateNote();
-
+  const { data: favorite, isLoading } = useShowFavorite(note.id);
+  const isFavorite = favorite && Object.keys(favorite).length > 0;
+  const handleFavoriteClick = () => {
+    updateFavorite.mutate(note.id);
+  };
   const truncateText = (text: string, length: number) => {
     return text.length > length ? text.substring(0, length) + "..." : text;
   };
@@ -72,10 +83,24 @@ const WindNote = ({ note }: { note: DeleteNote }) => {
             </DropdownMenu>
           </div>
         </div>
-        <div className="flex">
-          <FavoriteBorderIcon className="text-gray-500 mr-1" />
+        <div className="flex items-center">
+          <p className="mr-2"></p>
+
+          <button
+            onClick={() => {
+              handleFavoriteClick();
+            }}
+          >
+            {isFavorite ? (
+              <FavoriteIcon className="text-red-500 mr-1" />
+            ) : (
+              <FavoriteBorderIcon className="text-gray-500 mr-1" />
+            )}
+          </button>
           <p className="mr-2">3</p>
-          <BookmarkBorderIcon className="text-gray-500 mr-2" />
+          <button>
+            <BookmarkBorderIcon className="text-gray-500 mr-2" />
+          </button>
           <p className="flex mr-2">
             <Avatar sx={{ height: "25px", width: "25px" }} />
             <p className="text-gray-500 ml-2">山田脩太</p>

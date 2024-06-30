@@ -9,7 +9,7 @@ export const createAnswer = async ({
   values: WindAnswer;
 }) => {
   const { data } = await axios.post<WindAnswer>(
-    "https://serene-hollows-70259-0e810f44b7df.herokuapp.com/api/answer",
+    "http://localhost:8000/api/answer",
     {
       question_id: question_id,
       content: values.content,
