@@ -53,8 +53,8 @@ export const useDeleteNote = (navigate: (path: string) => void) => {
   });
 };
 
-export const useShowFavorite = (id: number) => {
-  return useQuery(["favorites", id], () => api.showFavorite(id));
+export const useCheckFavorite = (id: number) => {
+  return useQuery(["favorites", id], () => api.checkFavorite(id));
 };
 
 export const useUpdateFavorite = () => {
@@ -63,6 +63,7 @@ export const useUpdateFavorite = () => {
   return useMutation(api.updateFavorite, {
     onSuccess: () => {
       queryClient.invalidateQueries("favorites");
+      queryClient.invalidateQueries("notes");
     },
     onError: () => {
       toast.error("お気に入りに失敗しました");

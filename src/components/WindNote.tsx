@@ -4,7 +4,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import { Avatar } from "@mui/material";
-import { DeleteNote, Note } from "../types/Note";
+import { DeleteNote, Note, NoteWithFavorites } from "../types/Note";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,17 +15,16 @@ import EditNoteModal from "./EditNoteModal";
 
 import {
   useDeleteNote,
-  useShowFavorite,
+  useCheckFavorite,
   useUpdateFavorite,
   useUpdateNote,
 } from "../queries/NoteQuery";
 import { Link } from "react-router-dom";
 import DeleteAlertDialog from "./DeleteAlertDialog";
 
-const WindNote = ({ note }: { note: DeleteNote }) => {
+const WindNote = ({ note }: { note: NoteWithFavorites }) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
-
   const openDialog = () => {
     setIsDialogOpen(true);
   };
@@ -41,8 +40,7 @@ const WindNote = ({ note }: { note: DeleteNote }) => {
   };
 
   const updateFavorite = useUpdateFavorite();
-  const updateNote = useUpdateNote();
-  const { data: favorite, isLoading } = useShowFavorite(note.id);
+  const { data: favorite } = useCheckFavorite(note.id);
   const isFavorite = favorite && Object.keys(favorite).length > 0;
   const handleFavoriteClick = () => {
     updateFavorite.mutate(note.id);
@@ -97,7 +95,9 @@ const WindNote = ({ note }: { note: DeleteNote }) => {
               <FavoriteBorderIcon className="text-gray-500 mr-1" />
             )}
           </button>
-          <p className="mr-2">3</p>
+          <p className="mr-2 w-[1em]">
+            {note.note_favorites.length > 0 ? note.note_favorites.length : ""}
+          </p>
           <button>
             <BookmarkBorderIcon className="text-gray-500 mr-2" />
           </button>

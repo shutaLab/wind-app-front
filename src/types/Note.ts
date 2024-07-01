@@ -11,6 +11,12 @@ export interface DeleteNote {
   title: string;
   content: string;
 }
+export interface NoteWithFavorites {
+  id: number;
+  title: string;
+  content: string;
+  note_favorites: Favorite[];
+}
 
 export interface Favorite {
   user_id: number;

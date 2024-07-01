@@ -46,7 +46,14 @@ export const deleteNote = async (id: number) => {
   return data;
 };
 
-export const showFavorite = async (id: number) => {
+export const getFavorites = async (id: number) => {
+  const { data } = await axios.get<Favorite[]>(
+    `http://localhost:8000/api/windNote/${id}/favorites`
+  );
+  return data;
+};
+
+export const checkFavorite = async (id: number) => {
   const { data } = await axios.get<Favorite>(
     `http://localhost:8000/api/windNote/${id}/favorite`
   );
@@ -54,7 +61,7 @@ export const showFavorite = async (id: number) => {
 };
 
 export const updateFavorite = async (id: number) => {
-  const { data } = await axios.get<Favorite>(
+  const { data } = await axios.put<Favorite>(
     `http://localhost:8000/api/windNote/${id}/favorite`
   );
   return data;

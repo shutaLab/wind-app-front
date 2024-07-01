@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import axios from "axios";
-import { DeleteNote, Note } from "../types/Note";
+import { DeleteNote, Note, NoteWithFavorites } from "../types/Note";
 import WindNote from "../components/WindNote";
 import { useQuery } from "react-query";
 import { useNotes } from "../queries/NoteQuery";
@@ -9,7 +9,7 @@ import NoteHeader from "../components/NoteHeader";
 import HeaderTab from "../components/HeaderTab";
 const WindNoteList = () => {
   const { data: notes, status } = useNotes() as {
-    data: DeleteNote[] | undefined;
+    data: NoteWithFavorites[] | undefined;
     status: string;
   };
   console.log(notes);
