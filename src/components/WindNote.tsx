@@ -21,10 +21,13 @@ import {
 } from "../queries/NoteQuery";
 import { Link } from "react-router-dom";
 import DeleteAlertDialog from "./DeleteAlertDialog";
-
+import { useUser } from "../queries/AuthQuery";
 const WindNote = ({ note }: { note: NoteWithFavorites }) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
+  const { data: userData } = useUser();
+
+  console.log(userData);
   const openDialog = () => {
     setIsDialogOpen(true);
   };

@@ -43,7 +43,7 @@ const Departure = () => {
     <div className="">
       <NoteHeader />
       <DepartureTable />
-      <div className="px-3 mt-3">
+      <div className="px-3 mt-3 mb-5">
         <Button
           className="w-full bg-custom-green text-white"
           text="出艇する"
@@ -185,7 +185,10 @@ const Departure = () => {
           </DrawerContent>
         </Drawer>
       </div>
-      <Footer />
+      <div className="mb-20"> </div>
+      <div className="mt-15">
+        <Footer />
+      </div>
     </div>
   );
 };
