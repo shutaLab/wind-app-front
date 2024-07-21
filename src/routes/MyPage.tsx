@@ -10,14 +10,18 @@ import {
   Tab,
   Tabs,
 } from "@mui/material";
-import { TabContext, TabList, TabPanel } from "@mui/lab";
+import { ClockPicker, TabContext, TabList, TabPanel } from "@mui/lab";
 import { styled } from "@mui/material/styles";
 import MenuIcon from "@mui/icons-material/Menu";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-
+import { LocalizationProvider, TimePicker } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import dayjs, { Dayjs } from "dayjs";
 const MyPage = () => {
-  const [value, setValue] = useState(0);
-
+  const [value, setValue] = useState(1);
+  const handleTime = (time: Dayjs | null) => {
+    console.log(time?.toISOString());
+  };
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
   };
@@ -68,6 +72,14 @@ const MyPage = () => {
             <TabPanel value="3">Item Three</TabPanel>
           </TabContext>
         </div>
+      </div>
+      <div>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <TimePicker
+            onChange={(timeEnd) => handleTime(timeEnd)}
+            ampm={false}
+          />
+        </LocalizationProvider>
       </div>
       <Footer />
     </div>
