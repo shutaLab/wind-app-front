@@ -3,7 +3,6 @@ import EditIcon from "@mui/icons-material/Edit";
 import SearchIcon from "@mui/icons-material/Search";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import CreateModal from "./CreateModal";
-import { Badge } from "@mui/material";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 import LogoutIcon from "@mui/icons-material/Logout";
 import {
@@ -40,8 +39,8 @@ const NoteHeader = () => {
 
   const logoutOutMutation = useLogout();
 
-  // const { data: user, isLoading: userLoading, isError: userError } = useUser();
-  // console.log(user);
+  const { data: user, isLoading: userLoading, isError: userError } = useUser();
+  console.log(user);
 
   return (
     <div>
@@ -62,11 +61,11 @@ const NoteHeader = () => {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <button className="mx-3">
-              <Badge badgeContent={2} color="error">
+              {/* <Badge badgeContent={2} color="error">
                 <NotificationsNoneOutlinedIcon
                   sx={{ width: "30px", height: "30px" }}
                 />
-              </Badge>
+              </Badge> */}
             </button>
           </DropdownMenuTrigger>
           <DropdownMenuContent>

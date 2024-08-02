@@ -10,7 +10,6 @@ import {
   DrawerDescription,
   DrawerFooter,
   DrawerHeader,
-  DrawerTitle,
   DrawerTrigger,
 } from "../@/components/ui/drawer";
 
@@ -29,14 +28,24 @@ import {
   TableRow,
 } from "../@/components/ui/table";
 import NoteHeader from "../components/NoteHeader";
+import CreateDepartureModal from "../components/CreateDepartureModal";
 
 const Departure = () => {
   const [open, setOpen] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   const showDrawer = () => {
-    setOpen(true);
+    setDrawerOpen(true);
   };
   const onClose = () => {
+    setDrawerOpen(false);
+  };
+
+  const clickModalOpen = () => {
+    setOpen(true);
+  };
+
+  const clickModalClose = () => {
     setOpen(false);
   };
   return (
@@ -47,7 +56,7 @@ const Departure = () => {
         <Button
           className="w-full bg-custom-green text-white"
           text="出艇する"
-          onClick={showDrawer}
+          onClick={clickModalOpen}
         />
         <Drawer>
           <DrawerTrigger className="w-full">
@@ -179,6 +188,7 @@ const Departure = () => {
                 <Button
                   className="w-full bg-custom-gray mt-3 text-white"
                   text="キャンセル"
+                  onClick={onClose}
                 />
               </DrawerClose>
             </DrawerFooter>
@@ -189,6 +199,7 @@ const Departure = () => {
       <div className="mt-15">
         <Footer />
       </div>
+      <CreateDepartureModal open={open} handleClose={clickModalClose} />
     </div>
   );
 };

@@ -9,12 +9,16 @@ ul, li {
     margin: 0px;
 }
 
-.active {
-  background: #5A656A; /* アクティブなリンクの色を赤に変更 */
+#tab.active {
+  background: #5A656A; 
   color: white;
 }
 
 .fc-event.is-absent {
   background-color: #E34449 !important;
   border-color: #E34449 !important;
+}
+
+#footer.active {
+  color: #E81A48 !important;
 }

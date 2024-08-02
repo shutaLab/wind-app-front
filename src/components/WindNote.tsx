@@ -3,7 +3,7 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
-import { Avatar } from "@mui/material";
+// import { Avatar } from "@mui/material";
 import { DeleteNote, Note, NoteWithFavorites } from "../types/Note";
 import {
   DropdownMenu,
@@ -105,7 +105,7 @@ const WindNote = ({ note }: { note: NoteWithFavorites }) => {
             <BookmarkBorderIcon className="text-gray-500 mr-2" />
           </button>
           <p className="flex mr-2">
-            <Avatar sx={{ height: "25px", width: "25px" }} />
+            {/* <Avatar sx={{ height: "25px", width: "25px" }} /> */}
             <p className="text-gray-500 ml-2">山田脩太</p>
           </p>
           <p className="text-gray-500">4月20日</p>

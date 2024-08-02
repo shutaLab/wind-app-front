@@ -3,7 +3,7 @@ import { CreateHeaderModalProps } from "../types/ModalProps";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Note } from "../types/Note";
-import { NoteValidationShema } from "../utils/validationSchema";
+import { NoteValidationShema } from "../@/components/ui/validationSchema";
 import {
   Form,
   FormControl,

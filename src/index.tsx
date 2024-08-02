@@ -9,7 +9,6 @@ import Login from "./routes/Login";
 import WindNoteList from "./routes/WindNoteList";
 import Home from "./routes/Home";
 import WindCalendar from "./routes/WindCalendar";
-import MyPage from "./routes/MyPage";
 import Departure from "./routes/Departure";
 import Meta from "./components/Meta";
 import NoteTimeline from "./routes/NoteTimeline";
@@ -26,6 +25,7 @@ import {
 import Answer from "./routes/AnswerList";
 import WindNote from "./routes/WindNote";
 import SignIn from "./routes/Login";
+import { MyPage } from "./routes/MyPage";
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );

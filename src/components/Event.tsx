@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { Calendar } from "../types/Calendar";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import EventIcon from "@mui/icons-material/Event";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,7 +7,8 @@ import {
   DropdownMenuTrigger,
 } from "../@/components/ui/dropdown-menu";
 import EventsAlertDialog from "./EventsAlertDialog";
-
+import EventNoteOutlinedIcon from "@mui/icons-material/EventNoteOutlined";
+import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
 interface EventProps {
   event: Calendar;
 }
@@ -35,7 +34,7 @@ const Event: React.FC<EventProps> = ({ event }) => {
     <>
       <div className="flex p-2 justify-between">
         <div className="flex">
-          <EventIcon className="text-gray-500 mr-2" />
+          <EventNoteOutlinedIcon className="text-gray-500 mr-2" />
           <div className="flex flex-col text-left">
             {event.is_absent ? <p className="">欠席連絡</p> : <></>}
             <p className="text-lg">{event.title}</p>
@@ -46,7 +45,7 @@ const Event: React.FC<EventProps> = ({ event }) => {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <button>
-                <MoreHorizIcon />
+                <MoreVertOutlinedIcon />
               </button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-56">

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { WindIdQuestion } from "../types/Question";
+import { WindAnswer, WindIdQuestion } from "../types/Question";
 import { useParams } from "react-router-dom";
 import Footer from "../components/Footer";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
@@ -92,7 +92,7 @@ const AnswerList = () => {
           </button>
         </div>
       </div>
-      {answers?.map((answer) => (
+      {answers?.map((answer: WindAnswer) => (
         <Answer answer={answer} />
       ))}
       <Footer />

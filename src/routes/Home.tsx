@@ -40,7 +40,7 @@ const Home = () => {
           <p>山田脩太</p>
           <p>副島朝水</p>
           <p>よへな</p>
-          <p>山田脩太</p>
+          <p className="">山田脩太</p>
         </div>
       </div>
       <Footer />

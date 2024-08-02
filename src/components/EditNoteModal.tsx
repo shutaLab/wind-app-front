@@ -1,9 +1,9 @@
-import { Dialog, DialogContent } from "@mui/material";
+// import { Dialog, DialogContent } from "@mui/material";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { DeleteNote, Note } from "../types/Note";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { NoteValidationShema } from "../utils/validationSchema";
+import { NoteValidationShema } from "../@/components/ui/validationSchema";
 import { z } from "zod";
 import {
   Form,
@@ -46,7 +46,7 @@ const EditNoteModal: React.FC<EditNoteModalProps> = ({
 
   return (
     <div>
-      <Dialog
+      {/* <Dialog
         open={modalOpen}
         onClose={clickModalClose}
         maxWidth="xl"
@@ -95,7 +95,7 @@ const EditNoteModal: React.FC<EditNoteModalProps> = ({
             </form>
           </Form>
         </DialogContent>
-      </Dialog>
+      </Dialog> */}
     </div>
   );
 };

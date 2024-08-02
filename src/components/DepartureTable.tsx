@@ -5,6 +5,7 @@ import { useGetDepartures } from "../queries/DepartureQuery";
 import { format, parseISO, subHours } from "date-fns";
 import { EventClickArg } from "@fullcalendar/core";
 import { useState } from "react";
+import { Departure } from "../types/Departure";
 
 const DepartureTable = () => {
   const StyleWrapper = styled.div`
@@ -56,27 +57,30 @@ const DepartureTable = () => {
   };
 
   const { data } = useGetDepartures();
-  
+
   const resources = data
     ? Array.from(
         new Map(
-          data.map((departure) => [
+          data.map((departure: Departure) => [
             departure.user?.id,
-            { id: departure.user?.id, title: departure.user?.user_profile?.name || "Unknown" },
+            {
+              id: departure.user?.id,
+              title: departure.user?.user_profile?.name || "Unknown",
+            },
           ])
         ).values()
       )
     : [];
 
   const events = data
-    ? data.map((departure) => ({
+    ? data.map((departure: Departure) => ({
         id: departure.id,
         resourceId: departure.user.id.toString(),
         start: formatTime(departure.start),
         end: formatTime(departure.end),
         title: departure.intra_user?.user_profile?.name || "",
         backgroundColor: departure.intra_user_id ? "#8EAAE5" : "#FF6347",
-        user: departure.user
+        user: departure.user,
       }))
     : [];
 
@@ -84,9 +88,8 @@ const DepartureTable = () => {
 
   const handleEventClick = (clickInfo: EventClickArg) => {
     console.log(clickInfo.event.id);
-    console.log(clickInfo.event.extendedProps.user.user_profile.name)
+    console.log(clickInfo.event.extendedProps.user.user_profile.name);
   };
-
 
   return (
     <div className="">
