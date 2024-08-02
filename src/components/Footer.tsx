@@ -1,63 +1,76 @@
-import { BottomNavigation, BottomNavigationAction } from "@mui/material";
+import { LinkBreak1Icon } from "@radix-ui/react-icons";
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import { HomeOutlined } from "@mui/icons-material";
-import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
-import TripOriginOutlinedIcon from "@mui/icons-material/TripOriginOutlined";
+import TripOriginIcon from "@mui/icons-material/TripOrigin";
 import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
+import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
 import EditNoteOutlinedIcon from "@mui/icons-material/EditNoteOutlined";
-
 const Footer = () => {
-  const [bnValue, setBnValue] = useState<string | null>(null); // 初期値を null に設定
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  // マウント時に bnValue の初期値を設定
-  useEffect(() => {
-    const path = location.pathname.split("/")[1];
-    setBnValue(path || "home");
-  }, []);
-
-  // URLパスの変更時に bnValue を更新
-  useEffect(() => {
-    const path = location.pathname.split("/")[1];
-    setBnValue(path || "home");
-  }, [location.pathname]);
-
   return (
-    <div className="fixed bottom-0 w-full mt-[30px]">
-      <BottomNavigation
-        sx={{ position: "fixed", bottom: 0, width: "100%" }}
-        value={bnValue}
-        onChange={(event, value) => {
-          setBnValue(value);
-          navigate(`/${value}`);
-        }}
-      >
-        <BottomNavigationAction
-          value="home"
-          className="m-0 p-0"
-          icon={<HomeOutlined />}
-        />
-        <BottomNavigationAction
-          value="calendar"
-          icon={<CalendarMonthOutlinedIcon />}
-        />
-
-        <BottomNavigationAction
-          value="departure"
-          icon={<TripOriginOutlinedIcon />}
-        />
-        <BottomNavigationAction
-          value="windNote"
-          icon={<EditNoteOutlinedIcon />}
-        />
-        <BottomNavigationAction
-          value="myPage"
-          icon={<PersonOutlineOutlinedIcon />}
-        />
-      </BottomNavigation>
+    <div className="fixed bottom-0 w-full mt-[30px] bg-white border-solid border-t ">
+      <div className="flex justify-center ">
+        <NavLink
+          id="footer"
+          className="p-1 text-gray-600  text-center w-[20%]"
+          to="/home"
+        >
+          <div className="flex justify-center flex-col items-center text-sm ">
+            <div>
+              <HomeOutlinedIcon />
+            </div>
+            <p className="text-xs">ホーム</p>
+          </div>
+        </NavLink>
+        <NavLink
+          id="footer"
+          className="p-1 text-gray-600 text-center w-[20%]"
+          to="/calendar"
+        >
+          <div className="flex justify-center flex-col items-center text-sm">
+            <div>
+              <CalendarMonthOutlinedIcon />
+            </div>
+            <p className="text-xs">カレンダー</p>
+          </div>
+        </NavLink>
+        <NavLink
+          id="footer"
+          className="p-1 text-gray-600 text-center w-[20%]"
+          to="/departure"
+        >
+          <div className="flex justify-center flex-col items-center text-sm">
+            <div>
+              <TripOriginIcon />
+            </div>
+            <p className="text-xs">出艇</p>
+          </div>
+        </NavLink>
+        <NavLink
+          id="footer"
+          className="p-1 text-gray-600 text-center w-[20%]"
+          to="/windNote"
+        >
+          <div className="flex justify-center flex-col items-center text-sm ">
+            <div>
+              <EditNoteOutlinedIcon />
+            </div>
+            <p className="text-xs">ノート</p>
+          </div>
+        </NavLink>
+        <NavLink
+          id="footer"
+          className="p-1 text-gray-600 text-center w-[20%]"
+          to="/myPage"
+        >
+          <div className="flex justify-center flex-col items-center text-sm text-center">
+            <div>
+              <PermIdentityOutlinedIcon />
+            </div>
+            <p className="text-xs">マイページ</p>
+          </div>
+        </NavLink>
+      </div>
     </div>
   );
 };

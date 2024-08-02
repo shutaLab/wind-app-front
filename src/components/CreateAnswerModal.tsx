@@ -11,7 +11,7 @@ import {
   FormMessage,
 } from "../@/components/ui/form";
 import { ShadTextarea } from "../@/components/ui/textarea";
-import { createQuestionValidationShema } from "../utils/validationSchema";
+import { createQuestionValidationShema } from "../@/components/ui/validationSchema";
 import { CreateHeaderModalProps } from "../types/ModalProps";
 import { WindQuestion } from "../types/Question";
 import { useCreateQuestion } from "../queries/QuestionQuery";

@@ -1,27 +1,12 @@
-import React, { useState } from "react";
-import Footer from "../components/Footer";
-import Ranking from "../components/Ranking";
-
-import { TabContext, TabList, TabPanel } from "@mui/lab";
-import MenuIcon from "@mui/icons-material/Menu";
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "../@/components/ui/table";
-import Button from "../components/Button";
-import { Tabs, TabsList, TabsTrigger } from "../@/components/ui/tabs";
-import { TabsContent } from "@radix-ui/react-tabs";
 import FullCalendar from "@fullcalendar/react";
-import dayGridPlugin from "@fullcalendar/daygrid";
-import timeGridPlugin from "@fullcalendar/timegrid";
 import resourceTimeGridPlugin from "@fullcalendar/resource-timegrid";
 import styled from "@emotion/styled";
+import { useGetDepartures } from "../queries/DepartureQuery";
+import { format, parseISO, subHours } from "date-fns";
+import { EventClickArg } from "@fullcalendar/core";
+import { useState } from "react";
+import { Departure } from "../types/Departure";
+
 const DepartureTable = () => {
   const StyleWrapper = styled.div`
     .fc .fc-toolbar.fc-header-toolbar {
@@ -65,73 +50,47 @@ const DepartureTable = () => {
     }
   `;
 
-  const [value, setValue] = useState(0);
-
-  const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
-    setValue(newValue);
+  const formatTime = (dateString: string) => {
+    const date = parseISO(dateString);
+    const adjustedDate = subHours(date, 9);
+    return format(adjustedDate, "yyyy-MM-dd'T'HH:mm:ss");
   };
-  const resources = [
-    { id: "a", title: "山田脩太" },
-    { id: "b", title: "𩜙平名春人" },
-    { id: "c", title: "Task C" },
-    { id: "d", title: "Task D" },
-    { id: "e", title: "Task E" },
-    { id: "f", title: "Task F" },
-    { id: "g", title: "Task G" },
-  ];
 
-  const events = [
-    {
-      id: "1",
-      resourceId: "a",
-      start: "2023-06-14T09:00:00",
-      end: "2023-06-14T11:25:00",
-      title: "Event 1",
-      backgroundColor: "#8EAAE5",
-    },
-    {
-      id: "2",
-      resourceId: "b",
-      start: "2023-06-14T10:00:00",
-      end: "2023-06-14T12:00:00",
-      title: "Event 2",
-    },
-    {
-      id: "3",
-      resourceId: "c",
-      start: "2023-06-14T14:00:00",
-      end: "2023-06-14T16:00:00",
-      title: "Event 3",
-    },
-    {
-      id: "4",
-      resourceId: "d",
-      start: "2023-06-14T14:00:00",
-      end: "2023-06-14T16:00:00",
-      title: "Event 3",
-    },
-    {
-      id: "5",
-      resourceId: "e",
-      start: "2023-06-14T14:00:00",
-      end: "2023-06-14T16:00:00",
-      title: "Event 3",
-    },
-    {
-      id: "6",
-      resourceId: "f",
-      start: "2023-06-14T14:00:00",
-      end: "2023-06-14T16:00:00",
-      title: "Event 3",
-    },
-    {
-      id: "7",
-      resourceId: "g",
-      start: "2023-06-14T14:00:00",
-      end: "2023-06-14T16:00:00",
-      title: "Event 3",
-    },
-  ];
+  const { data } = useGetDepartures();
+
+  const resources = data
+    ? Array.from(
+        new Map(
+          data.map((departure: Departure) => [
+            departure.user?.id,
+            {
+              id: departure.user?.id,
+              title: departure.user?.user_profile?.name || "Unknown",
+            },
+          ])
+        ).values()
+      )
+    : [];
+
+  const events = data
+    ? data.map((departure: Departure) => ({
+        id: departure.id,
+        resourceId: departure.user.id.toString(),
+        start: formatTime(departure.start),
+        end: formatTime(departure.end),
+        title: departure.intra_user?.user_profile?.name || "",
+        backgroundColor: departure.intra_user_id ? "#8EAAE5" : "#FF6347",
+        user: departure.user,
+      }))
+    : [];
+
+  console.log(data);
+
+  const handleEventClick = (clickInfo: EventClickArg) => {
+    console.log(clickInfo.event.id);
+    console.log(clickInfo.event.extendedProps.user.user_profile.name);
+  };
+
   return (
     <div className="">
       <div className="px-3">
@@ -143,13 +102,14 @@ const DepartureTable = () => {
             resources={resources}
             height="70vh"
             events={events}
-            initialDate="2023-06-14"
+            initialDate="2024-07-10"
             slotMinTime="09:00:00"
             slotMaxTime="18:00:00"
             allDaySlot={false}
             locale="ja"
             contentHeight="auto"
             schedulerLicenseKey="CC-Attribution-NonCommercial-NoDerivatives"
+            eventClick={handleEventClick}
           />
         </StyleWrapper>
       </div>

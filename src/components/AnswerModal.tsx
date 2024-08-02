@@ -1,9 +1,9 @@
-import { Dialog, DialogContent } from "@mui/material";
+// import { Dialog, DialogContent } from "@mui/material";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Note } from "../types/Note";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createAnswerValidationShema } from "../utils/validationSchema";
+import { createAnswerValidationShema } from "../@/components/ui/validationSchema";
 import { z } from "zod";
 import {
   Form,
@@ -42,7 +42,7 @@ const AnserModal: React.FC<ModalProps> = ({
 
   return (
     <div>
-      <Dialog
+      {/* <Dialog
         open={modalOpen}
         onClose={clickModalClose}
         maxWidth="xl"
@@ -74,7 +74,7 @@ const AnserModal: React.FC<ModalProps> = ({
             </form>
           </Form>
         </DialogContent>
-      </Dialog>
+      </Dialog> */}
     </div>
   );
 };

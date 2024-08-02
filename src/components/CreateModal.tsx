@@ -1,4 +1,4 @@
-import { Dialog, DialogActions, DialogContent } from "@mui/material";
+// import { Dialog, DialogActions, DialogContent } from "@mui/material";
 import React from "react";
 import { CreateHeaderModalProps } from "../types/ModalProps";
 import CreateQuestion from "./CreateQuestion";
@@ -36,14 +36,14 @@ const CreateModal: React.FC<CreateHeaderModalProps> = ({
 
   return (
     <div>
-      <Dialog
+      {/* <Dialog
         open={modalOpen}
         onClose={clickModalClose}
         maxWidth="xl"
         fullWidth
       >
         <DialogContent>{renderContent()}</DialogContent>
-      </Dialog>
+      </Dialog> */}
     </div>
   );
 };

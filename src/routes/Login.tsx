@@ -2,7 +2,7 @@ import "../index.css";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { User } from "../types/user";
-import { signUpValidationShema } from "../utils/validationSchema";
+import { signUpValidationShema } from "../@/components/ui/validationSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Button from "../components/Button";
 import { useLogin, useSignUp } from "../queries/AuthQuery";

@@ -1,11 +1,11 @@
 import * as React from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import { DateFormatter, DayPicker } from "react-day-picker";
 import { ja } from "date-fns/locale";
 import { format } from "date-fns";
 
 import { cn } from "../../lib/utils";
 import { buttonVariants } from "../../components/ui/button";
+import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons";
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker>;
 
@@ -62,8 +62,8 @@ function Calendar({
         ...classNames,
       }}
       components={{
-        IconLeft: ({ ...props }) => <ChevronLeft className="h-4 w-4" />,
-        IconRight: ({ ...props }) => <ChevronRight className="h-4 w-4" />,
+        IconLeft: ({ ...props }) => <ChevronLeftIcon className="h-4 w-4" />,
+        IconRight: ({ ...props }) => <ChevronRightIcon className="h-4 w-4" />,
       }}
       {...props}
     />

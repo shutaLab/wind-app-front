@@ -1,5 +1,4 @@
 import * as React from "react";
-import { CalendarIcon } from "lucide-react";
 import { addDays, format } from "date-fns";
 import { ja } from "date-fns/locale";
 import { DateRange } from "react-day-picker";
@@ -57,7 +56,7 @@ export function DatePickerDemo({
               !date && "text-muted-foreground"
             )}
           >
-            <CalendarIcon className="mr-2 h-4 w-4" />
+            {/* <CalendarIcon className="mr-2 h-4 w-4" /> */}
             {fromDate ? (
               toDate ? (
                 <>
