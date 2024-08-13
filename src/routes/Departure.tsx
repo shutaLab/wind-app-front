@@ -29,6 +29,12 @@ import {
 } from "../@/components/ui/table";
 import NoteHeader from "../components/NoteHeader";
 import CreateDepartureModal from "../components/CreateDepartureModal";
+import {
+  IntraApproveClaim,
+  createDepartureEvent,
+  noti,
+} from "../api/departureApi";
+import { notification } from "../api/authApi";
 
 const Departure = () => {
   const [open, setOpen] = useState(false);
@@ -48,6 +54,24 @@ const Departure = () => {
   const clickModalClose = () => {
     setOpen(false);
   };
+
+  const handle = () => {
+    console.log("a");
+    createDepartureEvent();
+  };
+  const handlecClaim = () => {
+    IntraApproveClaim();
+  };
+  const not = () => {
+    notification();
+  };
+
+  const notif = () => {
+    noti();
+  };
+
+  notif();
+  not();
   return (
     <div className="">
       <NoteHeader />
@@ -195,7 +219,18 @@ const Departure = () => {
           </DrawerContent>
         </Drawer>
       </div>
-      <div className="mb-20"> </div>
+      <div className="mb-20">
+        <Button
+          className="bg-slate-500 text-white"
+          onClick={handle}
+          text="出艇"
+        />
+        <Button
+          className="bg-slate-500 text-white"
+          onClick={handlecClaim}
+          text="イントラする"
+        />
+      </div>
       <div className="mt-15">
         <Footer />
       </div>
