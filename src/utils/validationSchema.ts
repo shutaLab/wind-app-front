@@ -34,3 +34,9 @@ export const CalendarEventValidationShema = z.object({
   end: z.string({ required_error: "終了日を入力してください" }),
   is_absent: z.boolean().optional(),
 });
+
+export const DepartureValidationShema = z.object({
+  description: z.string().optional(),
+  start: z.string({ required_error: "開始日を入力してください" }),
+  end: z.string({ required_error: "終了日を入力してください" }),
+});

@@ -35,3 +35,8 @@ export const logout = async () => {
   const { data } = await axios.post<User>("http://localhost:8000/api/logout");
   return data;
 };
+
+export const notification = async () => {
+  const { data } = await axios.get("http://localhost:8000/api/notifications");
+  return data;
+};

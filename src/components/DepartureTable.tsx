@@ -6,50 +6,10 @@ import { format, parseISO, subHours } from "date-fns";
 import { EventClickArg } from "@fullcalendar/core";
 import { useState } from "react";
 import { Departure } from "../types/Departure";
+import DepartureEventModal from "./DepartureEventModal";
+import StyleWrapper from "./StyleWrapper";
 
 const DepartureTable = () => {
-  const StyleWrapper = styled.div`
-    .fc .fc-toolbar.fc-header-toolbar {
-      margin-bottom: 0;
-    }
-    .fc .fc-toolbar-title {
-      font-size: 1.3rem;
-      color: #37362f;
-    }
-    .fc .fc-button-primary {
-      font-size: 0.75rem;
-      background-color: #ffffff00;
-      color: #acaba9;
-      border: none;
-      outline: none;
-    }
-    .fc .fc-toolbar {
-      justify-content: center;
-    }
-
-    .fc-today-button {
-      background-color: #ffffff00;
-      color: #37362f;
-      border: none;
-      outline: none;
-    }
-    .fc .fc-button-primary:not(:disabled):active,
-    .fc .fc-button-primary:not(:disabled).fc-button-active {
-      background-color: #ffffff00;
-      color: #acaba9;
-      box-shadow: none;
-    }
-    .fc .fc-button-primary:not(:disabled):focus,
-    .fc .fc-button-primary:not(:disabled).fc-button-focus {
-      background-color: #ffffff00;
-      color: #acaba9;
-      box-shadow: none;
-    }
-    .fc .fc-today-button:disabled {
-      opacity: 1;
-    }
-  `;
-
   const formatTime = (dateString: string) => {
     const date = parseISO(dateString);
     const adjustedDate = subHours(date, 9);
@@ -57,7 +17,7 @@ const DepartureTable = () => {
   };
 
   const { data } = useGetDepartures();
-
+  const [open, setOpen] = useState(false);
   const resources = data
     ? Array.from(
         new Map(
@@ -75,7 +35,7 @@ const DepartureTable = () => {
   const events = data
     ? data.map((departure: Departure) => ({
         id: departure.id,
-        resourceId: departure.user.id.toString(),
+        resourceId: departure.user?.id.toString(),
         start: formatTime(departure.start),
         end: formatTime(departure.end),
         title: departure.intra_user?.user_profile?.name || "",
@@ -84,11 +44,17 @@ const DepartureTable = () => {
       }))
     : [];
 
+  console.log(events);
+
   console.log(data);
 
   const handleEventClick = (clickInfo: EventClickArg) => {
-    console.log(clickInfo.event.id);
-    console.log(clickInfo.event.extendedProps.user.user_profile.name);
+    setOpen(true);
+    // console.log(clickInfo.event.id);
+    // console.log(clickInfo.event.extendedProps.user.user_profile.name);
+  };
+  const handleClose = () => {
+    setOpen(false);
   };
 
   return (
@@ -102,7 +68,7 @@ const DepartureTable = () => {
             resources={resources}
             height="70vh"
             events={events}
-            initialDate="2024-07-10"
+            initialDate="2024-08-11"
             slotMinTime="09:00:00"
             slotMaxTime="18:00:00"
             allDaySlot={false}
@@ -113,6 +79,7 @@ const DepartureTable = () => {
           />
         </StyleWrapper>
       </div>
+      <DepartureEventModal open={open} handleClose={handleClose} />
     </div>
   );
 };
