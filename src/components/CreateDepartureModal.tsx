@@ -56,6 +56,14 @@ const CreateDepartureModal: React.FC<CreateNoteModalProps> = ({
     const iso8601String = dayjs(dateTimeString).add(9, "hour").toISOString(); // 9時間追加してからISO 8601形式に変換
     console.log(iso8601String);
   };
+
+  const [selectedDate, setSelectedDate] = useState("today");
+  console.log(selectedDate);
+
+  const handleDateChange = (event: any) => {
+    setSelectedDate(event.target.value);
+  };
+
   return (
     <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent>
@@ -69,7 +77,9 @@ const CreateDepartureModal: React.FC<CreateNoteModalProps> = ({
                   id="today"
                   name="date"
                   className="hidden peer"
+                  value={dayjs().format("YYYY-MM-DD")}
                   defaultChecked
+                  onChange={handleDateChange}
                 />
                 <label
                   htmlFor="today"
@@ -87,6 +97,8 @@ const CreateDepartureModal: React.FC<CreateNoteModalProps> = ({
                   id="tomorrow"
                   name="date"
                   className=" hidden peer"
+                  value={dayjs().add(1, "day").format("YYYY-MM-DD")}
+                  onChange={handleDateChange}
                 />
                 <label
                   htmlFor="tomorrow"

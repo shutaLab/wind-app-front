@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Footer from "../components/Footer";
-
 import Button from "../components/Button";
 import DepartureTable from "../components/DepartureTable";
 import {
@@ -32,7 +31,7 @@ import CreateDepartureModal from "../components/CreateDepartureModal";
 import {
   IntraApproveClaim,
   createDepartureEvent,
-  noti,
+  // noti,
 } from "../api/departureApi";
 import { notification } from "../api/authApi";
 
@@ -66,11 +65,11 @@ const Departure = () => {
     notification();
   };
 
-  const notif = () => {
-    noti();
-  };
+  // const notif = () => {
+  //   noti();
+  // };
 
-  notif();
+  // notif();
   not();
   return (
     <div className="">
