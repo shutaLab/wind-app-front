@@ -1,8 +1,8 @@
 export type User = {
-  // id: number;
+  id?: number;
   email: string;
   password: string;
-  user_profile?: UserProfile
+  user_profile?: UserProfile;
 };
 
 export type UserProfile = {
@@ -11,4 +11,4 @@ export type UserProfile = {
   sailNo: string;
   introduction: string;
   profileImage: string;
-}
+};

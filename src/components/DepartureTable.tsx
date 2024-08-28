@@ -5,9 +5,9 @@ import { useGetDepartures } from "../queries/DepartureQuery";
 import { format, parseISO, subHours } from "date-fns";
 import { EventClickArg } from "@fullcalendar/core";
 import { useState } from "react";
-import { Departure } from "../types/Departure";
-import DepartureEventModal from "./DepartureEventModal";
 import StyleWrapper from "./StyleWrapper";
+import DepartureEventModal from "./DepartureEventModal";
+import { DepartureType } from "../types/Departure";
 
 const DepartureTable = () => {
   const formatTime = (dateString: string) => {
@@ -21,10 +21,10 @@ const DepartureTable = () => {
   const resources = data
     ? Array.from(
         new Map(
-          data.map((departure: Departure) => [
+          data.map((departure: DepartureType) => [
             departure.user?.id,
             {
-              id: departure.user?.id,
+              id: departure.user?.id?.toString() ?? "",
               title: departure.user?.user_profile?.name || "Unknown",
             },
           ])
@@ -33,9 +33,9 @@ const DepartureTable = () => {
     : [];
 
   const events = data
-    ? data.map((departure: Departure) => ({
-        id: departure.id,
-        resourceId: departure.user?.id.toString(),
+    ? data.map((departure: DepartureType) => ({
+        id: departure.id?.toString(),
+        resourceId: departure.user?.id?.toString() ?? "",
         start: formatTime(departure.start),
         end: formatTime(departure.end),
         title: departure.intra_user?.user_profile?.name || "",

@@ -54,10 +54,10 @@ const Departure = () => {
     setOpen(false);
   };
 
-  const handle = () => {
-    console.log("a");
-    createDepartureEvent();
-  };
+  // const handle = () => {
+  //   console.log("a");
+  //   createDepartureEvent();
+  // };
   const handlecClaim = () => {
     IntraApproveClaim();
   };
@@ -219,7 +219,7 @@ const Departure = () => {
         </Drawer>
       </div>
       <div className="mb-20">
-        <Button
+        {/* <Button
           className="bg-slate-500 text-white"
           onClick={handle}
           text="出艇"
@@ -228,7 +228,7 @@ const Departure = () => {
           className="bg-slate-500 text-white"
           onClick={handlecClaim}
           text="イントラする"
-        />
+        /> */}
       </div>
       <div className="mt-15">
         <Footer />

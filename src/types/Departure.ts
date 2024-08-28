@@ -1,11 +1,12 @@
 import { User } from "./user";
 
-export interface Departure {
-  id?: string;
-  intra_user_id?: number;
+export interface DepartureType {
+  id?: number;
+  date: string;
   start: string;
   end: string;
-  description?: string;
-  user: any;
+  intra_user_id?: number;
   intra_user?: User;
+  description?: string;
+  user?: User;
 }
