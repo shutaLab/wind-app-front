@@ -6,7 +6,7 @@ export const useGetDepartures = () => {
   return useQuery("departures", () => api.getDepartures());
 };
 
-export const useCreateCalendaarEvent = () => {
+export const useCreateDepartureEvent = () => {
   const queryClient = useQueryClient();
 
   return useMutation(api.createDepartureEvent, {

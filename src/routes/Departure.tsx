@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Footer from "../components/Footer";
-
 import Button from "../components/Button";
 import DepartureTable from "../components/DepartureTable";
 import {
@@ -32,7 +31,7 @@ import CreateDepartureModal from "../components/CreateDepartureModal";
 import {
   IntraApproveClaim,
   createDepartureEvent,
-  noti,
+  // noti,
 } from "../api/departureApi";
 import { notification } from "../api/authApi";
 
@@ -55,10 +54,10 @@ const Departure = () => {
     setOpen(false);
   };
 
-  const handle = () => {
-    console.log("a");
-    createDepartureEvent();
-  };
+  // const handle = () => {
+  //   console.log("a");
+  //   createDepartureEvent();
+  // };
   const handlecClaim = () => {
     IntraApproveClaim();
   };
@@ -66,11 +65,11 @@ const Departure = () => {
     notification();
   };
 
-  const notif = () => {
-    noti();
-  };
+  // const notif = () => {
+  //   noti();
+  // };
 
-  notif();
+  // notif();
   not();
   return (
     <div className="">
@@ -220,7 +219,7 @@ const Departure = () => {
         </Drawer>
       </div>
       <div className="mb-20">
-        <Button
+        {/* <Button
           className="bg-slate-500 text-white"
           onClick={handle}
           text="出艇"
@@ -229,7 +228,7 @@ const Departure = () => {
           className="bg-slate-500 text-white"
           onClick={handlecClaim}
           text="イントラする"
-        />
+        /> */}
       </div>
       <div className="mt-15">
         <Footer />
