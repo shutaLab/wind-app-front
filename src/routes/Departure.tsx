@@ -54,23 +54,9 @@ const Departure = () => {
     setOpen(false);
   };
 
-  // const handle = () => {
-  //   console.log("a");
-  //   createDepartureEvent();
-  // };
   const handlecClaim = () => {
     IntraApproveClaim();
   };
-  const not = () => {
-    notification();
-  };
-
-  // const notif = () => {
-  //   noti();
-  // };
-
-  // notif();
-  not();
   return (
     <div className="">
       <NoteHeader />

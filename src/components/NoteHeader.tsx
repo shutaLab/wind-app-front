@@ -3,7 +3,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import SearchIcon from "@mui/icons-material/Search";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import CreateModal from "./CreateModal";
-import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
+import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import LogoutIcon from "@mui/icons-material/Logout";
 import {
   DropdownMenu,
@@ -13,12 +13,13 @@ import {
   DropdownMenuTrigger,
 } from "../@/components/ui/dropdown-menu";
 import { useLogout, useUser } from "../queries/AuthQuery";
+import { useGetNotifications } from "../queries/NotificationQuery";
+import { ScrollArea } from "../@/components/ui/scroll-area";
 const NoteHeader = () => {
   const [open, setOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [currentLocation, setCurrentLocation] = useState("");
-  console.log(currentLocation);
   const location = useLocation();
   useEffect(() => {
     setCurrentLocation(location.pathname);
@@ -38,16 +39,17 @@ const NoteHeader = () => {
   };
 
   const logoutOutMutation = useLogout();
-
+  const { data } = useGetNotifications();
+  const notifications = data?.data;
+  console.log(notifications);
   const { data: user, isLoading: userLoading, isError: userError } = useUser();
   console.log(user);
-
   return (
     <div>
-      <div className="flex h-14 mb-3 p-2 shadow-md  items-center justify-end">
+      <div className="flex h-14 mb-3 p-2 gap-x-2 shadow-md  items-center justify-end">
         {["/windNote", "/question", "/timeLine"].includes(currentLocation) && (
           <button className="" onClick={searchClick}>
-            <SearchIcon sx={{ width: "30px", height: "30px" }} />
+            <SearchIcon />
           </button>
         )}
         <button
@@ -60,19 +62,26 @@ const NoteHeader = () => {
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <button className="mx-3">
-              {/* <Badge badgeContent={2} color="error">
-                <NotificationsNoneOutlinedIcon
-                  sx={{ width: "30px", height: "30px" }}
-                />
-              </Badge> */}
+            <button className="relative">
+              <NotificationsNoneIcon />
+              <span className="absolute bg-red-500 text-gray-100 px-[0.8] py-[0.8] text-xs font-bold rounded-full -top-1 -right-3 min-w-[1.5rem] flex justify-center items-center">
+                3
+              </span>
             </button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <div className="">
-              <DropdownMenuItem>通知が入ります</DropdownMenuItem>
-            </div>
-            <DropdownMenuItem>通知が入ります</DropdownMenuItem>
+          <DropdownMenuContent className="">
+            <ScrollArea className=" h-48 w-48 rounded-md border">
+              {notifications?.map((notification: any) => (
+                <DropdownMenuItem
+                  key={notification.id}
+                  className="border-b"
+                  onClick={() => {}}
+                >
+                  {notification.data.comment}
+                </DropdownMenuItem>
+              ))}
+              <div className=" text-center text-gray-500">通知は以上です</div>
+            </ScrollArea>
           </DropdownMenuContent>
         </DropdownMenu>
 
