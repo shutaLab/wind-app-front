@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import SearchIcon from "@mui/icons-material/Search";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import CreateModal from "./CreateModal";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -13,37 +13,64 @@ import {
   DropdownMenuTrigger,
 } from "../@/components/ui/dropdown-menu";
 import { useLogout, useUser } from "../queries/AuthQuery";
-import { useGetNotifications } from "../queries/NotificationQuery";
+import {
+  useGetNotifications,
+  useReadNotification,
+} from "../queries/NotificationQuery";
 import { ScrollArea } from "../@/components/ui/scroll-area";
+import { NotificationItem } from "../types/Notification";
+import DepartureNotificationDialog from "./DepartureNotificationDialog";
+import NotificationModal from "./IntraClaimModal";
+import axios from "axios";
+import { readNotification } from "../api/notificationApi";
+import IntraClaimModal from "./IntraClaimModal";
+import { useShowDeparture } from "../queries/DepartureQuery";
+import { DepartureType } from "../types/Departure";
 const NoteHeader = () => {
-  const [open, setOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [currentLocation, setCurrentLocation] = useState("");
+  const [selectedNotification, setSelectedNotification] =
+    useState<NotificationItem | null>(null);
+  const [intraClaimOpen, setIntraClaimOpen] = useState(false);
+
+  const readNotification = useReadNotification();
+  const logoutOutMutation = useLogout();
+  const { data: notifications } = useGetNotifications();
+  const { data: user, isLoading: userLoading, isError: userError } = useUser();
+
+  const unreadNotifications = notifications?.filter(
+    (notification: NotificationItem) => notification.read_at === null
+  );
   const location = useLocation();
+  const navigate = useNavigate();
+
   useEffect(() => {
     setCurrentLocation(location.pathname);
   }, []);
 
   const clickModalOpen = () => {
     setModalOpen(true);
-    console.log("モーダル");
   };
 
   const clickModalClose = () => {
     setModalOpen(false);
-    console.log("キャンセル");
   };
   const searchClick = () => {
     setSearchOpen(!searchOpen);
   };
 
-  const logoutOutMutation = useLogout();
-  const { data } = useGetNotifications();
-  const notifications = data?.data;
-  console.log(notifications);
-  const { data: user, isLoading: userLoading, isError: userError } = useUser();
-  console.log(user);
+  const openIntraClaimModal = (notification: NotificationItem) => {
+    setIntraClaimOpen(true);
+  };
+
+  const handleClose = () => {
+    setIntraClaimOpen(false);
+  };
+
+  const openDepartureDescriptionModal = (notification: NotificationItem) => {};
+
   return (
     <div>
       <div className="flex h-14 mb-3 p-2 gap-x-2 shadow-md  items-center justify-end">
@@ -65,19 +92,36 @@ const NoteHeader = () => {
             <button className="relative">
               <NotificationsNoneIcon />
               <span className="absolute bg-red-500 text-gray-100 px-[0.8] py-[0.8] text-xs font-bold rounded-full -top-1 -right-3 min-w-[1.5rem] flex justify-center items-center">
-                3
+                {unreadNotifications?.length > 0 && unreadNotifications?.length}
               </span>
             </button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="">
-            <ScrollArea className=" h-48 w-48 rounded-md border">
-              {notifications?.map((notification: any) => (
+            <ScrollArea className=" h-48 w-64 rounded-md border">
+              {notifications?.map((notification: NotificationItem) => (
                 <DropdownMenuItem
                   key={notification.id}
                   className="border-b"
-                  onClick={() => {}}
+                  onClick={() => {
+                    readNotification.mutate(notification.id);
+                    setSelectedNotification(notification);
+
+                    if (
+                      notification.data.type === "request" &&
+                      !notification.data.departure.intra_user
+                    ) {
+                      openIntraClaimModal(notification);
+                    } else {
+                      navigate("/mypage");
+                    }
+                  }}
                 >
-                  {notification.data.comment}
+                  <div className="relative">
+                    <div>{notification.data.comment}</div>
+                    {!notification.read_at && (
+                      <span className="absolute bg-red-500 -left-2 -top-1 rounded-sm w-2 h-2"></span>
+                    )}
+                  </div>
                 </DropdownMenuItem>
               ))}
               <div className=" text-center text-gray-500">通知は以上です</div>
@@ -106,6 +150,11 @@ const NoteHeader = () => {
           />
         </div>
       )}
+      <IntraClaimModal
+        open={intraClaimOpen}
+        handleClose={handleClose}
+        notification={selectedNotification}
+      />
     </div>
   );
 };
