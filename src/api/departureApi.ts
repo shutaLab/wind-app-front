@@ -23,16 +23,23 @@ export const createDepartureEvent = async (
   return data;
 };
 
-export const IntraApproveClaim = async () => {
-  const { data } = await axios.post(
-    "http://localhost:8000/api/approveClaim/20"
+export const showDeparture = async (id: number) => {
+  const { data } = await axios.get<DepartureType>(
+    `http://localhost:8000/api/departure/${id}`
   );
   return data;
 };
 
-// export const noti = async () => {
-//   const { data } = await axios.get(
-//     "http://localhost:8000/api/notification/654b0338-2bb7-4cc4-9a53-56e56a834619"
-//   );
-//   return data;
-// };
+export const IntraApproveClaim = async (id: number) => {
+  const { data } = await axios.post(
+    `http://localhost:8000/api/approveClaim/${id}`
+  );
+  return data;
+};
+
+export const rejectIntraClaim = async (id: number) => {
+  const { data } = await axios.post(
+    `http://localhost:8000/api/rejectClaim/${id}`
+  );
+  return data;
+};

@@ -54,9 +54,6 @@ const Departure = () => {
     setOpen(false);
   };
 
-  const handlecClaim = () => {
-    IntraApproveClaim();
-  };
   return (
     <div className="">
       <NoteHeader />

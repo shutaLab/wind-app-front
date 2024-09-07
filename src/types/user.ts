@@ -2,7 +2,7 @@ export type User = {
   id?: number;
   email: string;
   password: string;
-  user_profile?: UserProfile;
+  profile?: UserProfile;
 };
 
 export type UserProfile = {

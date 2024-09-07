@@ -4,7 +4,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 // import { Avatar } from "@mui/material";
-import { DeleteNote, Note, NoteWithFavorites } from "../types/Note";
+import { NoteWithFavorites } from "../types/Note";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,22 +12,15 @@ import {
   DropdownMenuTrigger,
 } from "../@/components/ui/dropdown-menu";
 import EditNoteModal from "./EditNoteModal";
-
-import {
-  useDeleteNote,
-  useCheckFavorite,
-  useUpdateFavorite,
-  useUpdateNote,
-} from "../queries/NoteQuery";
-import { Link } from "react-router-dom";
 import DeleteAlertDialog from "./DeleteAlertDialog";
+import { Link } from "react-router-dom";
 import { useUser } from "../queries/AuthQuery";
+import { useCheckFavorite, useUpdateFavorite } from "../queries/NoteQuery";
+
 const WindNote = ({ note }: { note: NoteWithFavorites }) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const { data: userData } = useUser();
-
-  console.log(userData);
   const openDialog = () => {
     setIsDialogOpen(true);
   };
@@ -48,9 +41,6 @@ const WindNote = ({ note }: { note: NoteWithFavorites }) => {
   const handleFavoriteClick = () => {
     updateFavorite.mutate(note.id);
   };
-  const truncateText = (text: string, length: number) => {
-    return text.length > length ? text.substring(0, length) + "..." : text;
-  };
 
   return (
     <>
@@ -58,7 +48,7 @@ const WindNote = ({ note }: { note: NoteWithFavorites }) => {
         <div className=" flex p-2 justify-between">
           <Link to={`/windNote/${note.id}`}>
             <h1 className=" font-bold text-lg">{note.title}</h1>
-            <p className="">{truncateText(note.content, 15)}</p>
+            {/* <p className="">{truncateText(note.content, 15)}</p> */}
           </Link>
           <div>
             <DropdownMenu>
@@ -99,14 +89,18 @@ const WindNote = ({ note }: { note: NoteWithFavorites }) => {
             )}
           </button>
           <p className="mr-2 w-[1em]">
-            {note.note_favorites.length > 0 ? note.note_favorites.length : ""}
+            {note.note_favorites && note.note_favorites.length > 0
+              ? note.note_favorites.length
+              : ""}
           </p>
           <button>
             <BookmarkBorderIcon className="text-gray-500 mr-2" />
           </button>
           <p className="flex mr-2">
             {/* <Avatar sx={{ height: "25px", width: "25px" }} /> */}
-            <p className="text-gray-500 ml-2">山田脩太</p>
+            <p className="text-gray-500 ml-2">
+              {/* {note.user?.profile?.name || "匿名ユーザー"} */}
+            </p>
           </p>
           <p className="text-gray-500">4月20日</p>
         </div>
