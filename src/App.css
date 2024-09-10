@@ -1,24 +1,29 @@
-
-ul, li {
-    margin: 0;
-    padding: 0;
-    list-style: none;
+ul,
+li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
-*{
-    padding: 0px;
-    margin: 0px;
+* {
+  padding: 0px;
+  margin: 0px;
 }
 
 #tab.active {
-  background: #5A656A; 
+  background: #5a656a;
   color: white;
 }
 
+#MyPageTab .active {
+  color: black;
+  border-bottom: black;
+}
+
 .fc-event.is-absent {
-  background-color: #E34449 !important;
-  border-color: #E34449 !important;
+  background-color: #e34449 !important;
+  border-color: #e34449 !important;
 }
 
 #footer.active {
-  color: #E81A48 !important;
+  color: #e81a48 !important;
 }
