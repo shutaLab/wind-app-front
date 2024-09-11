@@ -11,8 +11,10 @@ import {
   TabsTrigger,
 } from "../@/components/ui/tabs";
 import IntraList from "../components/IntraList";
+import { useGetUser } from "../queries/UserQuery";
 
 export function MyPage() {
+  const { data: user } = useGetUser();
   const [open, setOpen] = useState(false);
   const close = () => {
     setOpen(false);
@@ -23,14 +25,14 @@ export function MyPage() {
       <div className="px-3 flex-row space-y-6">
         <div>
           <div className="flex items-center justify-between">
-            <p className=" text-xl font-bold">山田脩太</p>
+            <p className=" text-xl font-bold">{user?.user_profile?.name}</p>
             <Avatar className=" h-16 w-16 ">
               <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
           </div>
           <div>
-            <p>自己紹介が入ります</p>
+            <p>{user?.user_profile?.introduction}</p>
           </div>
         </div>
         <div className="flex justify-between">
@@ -45,7 +47,7 @@ export function MyPage() {
           <TabsTrigger value="departure">出艇数</TabsTrigger>
         </TabsList>
         <TabsContent value="intra">
-          <IntraList />
+          {user ? <IntraList user={user} /> : <div>Loading...</div>}
         </TabsContent>
         <TabsContent value="myNote">Change your password here.</TabsContent>
         <TabsContent value="departure">出艇数</TabsContent>

@@ -25,7 +25,7 @@ const DepartureTable = () => {
             departure.user?.id,
             {
               id: departure.user?.id?.toString() ?? "",
-              title: departure.user?.profile?.name || "Unknown",
+              title: departure.user?.user_profile?.name || "Unknown",
             },
           ])
         ).values()
@@ -38,7 +38,7 @@ const DepartureTable = () => {
         resourceId: departure.user?.id?.toString() ?? "",
         start: formatTime(departure.start),
         end: formatTime(departure.end),
-        title: departure.intra_user?.profile?.name || "",
+        title: departure.intra_user?.user_profile?.name || "",
         backgroundColor: departure.intra_user_id ? "#8EAAE5" : "#FF6347",
         user: departure.user,
       }))
@@ -47,7 +47,7 @@ const DepartureTable = () => {
   const handleEventClick = (clickInfo: EventClickArg) => {
     setOpen(true);
     // console.log(clickInfo.event.id);
-    // console.log(clickInfo.event.extendedProps.user.user_profile.name);
+    // console.log(clickInfo.event.extendedProps.user.user_user_profile.name);
   };
   const handleClose = () => {
     setOpen(false);

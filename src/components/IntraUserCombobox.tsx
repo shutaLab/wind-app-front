@@ -40,7 +40,7 @@ const IntraUserCombobox: React.FC<IntraUserComboboxProps> = ({
           className="w-full justify-between h-10"
         >
           {value !== null
-            ? users?.find((user) => user.id === value)?.profile?.name
+            ? users?.find((user) => user.id === value)?.user_profile?.name
             : "イントラユーザを選んでください"}
           <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
@@ -64,7 +64,7 @@ const IntraUserCombobox: React.FC<IntraUserComboboxProps> = ({
                     setOpen(false);
                   }}
                 >
-                  {user.profile?.name}
+                  {user.user_profile?.name}
                   <CheckIcon
                     className={cn(
                       "ml-auto h-4 w-4",

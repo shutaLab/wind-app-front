@@ -9,7 +9,7 @@ import {
   AlertDialogTitle,
 } from "../@/components/ui/alert-dialog";
 import { NotificationItem } from "../types/Notification";
-import { useIntraApproveClaim } from "../queries/DepartureQuery";
+import { useIntraApproveClaim } from "../queries/IntraClaimQuery";
 
 interface DepartureNotificationDialogProps {
   isDialogOpen: boolean;

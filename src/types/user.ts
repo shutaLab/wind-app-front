@@ -2,13 +2,13 @@ export type User = {
   id?: number;
   email: string;
   password: string;
-  profile?: UserProfile;
+  user_profile?: Profile;
 };
 
-export type UserProfile = {
+export type Profile = {
   name: string;
   grade: number;
   sailNo: string;
   introduction: string;
-  profileImage: string;
+  user_profileImage: string;
 };
