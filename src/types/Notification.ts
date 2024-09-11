@@ -1,8 +1,8 @@
 import { DepartureType } from "./Departure";
-import { IntraClaim } from "./IntraClaim";
+import { IntraClaimType } from "./IntraClaim";
 
 interface NotificationData {
-  intraClaim: IntraClaim;
+  intraClaim: IntraClaimType;
   comment: string;
   departure: DepartureType;
   type: string | null;

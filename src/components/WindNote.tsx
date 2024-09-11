@@ -99,7 +99,7 @@ const WindNote = ({ note }: { note: NoteWithFavorites }) => {
           <p className="flex mr-2">
             {/* <Avatar sx={{ height: "25px", width: "25px" }} /> */}
             <p className="text-gray-500 ml-2">
-              {/* {note.user?.profile?.name || "匿名ユーザー"} */}
+              {/* {note.user?.user_profile?.name || "匿名ユーザー"} */}
             </p>
           </p>
           <p className="text-gray-500">4月20日</p>

@@ -14,7 +14,7 @@ import { Button } from "../@/components/ui/button";
 import {
   useIntraApproveClaim,
   useRejectIntraClaim,
-} from "../queries/DepartureQuery";
+} from "../queries/IntraClaimQuery";
 
 interface IntraClaimModalProps {
   open: boolean;
@@ -59,7 +59,7 @@ const IntraClaimModal: React.FC<IntraClaimModalProps> = ({
       <DialogContent>
         <DialogHeader>
           <DialogTitle className="mb-5 mt-3 font-bold">
-            {notification?.data?.departure?.user?.profile?.name ||
+            {notification?.data?.departure?.user?.user_profile?.name ||
               "不明なユーザー"}
             さんからイントラ依頼が届いています
           </DialogTitle>
