@@ -24,33 +24,3 @@ export const useCreateDepartureEvent = () => {
 export const useShowDeparture = (id: number) => {
   return useQuery(["departures", id], () => api.showDeparture(id));
 };
-
-export const useIntraApproveClaim = () => {
-  const queryClient = useQueryClient();
-
-  return useMutation(api.IntraApproveClaim, {
-    onSuccess: () => {
-      queryClient.invalidateQueries("departures");
-      queryClient.invalidateQueries("notifications");
-      toast.success("イントラ依頼を承諾しました");
-    },
-    onError: () => {
-      toast.error("承諾に失敗しました");
-    },
-  });
-};
-
-export const useRejectIntraClaim = () => {
-  const queryClient = useQueryClient();
-
-  return useMutation(api.rejectIntraClaim, {
-    onSuccess: () => {
-      queryClient.invalidateQueries("departures");
-      queryClient.invalidateQueries("notifications");
-      toast.success("イントラ依頼を取り下げました");
-    },
-    onError: () => {
-      toast.error("取り下げに失敗しました");
-    },
-  });
-};

@@ -29,17 +29,3 @@ export const showDeparture = async (id: number) => {
   );
   return data;
 };
-
-export const IntraApproveClaim = async (id: number) => {
-  const { data } = await axios.post(
-    `http://localhost:8000/api/approveClaim/${id}`
-  );
-  return data;
-};
-
-export const rejectIntraClaim = async (id: number) => {
-  const { data } = await axios.post(
-    `http://localhost:8000/api/rejectClaim/${id}`
-  );
-  return data;
-};
