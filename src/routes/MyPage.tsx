@@ -3,14 +3,7 @@ import Footer from "../components/Footer";
 import { Avatar, AvatarFallback, AvatarImage } from "../@/components/ui/avatar";
 import NoteHeader from "../components/NoteHeader";
 import { Button } from "../@/components/ui/button";
-import { Link, NavLink } from "react-router-dom";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "../@/components/ui/tabs";
-import IntraList from "../components/IntraList";
+import { NavLink, Outlet } from "react-router-dom";
 import { useGetUser } from "../queries/UserQuery";
 
 export function MyPage() {
@@ -19,14 +12,15 @@ export function MyPage() {
   const close = () => {
     setOpen(false);
   };
+
   return (
     <>
       <NoteHeader />
       <div className="px-3 flex-row space-y-6">
         <div>
           <div className="flex items-center justify-between">
-            <p className=" text-xl font-bold">{user?.user_profile?.name}</p>
-            <Avatar className=" h-16 w-16 ">
+            <p className="text-xl font-bold">{user?.user_profile?.name}</p>
+            <Avatar className="h-16 w-16">
               <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
@@ -40,18 +34,40 @@ export function MyPage() {
           <Button variant="outline">このアプリをシェア</Button>
         </div>
       </div>
-      <Tabs defaultValue="intra" className="mt-6">
-        <TabsList className="w-full">
-          <TabsTrigger value="intra">イントラ</TabsTrigger>
-          <TabsTrigger value="myNote">マイノート</TabsTrigger>
-          <TabsTrigger value="departure">出艇数</TabsTrigger>
-        </TabsList>
-        <TabsContent value="intra">
-          {user ? <IntraList user={user} /> : <div>Loading...</div>}
-        </TabsContent>
-        <TabsContent value="myNote">Change your password here.</TabsContent>
-        <TabsContent value="departure">出艇数</TabsContent>
-      </Tabs>
+
+      {/* タブのリンク */}
+      <div className="mt-6">
+        <nav className="w-full">
+          <NavLink
+            to="intra"
+            className={({ isActive }) =>
+              isActive ? "tab-active" : "tab-inactive"
+            }
+          >
+            イントラ
+          </NavLink>
+          <NavLink
+            to="myNote"
+            className={({ isActive }) =>
+              isActive ? "tab-active" : "tab-inactive"
+            }
+          >
+            マイノート
+          </NavLink>
+          <NavLink
+            to="departure"
+            className={({ isActive }) =>
+              isActive ? "tab-active" : "tab-inactive"
+            }
+          >
+            出艇数
+          </NavLink>
+        </nav>
+
+        {/* ルートに応じて表示する内容を表示 */}
+        <Outlet context={{ user }} />
+      </div>
+
       <Footer />
     </>
   );
