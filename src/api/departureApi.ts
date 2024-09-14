@@ -1,9 +1,15 @@
 import axios from "axios";
 import { DepartureType } from "../types/Departure";
 
-export const getDepartures = async () => {
+export const getDepartures = async (userId?: string, month?: string) => {
   const { data } = await axios.get<DepartureType[]>(
-    "http://localhost:8000/api/departures"
+    "http://localhost:8000/api/departures",
+    {
+      params: {
+        user_id: userId,
+        month: month,
+      },
+    }
   );
   return data;
 };
