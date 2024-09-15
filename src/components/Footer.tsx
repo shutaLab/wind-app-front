@@ -61,7 +61,7 @@ const Footer = () => {
         <NavLink
           id="footer"
           className="p-1 text-gray-600 text-center w-[20%]"
-          to="/myPage"
+          to="/myPage/intra"
         >
           <div className="flex justify-center flex-col items-center text-sm text-center">
             <div>

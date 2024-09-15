@@ -26,6 +26,7 @@ import Answer from "./routes/AnswerList";
 import WindNote from "./routes/WindNote";
 import SignIn from "./routes/Login";
 import { MyPage } from "./routes/MyPage";
+import IntraList from "./components/IntraList";
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
@@ -55,7 +56,11 @@ root.render(
           <Route path="/windNote/:id" element={<WindNote />} />
           <Route path="/home" element={<Home />} />
           <Route path="/calendar" element={<WindCalendar />} />
-          <Route path="/myPage" element={<MyPage />} />
+          <Route path="/myPage" element={<MyPage />}>
+            <Route path="intra" element={<IntraList />} />
+            <Route path="myNote" element={<div>マイノートの内容</div>} />
+            <Route path="departure" element={<div>出艇数</div>} />{" "}
+          </Route>
           <Route path="/departure" element={<Departure />} />
           <Route path="/question" element={<QuestionList />} />
           <Route path="/timeline" element={<NoteTimeline />} />
