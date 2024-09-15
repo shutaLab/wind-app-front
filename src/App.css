@@ -14,11 +14,6 @@ li {
   color: white;
 }
 
-#MyPageTab .active {
-  color: black;
-  border-bottom: black;
-}
-
 .fc-event.is-absent {
   background-color: #e34449 !important;
   border-color: #e34449 !important;

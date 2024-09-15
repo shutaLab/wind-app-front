@@ -7,11 +7,23 @@ import { NavLink, Outlet } from "react-router-dom";
 import { useGetUser } from "../queries/UserQuery";
 
 export function MyPage() {
-  const { data: user } = useGetUser();
+  const { data: user, isLoading, error } = useGetUser(); // ローディング状態とエラーハンドリングも取得
   const [open, setOpen] = useState(false);
   const close = () => {
     setOpen(false);
   };
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error loading user data</div>;
+  }
+
+  if (!user) {
+    return <div>No user data available</div>;
+  }
 
   return (
     <>
@@ -34,40 +46,44 @@ export function MyPage() {
           <Button variant="outline">このアプリをシェア</Button>
         </div>
       </div>
-
-      {/* タブのリンク */}
       <div className="mt-6">
-        <nav className="w-full">
+        <nav className="flex  w-full border-b justify-center">
           <NavLink
-            to="intra"
+            id="MyPageTab"
             className={({ isActive }) =>
-              isActive ? "tab-active" : "tab-inactive"
+              isActive
+                ? "text-black w-[30%] text-center border-b-2 pb-2 border-black"
+                : "text-gray-400 w-[30%] text-center"
             }
+            to="intra"
           >
             イントラ
           </NavLink>
           <NavLink
-            to="myNote"
+            id="MyPageTab"
             className={({ isActive }) =>
-              isActive ? "tab-active" : "tab-inactive"
+              isActive
+                ? "text-black w-[30%] text-center border-b-2 pb-2 border-black"
+                : "text-gray-400 w-[30%] text-center"
             }
+            to="myNote"
           >
             マイノート
           </NavLink>
           <NavLink
-            to="departure"
+            id="MyPageTab"
             className={({ isActive }) =>
-              isActive ? "tab-active" : "tab-inactive"
+              isActive
+                ? "text-black w-[30%] text-center border-b-2 pb-2 border-black"
+                : "text-gray-400 w-[30%] text-center"
             }
+            to="departure"
           >
             出艇数
           </NavLink>
         </nav>
-
-        {/* ルートに応じて表示する内容を表示 */}
         <Outlet context={{ user }} />
       </div>
-
       <Footer />
     </>
   );
