@@ -61,9 +61,10 @@
     "zod": "^3.23.5"
   },
   "scripts": {
+    "dev": "react-scripts start",
+    "heroku-postbuild": "npm run build",
     "start": "serve -s build",
     "build": "react-scripts build",
-    "dev": "react-scripts start",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
