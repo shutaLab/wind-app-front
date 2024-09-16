@@ -10,3 +10,11 @@ export interface DepartureType {
   description?: string;
   user?: User;
 }
+
+export interface DepartureWithTotalTime {
+  departures: DepartureType[];
+  total_time?: string;
+  total_items: string;
+  total_pages: string;
+  current_pages: string;
+}

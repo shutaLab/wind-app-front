@@ -33,9 +33,9 @@ const IntraClaim = ({
             </p>
           </div>
           <div className="flex flex-col items-center text-xs">
-            <p> {start ? start.format("H:mm") : "日付不明"}</p>
+            <p>{start ? start.format("H:mm") : "日付不明"}</p>
             <p>l</p>
-            <p> {end ? end.format("H:mm") : "日付不明"}</p>
+            <p>{end ? end.format("H:mm") : "日付不明"}</p>
           </div>
           <div className="text-xs">
             {intraClaim.status === "pending" &&
