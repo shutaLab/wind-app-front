@@ -86,6 +86,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@types/node": "^20.12.7",
     "autoprefixer": "^10.4.19",
     "html-webpack-plugin": "^5.6.0",
