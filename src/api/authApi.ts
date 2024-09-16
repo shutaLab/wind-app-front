@@ -1,5 +1,6 @@
 import axios from "axios";
 import { User } from "../types/user";
+axios.defaults.withCredentials = true;
 
 export const getUser = async () => {
   const { data } = await axios.get<User>(
