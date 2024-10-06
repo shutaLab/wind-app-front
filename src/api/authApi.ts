@@ -5,7 +5,7 @@ axios.defaults.withCredentials = true;
 axios.defaults.withCredentials = true; // クッキーを共有するための設定
 
 export const getUser = async () => {
-  const { data } = await axios.get<User>("https://windap-api.vercel.app/api/user");
+  const { data } = await axios.get<User>("https://windap-api.vercel.app/api/api/user");
   return data;
 };
 
@@ -17,7 +17,7 @@ export const getCsrfCookie = async () => {
 export const login = async (values: User) => {
   try {
     await getCsrfCookie();
-    const response = await axios.post("https://windap-api.vercel.app/api/login", {
+    const response = await axios.post("https://windap-api.vercel.app/api/api/login", {
       email: values.email,
       password: values.password,
     });
@@ -29,16 +29,16 @@ export const login = async (values: User) => {
 };
 
 export const signUp = async (values: User) => {
-  const { data } = await axios.post<User>("https://windap-api.vercel.app/api/register", values);
+  const { data } = await axios.post<User>("https://windap-api.vercel.app/api/api/register", values);
   return data;
 };
 
 export const logout = async () => {
-  const { data } = await axios.post<User>("https://windap-api.vercel.app/api/logout");
+  const { data } = await axios.post<User>("https://windap-api.vercel.app/api/api/logout");
   return data;
 };
 
 export const notification = async () => {
-  const { data } = await axios.get("https://windap-api.vercel.app/api/notifications");
+  const { data } = await axios.get("https://windap-api.vercel.app/api/api/notifications");
   return data;
 };

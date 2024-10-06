@@ -7,14 +7,14 @@ import {
 
 export const getQuestions = async () => {
   const { data } = await axios.get<WindQuestion[]>(
-    "https://windap-api.vercel.app/api/question"
+    "https://windap-api.vercel.app/api/api/question"
   );
   return data;
 };
 
 export const createQuestion = async (values: WindQuestion) => {
   const { data } = await axios.post<WindQuestion>(
-    "https://windap-api.vercel.app/api/question",
+    "https://windap-api.vercel.app/api/api/question",
     {
       content: values.content,
     }
@@ -24,7 +24,7 @@ export const createQuestion = async (values: WindQuestion) => {
 
 export const showQuestion = async (id: number) => {
   const { data } = await axios.get<WindQuestiondayo>(
-    `https://windap-api.vercel.app/api/question/${id}`
+    `https://windap-api.vercel.app/api/api/question/${id}`
   );
   return data;
 };
@@ -37,7 +37,7 @@ export const updateQuestion = async ({
   values: WindQuestion;
 }) => {
   const { data } = await axios.put<WindQuestion>(
-    `https://windap-api.vercel.app/api/question/${id}`,
+    `https://windap-api.vercel.app/api/api/question/${id}`,
     values
   );
   return data;
@@ -45,7 +45,7 @@ export const updateQuestion = async ({
 
 export const deleteQuestion = async (id: number) => {
   const { data } = await axios.delete<WindIdQuestion>(
-    `https://windap-api.vercel.app/api/question/${id}`
+    `https://windap-api.vercel.app/api/api/question/${id}`
   );
   return data;
 };
