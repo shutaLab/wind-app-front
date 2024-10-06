@@ -10,7 +10,7 @@ export const getUser = async () => {
 };
 
 export const getCsrfCookie = async () => {
-  await axios.get("https://windap-api.vercel.app/sanctum/csrf-cookie");
+  await axios.get("https://api.windap.jp/sanctum/csrf-cookie");
 };
 
 // ログインリクエストを送信する関数
