@@ -1,5 +1,6 @@
 import axios from "axios";
 import { User } from "../types/user";
+axios.defaults.withCredentials = true;
 
 axios.defaults.baseURL = "https://windap-api.vercel.app";
 axios.defaults.withCredentials = true; // クッキーを共有するための設定

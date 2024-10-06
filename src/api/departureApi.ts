@@ -1,5 +1,5 @@
 import axios from "axios";
-import { DepartureType } from "../types/Departure";
+import { DepartureType, DepartureWithTotalTime } from "../types/Departure";
 
 export const getDepartures = async (userId?: string, month?: string) => {
   const { data } = await axios.get<DepartureType[]>(
@@ -7,7 +7,10 @@ export const getDepartures = async (userId?: string, month?: string) => {
     {
       params: {
         user_id: userId,
+        year: year,
         month: month,
+        date: date,
+        page: page,
       },
     }
   );
