@@ -7,10 +7,10 @@ export const getDepartures = async (userId?: string, month?: string) => {
     {
       params: {
         user_id: userId,
-        year: year,
-        month: month,
-        date: date,
-        page: page,
+        // year: year,
+        // month: month,
+        // date: date,
+        // page: page,
       },
     }
   );
