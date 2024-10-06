@@ -2,17 +2,17 @@ import { useMutation, useQuery, useQueryClient } from "react-query";
 import * as api from "../api/departureApi";
 import { toast } from "react-toastify";
 
-export const useGetDepartures = (
-  userId?: string,
-  year?: string,
-  month?: string,
-  date?: string,
-  page?: string
-) => {
-  return useQuery(["departures", userId, year, month, date, page], () =>
-    api.getDepartures(userId, year, month, date, page)
-  );
-};
+// export const useGetDepartures = (
+//   userId?: string,
+//   year?: string,
+//   month?: string,
+//   date?: string,
+//   page?: string
+// ) => {
+//   return useQuery(["departures", userId, year, month, date, page], () =>
+//     api.getDepartures(userId, year, month, date, page)
+//   );
+// };
 
 export const useCreateDepartureEvent = () => {
   const queryClient = useQueryClient();

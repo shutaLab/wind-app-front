@@ -1,6 +1,6 @@
 import FullCalendar from "@fullcalendar/react";
 import resourceTimeGridPlugin from "@fullcalendar/resource-timegrid";
-import { useGetDepartures } from "../queries/DepartureQuery";
+// import { useGetDepartures } from "../queries/DepartureQuery";
 import { format, parseISO, subHours } from "date-fns";
 import { EventClickArg } from "@fullcalendar/core";
 import { useState } from "react";
@@ -19,28 +19,28 @@ const DepartureTable = () => {
   };
 
   // useGetDepartures フックを使用してデータを取得
-  const { data } = useGetDepartures();
-  console.log(data);
+  // const { data } = useGetDepartures();
+  // console.log(data);
 
-  const departuresData = data?.departures || [];
+  // const departuresData = data?.departures || [];
 
-  const resources = departuresData.map((departure: DepartureType) => ({
-    id: departure.user?.id?.toString() ?? "",
-    title: departure.user?.user_profile?.name || "Unknown",
-  }));
+  // const resources = departuresData.map((departure: DepartureType) => ({
+  //   id: departure.user?.id?.toString() ?? "",
+  //   title: departure.user?.user_profile?.name || "Unknown",
+  // }));
 
-  const events = departuresData.map((departure: DepartureType) => ({
-    id: departure.id?.toString(),
-    resourceId: departure.user?.id?.toString() ?? "",
-    start: formatTime(departure.start),
-    end: formatTime(departure.end),
-    title: departure.intra_user?.user_profile?.name || "",
-    backgroundColor: departure.intra_user_id ? "#8EAAE5" : "#FF6347",
-    extendedProps: {
-      user: departure.user,
-    },
-  }));
-  console.log(events);
+  // const events = departuresData.map((departure: DepartureType) => ({
+  //   id: departure.id?.toString(),
+  //   resourceId: departure.user?.id?.toString() ?? "",
+  //   start: formatTime(departure.start),
+  //   end: formatTime(departure.end),
+  //   title: departure.intra_user?.user_profile?.name || "",
+  //   backgroundColor: departure.intra_user_id ? "#8EAAE5" : "#FF6347",
+  //   extendedProps: {
+  //     user: departure.user,
+  //   },
+  // }));
+  // console.log(events);
 
   const handleEventClick = (clickInfo: EventClickArg) => {
     setOpen(true);
@@ -54,7 +54,7 @@ const DepartureTable = () => {
   return (
     <div className="">
       <div className="px-3">
-        <StyleWrapper>
+        {/* <StyleWrapper>
           <FullCalendar
             headerToolbar={{ start: "prev", center: "title", end: "next" }}
             plugins={[resourceTimeGridPlugin]}
@@ -71,7 +71,7 @@ const DepartureTable = () => {
             schedulerLicenseKey="CC-Attribution-NonCommercial-NoDerivatives"
             eventClick={handleEventClick}
           />
-        </StyleWrapper>
+        </StyleWrapper> */}
       </div>
       <DepartureEventModal open={open} handleClose={handleClose} />
 

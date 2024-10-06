@@ -3,14 +3,14 @@ import { Calendar } from "../types/Calendar";
 
 export const getCalendarEvent = async () => {
   const { data } = await axios.get<Calendar[]>(
-    "http://localhost:8000/api/calendar"
+    "https://windap-api.vercel.app/api/calendar"
   );
   return data;
 };
 
 export const createCalendarEvent = async (values: Calendar) => {
   const { data } = await axios.post<Calendar>(
-    "http://localhost:8000/api/calendar",
+    "https://windap-api.vercel.app/api/calendar",
     {
       title: values.title,
       content: values.content,

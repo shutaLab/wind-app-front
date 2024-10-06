@@ -9,7 +9,7 @@ export const createAnswer = async ({
   values: WindAnswer;
 }) => {
   const { data } = await axios.post<WindAnswer>(
-    "http://localhost:8000/api/answer",
+    "https://windap-api.vercel.app/api/answer",
     {
       question_id: question_id,
       content: values.content,
