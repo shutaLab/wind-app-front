@@ -5,7 +5,7 @@ axios.defaults.withCredentials = true;
 axios.defaults.withCredentials = true; // クッキーを共有するための設定
 
 export const getUser = async () => {
-  const { data } = await axios.get<User>("https://api.windap.jp/api/api/user");
+  const { data } = await axios.get<User>("http://localhost:8000/api/user");
   return data;
 };
 
@@ -17,7 +17,7 @@ export const getCsrfCookie = async () => {
 export const login = async (values: User) => {
   try {
     await getCsrfCookie();
-    const response = await axios.post("https://api.windap.jp/api/api/login", {
+    const response = await axios.post("http://localhost:8000/api/login", {
       email: values.email,
       password: values.password,
     });
@@ -29,16 +29,16 @@ export const login = async (values: User) => {
 };
 
 export const signUp = async (values: User) => {
-  const { data } = await axios.post<User>("https://api.windap.jp/api/api/register", values);
+  const { data } = await axios.post<User>("http://localhost:8000/api/register", values);
   return data;
 };
 
 export const logout = async () => {
-  const { data } = await axios.post<User>("https://api.windap.jp/api/api/logout");
+  const { data } = await axios.post<User>("http://localhost:8000/api/logout");
   return data;
 };
 
 export const notification = async () => {
-  const { data } = await axios.get("https://api.windap.jp/api/api/notifications");
+  const { data } = await axios.get("http://localhost:8000/api/notifications");
   return data;
 };

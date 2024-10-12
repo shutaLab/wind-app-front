@@ -65,7 +65,7 @@ const CreateDepartureModal: React.FC<CreateNoteModalProps> = ({
       <DialogContent>
         <DialogHeader>
           <DialogTitle className="mb-5 font-bold">出艇を登録する</DialogTitle>
-          <DialogDescription className="space-y-6">
+          <DialogDescription>
             <Form {...form}>
               <form
                 className="space-y-6"

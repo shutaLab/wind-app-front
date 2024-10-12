@@ -9,7 +9,7 @@ export const createAnswer = async ({
   values: WindAnswer;
 }) => {
   const { data } = await axios.post<WindAnswer>(
-    "https://api.windap.jp/api/api/answer",
+    "http://localhost:8000/api/answer",
     {
       question_id: question_id,
       content: values.content,

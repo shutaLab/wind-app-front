@@ -8,6 +8,7 @@ import StyleWrapper from "./StyleWrapper";
 import DepartureEventModal from "./DepartureEventModal";
 import { DepartureType, DepartureWithTotalTime } from "../types/Departure";
 import { EventInput } from "@fullcalendar/core";
+import { useGetDepartures } from "../queries/DepartureQuery";
 
 const DepartureTable = () => {
   const [open, setOpen] = useState(false);
@@ -19,28 +20,27 @@ const DepartureTable = () => {
   };
 
   // useGetDepartures フックを使用してデータを取得
-  // const { data } = useGetDepartures();
-  // console.log(data);
+  const { data } = useGetDepartures();
+  console.log(data);
 
-  // const departuresData = data?.departures || [];
 
-  // const resources = departuresData.map((departure: DepartureType) => ({
-  //   id: departure.user?.id?.toString() ?? "",
-  //   title: departure.user?.user_profile?.name || "Unknown",
-  // }));
+  const resources = data?.map((departure: DepartureType) => ({
+    id: departure.user?.id?.toString() ?? "",
+    title: departure.user?.user_profile?.name || "Unknown",
+  }));
 
-  // const events = departuresData.map((departure: DepartureType) => ({
-  //   id: departure.id?.toString(),
-  //   resourceId: departure.user?.id?.toString() ?? "",
-  //   start: formatTime(departure.start),
-  //   end: formatTime(departure.end),
-  //   title: departure.intra_user?.user_profile?.name || "",
-  //   backgroundColor: departure.intra_user_id ? "#8EAAE5" : "#FF6347",
-  //   extendedProps: {
-  //     user: departure.user,
-  //   },
-  // }));
-  // console.log(events);
+  const events = data?.map((departure: DepartureType) => ({
+    id: departure.id?.toString(),
+    resourceId: departure.user?.id?.toString() ?? "",
+    start: formatTime(departure.start),
+    end: formatTime(departure.end),
+    title: departure.intra_user?.user_profile?.name || "",
+    backgroundColor: departure.intra_user_id ? "#8EAAE5" : "#FF6347",
+    extendedProps: {
+      user: departure.user,
+    },
+  }));
+  console.log(events);
 
   const handleEventClick = (clickInfo: EventClickArg) => {
     setOpen(true);
