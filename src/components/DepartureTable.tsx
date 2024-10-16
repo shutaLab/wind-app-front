@@ -12,16 +12,7 @@ import { useGetDepartures } from "../queries/DepartureQuery";
 
 const DepartureTable = () => {
   const [open, setOpen] = useState(false);
-
-  const formatTime = (dateString: string) => {
-    const date = parseISO(dateString);
-    const adjustedDate = subHours(date, 9);
-    return format(adjustedDate, "yyyy-MM-dd'T'HH:mm:ss");
-  };
-
-  // useGetDepartures フックを使用してデータを取得
   const { data } = useGetDepartures();
-  console.log(data);
 
 
   const resources = data?.map((departure: DepartureType) => ({
@@ -32,15 +23,14 @@ const DepartureTable = () => {
   const events = data?.map((departure: DepartureType) => ({
     id: departure.id?.toString(),
     resourceId: departure.user?.id?.toString() ?? "",
-    start: formatTime(departure.start),
-    end: formatTime(departure.end),
+    start: departure.start,
+    end: departure.end,
     title: departure.intra_user?.user_profile?.name || "",
     backgroundColor: departure.intra_user_id ? "#8EAAE5" : "#FF6347",
     extendedProps: {
       user: departure.user,
     },
   }));
-  console.log(events);
 
   const handleEventClick = (clickInfo: EventClickArg) => {
     setOpen(true);
@@ -54,7 +44,7 @@ const DepartureTable = () => {
   return (
     <div className="">
       <div className="px-3">
-        {/* <StyleWrapper>
+        <StyleWrapper>
           <FullCalendar
             headerToolbar={{ start: "prev", center: "title", end: "next" }}
             plugins={[resourceTimeGridPlugin]}
@@ -62,7 +52,7 @@ const DepartureTable = () => {
             resources={resources}
             height="70vh"
             events={events}
-            initialDate="2024-08-11"
+            initialDate="2024-10-16"
             slotMinTime="07:00:00"
             slotMaxTime="17:00:00"
             allDaySlot={false}
@@ -71,7 +61,7 @@ const DepartureTable = () => {
             schedulerLicenseKey="CC-Attribution-NonCommercial-NoDerivatives"
             eventClick={handleEventClick}
           />
-        </StyleWrapper> */}
+        </StyleWrapper>
       </div>
       <DepartureEventModal open={open} handleClose={handleClose} />
 
