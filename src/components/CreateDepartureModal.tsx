@@ -6,6 +6,8 @@ import { CreateNoteModalProps } from "../types/ModalProps";
 import { Input } from "../@/components/ui/input";
 import { Button } from "../@/components/ui/button";
 import dayjs from "dayjs";
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
 import {
   Dialog,
   DialogContent,
@@ -30,12 +32,15 @@ const CreateDepartureModal: React.FC<CreateNoteModalProps> = ({
   open,
   handleClose,
 }) => {
+  const [selectedDate, setSelectedDate] = useState<string | null>(null);
+  dayjs.extend(utc);
+  dayjs.extend(timezone);
+  dayjs.tz.setDefault("Asia/Tokyo");
+
   const createDeparture = useCreateDepartureEvent();
   const form = useForm<DepartureType>({
     resolver: zodResolver(DepartureValidationShema),
   });
-
-  const [selectedDate, setSelectedDate] = useState<string | null>(null);
 
   const handleDateChange = (value: string) => {
     setSelectedDate(value);
@@ -44,8 +49,8 @@ const CreateDepartureModal: React.FC<CreateNoteModalProps> = ({
 
   function onsubmit(values: z.infer<typeof DepartureValidationShema>) {
     console.log(values);
-    const startDateTime = dayjs(`${selectedDate}T${values.start}`).format();
-    const endDateTime = dayjs(`${selectedDate}T${values.end}`).format();
+    const startDateTime = dayjs.tz(`${selectedDate}T${values.start}`, "Asia/Tokyo").format();
+    const endDateTime = dayjs.tz(`${selectedDate}T${values.end}`, "Asia/Tokyo").format();
 
     const departure: Omit<DepartureType, "date"> = {
       start: startDateTime,
@@ -53,10 +58,7 @@ const CreateDepartureModal: React.FC<CreateNoteModalProps> = ({
       intra_user_id: values.intra_user_id,
       description: values.description,
     };
-
-    console.log(departure);
     createDeparture.mutate(departure);
-
     handleClose();
   }
 
