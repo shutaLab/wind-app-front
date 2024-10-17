@@ -3,7 +3,7 @@ import * as api from "../api/userApi";
 import { toast } from "react-toastify";
 
 export const useGetUser = () => {
-  return useQuery("users", () => api.getUser());
+  return useQuery("user", () => api.getUser());
 };
 
 export const useGetSeniorUsers = () => {
