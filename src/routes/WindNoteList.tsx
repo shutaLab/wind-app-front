@@ -7,6 +7,7 @@ import { useQuery } from "react-query";
 import { useNotes } from "../queries/NoteQuery";
 import NoteHeader from "../components/NoteHeader";
 import HeaderTab from "../components/HeaderTab";
+import RequireAuth from "../components/RequireAuth";
 const WindNoteList = () => {
   const { data: notes, status } = useNotes() as {
     data: NoteWithFavorites[] | undefined;
@@ -15,7 +16,7 @@ const WindNoteList = () => {
   console.log(notes);
 
   return (
-    <div>
+    <RequireAuth>
       <NoteHeader />
       <HeaderTab />
       <div>
@@ -28,7 +29,7 @@ const WindNoteList = () => {
         )}
       </div>
       <Footer />
-    </div>
+    </RequireAuth>
   );
 };
 

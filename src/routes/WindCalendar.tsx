@@ -15,6 +15,7 @@ import "../App";
 import NoteHeader from "../components/NoteHeader";
 import axios from "axios";
 import { Calendar } from "../types/Calendar";
+import RequireAuth from "../components/RequireAuth";
 const WindCalendar = () => {
   const [open, setOpen] = useState(false);
   const { data } = useGetCalendarEvent();
@@ -59,41 +60,43 @@ const WindCalendar = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <NoteHeader />
-      <div className="flex-grow overflow-y-auto px-3">
-        <div className="mb-4">
-          <StyleWrapper>
-            <FullCalendar
-              headerToolbar={{
-                start: "prev",
-                center: "title",
-                end: "next",
-              }}
-              height="60vh"
-              plugins={[dayGridPlugin, interactionPlugin]}
-              initialView="dayGridMonth"
-              selectable={true}
-              locale="ja"
-              events={data}
-              businessHours={true}
-              displayEventTime={false}
-              schedulerLicenseKey="CC-Attribution-NonCommercial-NoDerivatives"
-              dateClick={(info) => setSelectedDate(new Date(info.date))}
-              eventClassNames={eventClassNames}
-            />
-          </StyleWrapper>
+    <RequireAuth>
+      <div className="flex flex-col min-h-screen">
+        <NoteHeader />
+        <div className="flex-grow overflow-y-auto px-3">
+          <div className="mb-4">
+            <StyleWrapper>
+              <FullCalendar
+                headerToolbar={{
+                  start: "prev",
+                  center: "title",
+                  end: "next",
+                }}
+                height="60vh"
+                plugins={[dayGridPlugin, interactionPlugin]}
+                initialView="dayGridMonth"
+                selectable={true}
+                locale="ja"
+                events={data}
+                businessHours={true}
+                displayEventTime={false}
+                schedulerLicenseKey="CC-Attribution-NonCommercial-NoDerivatives"
+                dateClick={(info) => setSelectedDate(new Date(info.date))}
+                eventClassNames={eventClassNames}
+              />
+            </StyleWrapper>
+          </div>
+          <EventList events={eventsOnSelectedDate || []} date={today} />
+          <Button
+            className="h-full w-full mt-2 bg-custom-gray text-white mb-20"
+            text="予定を追加"
+            onClick={clickModalOpen}
+          />
         </div>
-        <EventList events={eventsOnSelectedDate || []} date={today} />
-        <Button
-          className="h-full w-full mt-2 bg-custom-gray text-white mb-20"
-          text="予定を追加"
-          onClick={clickModalOpen}
-        />
+        <Footer />
+        <CreateCalendarEvent open={open} handleClose={clickModalClose} />
       </div>
-      <Footer />
-      <CreateCalendarEvent open={open} handleClose={clickModalClose} />
-    </div>
+    </RequireAuth>
   );
 };
 
