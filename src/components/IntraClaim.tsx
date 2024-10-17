@@ -12,7 +12,6 @@ const IntraClaim = ({
   user: User;
 }) => {
   const [open, setOpen] = useState(false);
-  console.log(open);
 
   const handleClose = () => {
     setOpen(false);
