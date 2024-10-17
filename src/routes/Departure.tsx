@@ -28,6 +28,7 @@ import {
 } from "../@/components/ui/table";
 import NoteHeader from "../components/NoteHeader";
 import CreateDepartureModal from "../components/CreateDepartureModal";
+import RequireAuth from "../components/RequireAuth";
 
 const Departure = () => {
   const [open, setOpen] = useState(false);
@@ -49,7 +50,7 @@ const Departure = () => {
   };
 
   return (
-    <div className="">
+    <RequireAuth>
       <NoteHeader />
       <DepartureTable />
       <div className="px-3 mt-3 mb-5">
@@ -199,7 +200,7 @@ const Departure = () => {
         <Footer />
       </div>
       <CreateDepartureModal open={open} handleClose={clickModalClose} />
-    </div>
+    </RequireAuth>
   );
 };
 

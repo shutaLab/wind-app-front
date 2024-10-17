@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-
 import Footer from "../components/Footer";
 import axios, { AxiosResponse } from "axios";
 axios.defaults.withCredentials = true;

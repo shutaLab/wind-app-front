@@ -13,7 +13,6 @@ export const useLogin = () => {
     onSuccess: (user) => {
       queryClient.invalidateQueries("user");
       toast.success("ログインしました");
-      console.log(user);
     },
     onError: () => {
       toast.error("ログインに失敗しました");
