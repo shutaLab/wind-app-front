@@ -82,6 +82,7 @@ const NoteHeader = () => {
         <button
           onClick={() => {
             logoutOutMutation.mutate();
+            navigate("/login");
           }}
         >
           <LogoutIcon />

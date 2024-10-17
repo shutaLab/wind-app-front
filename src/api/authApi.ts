@@ -2,8 +2,6 @@ import axios from "axios";
 import { User } from "../types/user";
 axios.defaults.withCredentials = true;
 
-axios.defaults.withCredentials = true; // クッキーを共有するための設定
-
 export const getUser = async () => {
   const { data } = await axios.get<User>("http://localhost:8000/api/user");
   return data;
