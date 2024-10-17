@@ -44,7 +44,6 @@ const queryClient = new QueryClient({
 });
 
 root.render(
-  <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <Meta />
       <BrowserRouter>
@@ -69,5 +68,4 @@ root.render(
         </Routes>
       </BrowserRouter>
     </QueryClientProvider>
-  </React.StrictMode>
 );
