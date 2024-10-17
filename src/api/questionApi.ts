@@ -23,7 +23,7 @@ export const createQuestion = async (values: WindQuestion) => {
 };
 
 export const showQuestion = async (id: number) => {
-  const { data } = await axios.get<WindQuestiondayo>(
+  const { data } = await axios.get<WindIdQuestion>(
     `http://localhost:8000/api/question/${id}`
   );
   return data;

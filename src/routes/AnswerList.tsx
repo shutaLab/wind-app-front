@@ -23,8 +23,8 @@ const AnswerList = () => {
   const [isAnswerOpen, setIsAnswerOpen] = useState(false);
   const { id } = useParams();
   const questionId = Number(id);
-  const { data } = useShowQuestion(questionId);
-  console.log(data);
+  const { data, isLoading } = useShowQuestion(questionId);
+  console.log(data)
   const answers = data?.answers;
   const clickModalOpen = () => {
     setModalOpen(true);
@@ -44,6 +44,8 @@ const AnswerList = () => {
   const clickAnswerClose = () => {
     setIsAnswerOpen(false);
   };
+
+  if (isLoading) return <div>Loading...</div>;
 
   return (
     <RequireAuth>
@@ -79,7 +81,7 @@ const AnswerList = () => {
           </div>
         </div>
         <div className="px-3 my-5">
-          <p>{data?.question.content}</p>
+          <p>{data?.content}</p>
         </div>
         <div className=" flex justify-end px-2">
           <p className="text-gray-500">回答数</p>
