@@ -5,28 +5,16 @@ import NoteHeader from "../components/NoteHeader";
 import { Button } from "../@/components/ui/button";
 import { NavLink, Outlet } from "react-router-dom";
 import { useGetUser } from "../queries/UserQuery";
+import RequireAuth from "../components/RequireAuth";
 
 export function MyPage() {
-  const { data: user, isLoading, error } = useGetUser(); // ローディング状態とエラーハンドリングも取得
+  const { data: user } = useGetUser();
   const [open, setOpen] = useState(false);
   const close = () => {
     setOpen(false);
   };
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error loading user data</div>;
-  }
-
-  if (!user) {
-    return <div>No user data available</div>;
-  }
-
   return (
-    <>
+    <RequireAuth>
       <NoteHeader />
       <div className="px-3 flex-row space-y-6">
         <div>
@@ -85,6 +73,6 @@ export function MyPage() {
         <Outlet context={{ user }} />
       </div>
       <Footer />
-    </>
+    </RequireAuth>
   );
 }

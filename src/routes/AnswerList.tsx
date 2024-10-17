@@ -16,6 +16,7 @@ import Answer from "../components/Answer";
 import QuestionAlertDialog from "../components/QuestionAlertDialog";
 import NoteHeader from "../components/NoteHeader";
 import HeaderTab from "../components/HeaderTab";
+import RequireAuth from "../components/RequireAuth";
 const AnswerList = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -45,7 +46,7 @@ const AnswerList = () => {
   };
 
   return (
-    <div>
+    <RequireAuth>
       <NoteHeader />
       <HeaderTab />
       <div className="border-b-2 py-4">
@@ -106,7 +107,7 @@ const AnswerList = () => {
         setIsDialogOpen={setIsDialogOpen}
         questionId={questionId}
       />
-    </div>
+    </RequireAuth>
   );
 };
 

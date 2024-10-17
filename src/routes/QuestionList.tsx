@@ -5,6 +5,7 @@ import { useQuestions } from "../queries/QuestionQuery";
 import { WindIdQuestion, WindQuestion } from "../types/Question";
 import NoteHeader from "../components/NoteHeader";
 import HeaderTab from "../components/HeaderTab";
+import RequireAuth from "../components/RequireAuth";
 
 const QuestionList = () => {
   const { data: questions } = useQuestions() as {
@@ -12,7 +13,7 @@ const QuestionList = () => {
   };
   console.log(questions);
   return (
-    <div>
+    <RequireAuth>
       <NoteHeader />
       <HeaderTab />
       <div>
@@ -21,7 +22,7 @@ const QuestionList = () => {
         ))}
       </div>
       <Footer />
-    </div>
+    </RequireAuth>
   );
 };
 

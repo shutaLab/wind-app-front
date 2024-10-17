@@ -19,6 +19,7 @@ import NoteAlertDialog from "../components/DeleteAlertDialog";
 import EditNoteModal from "../components/EditNoteModal";
 import NoteHeader from "../components/NoteHeader";
 import HeaderTab from "../components/HeaderTab";
+import RequireAuth from "../components/RequireAuth";
 const WindNote = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -48,7 +49,7 @@ const WindNote = () => {
   };
 
   return (
-    <div className="">
+    <RequireAuth>
       <NoteHeader />
       <HeaderTab />
       <div className=" p-2 mb-[100px]">
@@ -98,7 +99,7 @@ const WindNote = () => {
         clickModalClose={clickModalClose}
         note={note}
       /> */}
-    </div>
+    </RequireAuth>
   );
 };
 

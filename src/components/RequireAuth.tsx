@@ -1,6 +1,5 @@
 import React, { FC, ReactNode } from 'react'
 import { TailSpin } from 'react-loader-spinner'
-import { useUser } from '../queries/AuthQuery';
 import { Navigate } from 'react-router-dom';
 import { useGetUser } from '../queries/UserQuery';
 type RequireAuthProps = {
