@@ -12,7 +12,7 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from "../@/components/ui/dropdown-menu";
-import { useLogout, useUser } from "../queries/AuthQuery";
+import { useLogout } from "../queries/AuthQuery";
 import {
   useGetNotifications,
   useReadNotification,
@@ -38,7 +38,6 @@ const NoteHeader = () => {
   const readNotification = useReadNotification();
   const logoutOutMutation = useLogout();
   const { data: notifications } = useGetNotifications();
-  const { data: user, isLoading: userLoading, isError: userError } = useUser();
 
   const unreadNotifications = notifications?.filter(
     (notification: NotificationItem) => notification.read_at === null

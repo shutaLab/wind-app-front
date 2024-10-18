@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
-// import { Avatar } from "@mui/material";
 import { NoteWithFavorites } from "../types/Note";
 import {
   DropdownMenu,
@@ -14,13 +13,12 @@ import {
 import EditNoteModal from "./EditNoteModal";
 import DeleteAlertDialog from "./DeleteAlertDialog";
 import { Link } from "react-router-dom";
-import { useUser } from "../queries/AuthQuery";
-import { useCheckFavorite, useUpdateFavorite } from "../queries/NoteQuery";
+// import { useCheckFavorite, useUpdateFavorite } from "../queries/NoteQuery";
+import { User } from "../types/user";
 
-const WindNote = ({ note }: { note: NoteWithFavorites }) => {
+const WindNote = ({ note, user }: { note: NoteWithFavorites; user?: User }) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
-  const { data: userData } = useUser();
   const openDialog = () => {
     setIsDialogOpen(true);
   };
@@ -35,13 +33,12 @@ const WindNote = ({ note }: { note: NoteWithFavorites }) => {
     setModalOpen(false);
   };
 
-  const updateFavorite = useUpdateFavorite();
-  const { data: favorite } = useCheckFavorite(note.id);
-  const isFavorite = favorite && Object.keys(favorite).length > 0;
-  const handleFavoriteClick = () => {
-    updateFavorite.mutate(note.id);
-  };
-
+  // const updateFavorite = useUpdateFavorite();
+  // const { data: favorite } = useCheckFavorite(note.id);
+  // const isFavorite = favorite && Object.keys(favorite).length > 0;
+  // const handleFavoriteClick = () => {
+  //   updateFavorite.mutate(note.id);
+  // };
   return (
     <>
       <div className="border-b p-2">
@@ -50,11 +47,11 @@ const WindNote = ({ note }: { note: NoteWithFavorites }) => {
             <h1 className=" font-bold text-lg">{note.title}</h1>
             {/* <p className="">{truncateText(note.content, 15)}</p> */}
           </Link>
-          <div>
+          {user?.id === note.user?.id && (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <button>
-                  <MoreHorizIcon className=" text-gray-600" />
+                  <MoreVertIcon className=" text-gray-600" />
                 </button>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-56">
@@ -72,12 +69,12 @@ const WindNote = ({ note }: { note: NoteWithFavorites }) => {
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-          </div>
+          )}
         </div>
         <div className="flex items-center">
           <p className="mr-2"></p>
 
-          <button
+          {/* <button
             onClick={() => {
               handleFavoriteClick();
             }}
@@ -87,7 +84,7 @@ const WindNote = ({ note }: { note: NoteWithFavorites }) => {
             ) : (
               <FavoriteBorderIcon className="text-gray-500 mr-1" />
             )}
-          </button>
+          </button> */}
           <p className="mr-2 w-[1em]">
             {note.note_favorites && note.note_favorites.length > 0
               ? note.note_favorites.length

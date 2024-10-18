@@ -1,4 +1,5 @@
 import { number } from "zod";
+import { User } from "./user";
 
 export interface Note {
   title: string;
@@ -13,7 +14,7 @@ export interface DeleteNote {
 }
 export interface NoteWithFavorites {
   id: number;
-  user_id: number;
+  user: User;
   title: string;
   content: string;
   note_favorites: Favorite[];

@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useShowNote } from "../queries/NoteQuery";
-import { Note } from "../types/Note";
-// import { Avatar } from "@mui/material";
+import { Note, NoteWithFavorites } from "../types/Note";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
@@ -20,15 +19,16 @@ import EditNoteModal from "../components/EditNoteModal";
 import NoteHeader from "../components/NoteHeader";
 import HeaderTab from "../components/HeaderTab";
 import RequireAuth from "../components/RequireAuth";
+import { useGetUser } from "../queries/UserQuery";
+
 const WindNote = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isAnswerOpen, setIsAnswerOpen] = useState(false);
   const { id } = useParams();
   const noteId = Number(id);
-  const { data: note } = useShowNote(noteId) as {
-    data: Note;
-  };
+  const { data: note } = useShowNote(noteId);
+  const { data: user, status } = useGetUser();
   const clickModalOpen = () => {
     setModalOpen(true);
   };
@@ -47,7 +47,7 @@ const WindNote = () => {
   const clickAnswerClose = () => {
     setIsAnswerOpen(false);
   };
-
+  console.log(user);
   return (
     <RequireAuth>
       <NoteHeader />
@@ -58,24 +58,29 @@ const WindNote = () => {
             <h1 className="font-bold text-lg">{note?.title}</h1>
             <p className="whitespace-pre-line break-all">{note?.content}</p>
           </div>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <button>
-                <MoreHorizIcon className=" text-gray-600" />
-              </button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56">
-              <DropdownMenuItem className="text-gray-600" onSelect={openDialog}>
-                削除
-              </DropdownMenuItem>
-              <DropdownMenuItem
-                onClick={clickModalOpen}
-                className="text-gray-600"
-              >
-                編集
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          {user?.id === note?.user.id && (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button>
+                  <MoreHorizIcon className=" text-gray-600" />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-56">
+                <DropdownMenuItem
+                  className="text-gray-600"
+                  onSelect={openDialog}
+                >
+                  削除
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={clickModalOpen}
+                  className="text-gray-600"
+                >
+                  編集
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          )}
         </div>
         <div className="flex px-1">
           <FavoriteBorderIcon className="text-gray-500 mr-1" />

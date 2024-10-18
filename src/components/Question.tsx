@@ -12,7 +12,14 @@ import AnserModal from "./AnswerModal";
 import QuestionAlertDialog from "./QuestionAlertDialog";
 import { WindIdQuestion } from "../types/Question";
 import { Link } from "react-router-dom";
-const Question = ({ question }: { question: WindIdQuestion }) => {
+import { User } from "../types/user";
+const Question = ({
+  question,
+  user,
+}: {
+  question: WindIdQuestion;
+  user?: User;
+}) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isAnswerOpen, setIsAnswerOpen] = useState(false);
@@ -34,7 +41,6 @@ const Question = ({ question }: { question: WindIdQuestion }) => {
   const clickAnswerClose = () => {
     setIsAnswerOpen(false);
   };
-
   return (
     <div>
       <div className="border-b-2 py-4">
@@ -43,27 +49,29 @@ const Question = ({ question }: { question: WindIdQuestion }) => {
             <p className=" text-white text-sm text-center ">30分前</p>
           </div>
           <div>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <button>
-                  <MoreHorizIcon className=" text-gray-600" />
-                </button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-56">
-                <DropdownMenuItem
-                  className="text-gray-600"
-                  onSelect={openDialog}
-                >
-                  削除
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  onClick={clickModalOpen}
-                  className="text-gray-600"
-                >
-                  編集
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            {user?.id === question.user.id && (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <button>
+                    <MoreHorizIcon className=" text-gray-600" />
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56">
+                  <DropdownMenuItem
+                    className="text-gray-600"
+                    onSelect={openDialog}
+                  >
+                    削除
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    onClick={clickModalOpen}
+                    className="text-gray-600"
+                  >
+                    編集
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )}
           </div>
         </div>
         <div className="px-3 my-5">

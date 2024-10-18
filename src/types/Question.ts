@@ -1,16 +1,14 @@
+import { User } from "./user";
+
 export interface WindQuestion {
   content: string;
-}
-
-export interface WindQuestiondayo {
-  question: WindQuestion;
-  answers: WindAnswer[];
 }
 
 export interface WindIdQuestion {
   id: number;
   content: string;
   answers: WindAnswer[];
+  user: User;
 }
 
 export interface WindAnswer {
