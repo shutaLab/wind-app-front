@@ -1,9 +1,5 @@
 import axios from "axios";
-import {
-  WindIdQuestion,
-  WindQuestion,
-  WindQuestiondayo,
-} from "../types/Question";
+import { WindIdQuestion, WindQuestion } from "../types/Question";
 
 export const getQuestions = async () => {
   const { data } = await axios.get<WindQuestion[]>(
@@ -23,7 +19,7 @@ export const createQuestion = async (values: WindQuestion) => {
 };
 
 export const showQuestion = async (id: number) => {
-  const { data } = await axios.get<WindQuestiondayo>(
+  const { data } = await axios.get<WindIdQuestion>(
     `http://localhost:8000/api/question/${id}`
   );
   return data;

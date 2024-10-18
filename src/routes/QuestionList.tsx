@@ -6,8 +6,10 @@ import { WindIdQuestion, WindQuestion } from "../types/Question";
 import NoteHeader from "../components/NoteHeader";
 import HeaderTab from "../components/HeaderTab";
 import RequireAuth from "../components/RequireAuth";
+import { useGetUser } from "../queries/UserQuery";
 
 const QuestionList = () => {
+  const { data: user } = useGetUser();
   const { data: questions } = useQuestions() as {
     data: WindIdQuestion[] | undefined;
   };
@@ -18,7 +20,7 @@ const QuestionList = () => {
       <HeaderTab />
       <div>
         {questions?.map((question) => (
-          <Question question={question} />
+          <Question question={question} user={user} />
         ))}
       </div>
       <Footer />

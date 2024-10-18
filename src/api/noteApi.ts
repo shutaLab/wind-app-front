@@ -1,8 +1,8 @@
 import axios from "axios";
-import { DeleteNote, Favorite, Note } from "../types/Note";
+import { DeleteNote, Favorite, Note, NoteWithFavorites } from "../types/Note";
 
 export const getNotes = async () => {
-  const { data } = await axios.get<Note[]>(
+  const { data } = await axios.get<NoteWithFavorites[]>(
     "http://localhost:8000/api/windNote"
   );
   return data;
@@ -20,7 +20,7 @@ export const createNote = async (values: Note) => {
 };
 
 export const showNote = async (id: number) => {
-  const { data } = await axios.get<Note>(
+  const { data } = await axios.get<NoteWithFavorites>(
     `http://localhost:8000/api/windNote/${id}`
   );
   return data;

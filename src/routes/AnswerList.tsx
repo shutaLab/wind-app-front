@@ -17,14 +17,15 @@ import QuestionAlertDialog from "../components/QuestionAlertDialog";
 import NoteHeader from "../components/NoteHeader";
 import HeaderTab from "../components/HeaderTab";
 import RequireAuth from "../components/RequireAuth";
+import { useGetUser } from "../queries/UserQuery";
 const AnswerList = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isAnswerOpen, setIsAnswerOpen] = useState(false);
   const { id } = useParams();
   const questionId = Number(id);
-  const { data } = useShowQuestion(questionId);
-  console.log(data);
+  const { data, isLoading } = useShowQuestion(questionId);
+  const { data: user } = useGetUser();
   const answers = data?.answers;
   const clickModalOpen = () => {
     setModalOpen(true);
@@ -45,6 +46,8 @@ const AnswerList = () => {
     setIsAnswerOpen(false);
   };
 
+  if (isLoading) return <div>Loading...</div>;
+
   return (
     <RequireAuth>
       <NoteHeader />
@@ -54,7 +57,7 @@ const AnswerList = () => {
           <div className="bg-red-600  rounded-lg w-[15%] items-center my-auto">
             <p className=" text-white text-sm text-center ">30分前</p>
           </div>
-          <div>
+          {user?.id === data?.user.id && (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <button>
@@ -76,10 +79,10 @@ const AnswerList = () => {
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-          </div>
+          )}
         </div>
         <div className="px-3 my-5">
-          <p>{data?.question.content}</p>
+          <p>{data?.content}</p>
         </div>
         <div className=" flex justify-end px-2">
           <p className="text-gray-500">回答数</p>
@@ -93,9 +96,7 @@ const AnswerList = () => {
           </button>
         </div>
       </div>
-      {answers?.map((answer: WindAnswer) => (
-        <Answer answer={answer} />
-      ))}
+      {answers?.map((answer: WindAnswer) => <Answer answer={answer} />)}
       <Footer />
       <AnserModal
         modalOpen={isAnswerOpen}
