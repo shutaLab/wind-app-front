@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { WindAnswer, WindIdQuestion } from "../types/Question";
+import { WindAnswer, WindIdAnswer, WindIdQuestion } from "../types/Question";
 import { useParams } from "react-router-dom";
 import Footer from "../components/Footer";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
@@ -18,15 +18,24 @@ import NoteHeader from "../components/NoteHeader";
 import HeaderTab from "../components/HeaderTab";
 import RequireAuth from "../components/RequireAuth";
 import { useGetUser } from "../queries/UserQuery";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+import relativeTime from "dayjs/plugin/relativeTime";
+dayjs.extend(utc);
+dayjs.extend(timezone);
+dayjs.extend(relativeTime);
+dayjs.locale("ja");
 const AnswerList = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isAnswerOpen, setIsAnswerOpen] = useState(false);
   const { id } = useParams();
   const questionId = Number(id);
-  const { data, isLoading } = useShowQuestion(questionId);
+  const { data: question, isLoading } = useShowQuestion(questionId);
   const { data: user } = useGetUser();
-  const answers = data?.answers;
+  const answers = question?.answers;
+
   const clickModalOpen = () => {
     setModalOpen(true);
   };
@@ -46,18 +55,22 @@ const AnswerList = () => {
     setIsAnswerOpen(false);
   };
 
+  const relativeTimeFromNow = dayjs(question?.created_at).fromNow();
+
   if (isLoading) return <div>Loading...</div>;
 
   return (
     <RequireAuth>
       <NoteHeader />
       <HeaderTab />
-      <div className="border-b-2 py-4">
-        <div className="flex justify-between px-3 ">
-          <div className="bg-red-600  rounded-lg w-[15%] items-center my-auto">
-            <p className=" text-white text-sm text-center ">30分前</p>
+      <div className="border-b-2 pt-4 pb-2 px-2">
+        <div className="flex justify-between">
+          <div className="bg-red-600 rounded-lg w-[17%] items-center my-auto">
+            <p className="text-white text-sm text-center">
+              {relativeTimeFromNow}
+            </p>
           </div>
-          {user?.id === data?.user.id && (
+          {user?.id === question?.user.id && (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <button>
@@ -82,11 +95,14 @@ const AnswerList = () => {
           )}
         </div>
         <div className="px-3 my-5">
-          <p>{data?.content}</p>
+          <p>{question?.content}</p>
         </div>
-        <div className=" flex justify-end px-2">
-          <p className="text-gray-500">回答数</p>
-          <p className="text-gray-500">{answers?.length}</p>
+        <div className=" flex justify-end px-2 text-gray-500 space-x-3">
+          <p>{dayjs(question?.created_at).format("YYYY年MM月DD日HH:mm")}</p>
+          <div className="flex">
+            <p>回答数</p>
+            <p>{question?.answers.length}</p>
+          </div>
           <button
             className="flex text-custom-blue font-nomal ml-3"
             onClick={clickAnswerOpen}
@@ -95,8 +111,9 @@ const AnswerList = () => {
             <ChatBubbleOutlineIcon />
           </button>
         </div>
+        <p className="text-gray-600">返信</p>
       </div>
-      {answers?.map((answer: WindAnswer) => <Answer answer={answer} />)}
+      {answers?.map((answer) => <Answer answer={answer} />)}
       <Footer />
       <AnserModal
         modalOpen={isAnswerOpen}

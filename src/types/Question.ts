@@ -7,8 +7,9 @@ export interface WindQuestion {
 export interface WindIdQuestion {
   id: number;
   content: string;
-  answers: WindAnswer[];
+  answers: WindIdQuestion[];
   user: User;
+  created_at: string;
 }
 
 export interface WindAnswer {
@@ -17,5 +18,6 @@ export interface WindAnswer {
 export interface WindIdAnswer {
   id: number;
   content: string;
-  question_id: number;
+  user: User;
+  created_at: string;
 }
