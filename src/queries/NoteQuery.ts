@@ -53,20 +53,16 @@ export const useDeleteNote = (navigate: (path: string) => void) => {
   });
 };
 
-// export const useCheckFavorite = (id: number) => {
-//   return useQuery(["favorites", id], () => api.checkFavorite(id));
-// };
+export const useUpdateFavorite = () => {
+  const queryClient = useQueryClient();
 
-// export const useUpdateFavorite = () => {
-//   const queryClient = useQueryClient();
-
-//   return useMutation(api.updateFavorite, {
-//     onSuccess: () => {
-//       queryClient.invalidateQueries("favorites");
-//       queryClient.invalidateQueries("notes");
-//     },
-//     onError: () => {
-//       toast.error("お気に入りに失敗しました");
-//     },
-//   });
-// };
+  return useMutation(api.updateFavorite, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("favorites");
+      queryClient.invalidateQueries("notes");
+    },
+    onError: () => {
+      toast.error("お気に入りに失敗しました");
+    },
+  });
+};

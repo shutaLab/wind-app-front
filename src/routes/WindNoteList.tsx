@@ -7,9 +7,8 @@ import RequireAuth from "../components/RequireAuth";
 import { useGetUser } from "../queries/UserQuery";
 
 const WindNoteList = () => {
-  const { data: notes, isLoading } = useNotes();
+  const { data: notes, isLoading, isFetching } = useNotes();
   const { data: user } = useGetUser();
-
   return (
     <RequireAuth>
       <NoteHeader />
@@ -18,9 +17,16 @@ const WindNoteList = () => {
         {isLoading ? (
           <div>Loading...</div>
         ) : (
-          notes?.map((note) => (
-            <WindNote key={note.id} note={note} user={user} />
-          ))
+          <>
+            {notes?.map((note) => (
+              <WindNote
+                key={note.id}
+                note={note}
+                user={user}
+                isFetching={isFetching}
+              />
+            ))}
+          </>
         )}
       </div>
       <Footer />
