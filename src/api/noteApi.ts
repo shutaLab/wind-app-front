@@ -13,7 +13,7 @@ export const createNote = async (values: Note) => {
     {
       title: values.title,
       content: values.content,
-      //   date: values.date,
+      date: values.date,
     }
   );
   return data;

@@ -5,6 +5,7 @@ import CreateQuestion from "./CreateQuestion";
 import { Button } from "../@/components/ui/button";
 import CreateNote from "./CreateNote";
 import CreateCalendarEvent from "./CreateCalendarEvent";
+import { Dialog, DialogContent } from "../@/components/ui/dialog";
 
 const CreateModal: React.FC<CreateHeaderModalProps> = ({
   modalOpen,
@@ -36,14 +37,9 @@ const CreateModal: React.FC<CreateHeaderModalProps> = ({
 
   return (
     <div>
-      {/* <Dialog
-        open={modalOpen}
-        onClose={clickModalClose}
-        maxWidth="xl"
-        fullWidth
-      >
+      <Dialog open={modalOpen} onOpenChange={clickModalClose}>
         <DialogContent>{renderContent()}</DialogContent>
-      </Dialog> */}
+      </Dialog>
     </div>
   );
 };
