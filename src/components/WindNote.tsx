@@ -13,13 +13,23 @@ import {
 import EditNoteModal from "./EditNoteModal";
 import DeleteAlertDialog from "./DeleteAlertDialog";
 import { Link } from "react-router-dom";
-// import { useCheckFavorite, useUpdateFavorite } from "../queries/NoteQuery";
 import { User } from "../types/user";
 import dayjs from "dayjs";
+import { useUpdateFavorite } from "../queries/NoteQuery";
+import CircularProgress from "@mui/material/CircularProgress";
 
-const WindNote = ({ note, user }: { note: NoteWithFavorites; user?: User }) => {
+const WindNote = ({
+  note,
+  user,
+  isFetching,
+}: {
+  note: NoteWithFavorites;
+  user?: User;
+  isFetching: boolean;
+}) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
+
   const openDialog = () => {
     setIsDialogOpen(true);
   };
@@ -34,19 +44,18 @@ const WindNote = ({ note, user }: { note: NoteWithFavorites; user?: User }) => {
     setModalOpen(false);
   };
 
-  // const updateFavorite = useUpdateFavorite();
-  // const { data: favorite } = useCheckFavorite(note.id);
-  // const isFavorite = favorite && Object.keys(favorite).length > 0;
-  // const handleFavoriteClick = () => {
-  //   updateFavorite.mutate(note.id);
-  // };
+  const updateFavorite = useUpdateFavorite();
+  const handleFavoriteClick = () => {
+    updateFavorite.mutate(note.id);
+  };
+
   return (
     <>
       <div className="border-b p-2">
-        <div className=" flex p-2 justify-between">
+        <div className="flex p-2 justify-between">
           <Link to={`/windNote/${note.id}`}>
-            <h1 className=" font-bold text-lg">{note.title}</h1>
-            <p className="">
+            <h1 className="font-bold text-lg">{note.title}</h1>
+            <p>
               {note.content.length > 15
                 ? `${note.content.slice(0, 15)}...`
                 : note.content}
@@ -56,7 +65,7 @@ const WindNote = ({ note, user }: { note: NoteWithFavorites; user?: User }) => {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <button>
-                  <MoreVertIcon className=" text-gray-600" />
+                  <MoreVertIcon className="text-gray-600" />
                 </button>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-56">
@@ -77,31 +86,27 @@ const WindNote = ({ note, user }: { note: NoteWithFavorites; user?: User }) => {
           )}
         </div>
         <div className="flex items-center justify-end space-x-3 text-gray-500">
-          <p className="">{dayjs(note.date).format("YYYY年M月D日")}</p>
-          <p className="flex">
+          <p>{dayjs(note.date).format("YYYY年M月D日")}</p>
+          <div className="flex items-center">
             {/* <Avatar sx={{ height: "25px", width: "25px" }} /> */}
             <p className="text-gray-500">{note.user?.user_profile?.name}</p>
-          </p>
+          </div>
           <div className="flex items-center">
             <button
-            // onClick={() => {
-            //   handleFavoriteClick();
-            // }}
+              onClick={handleFavoriteClick}
+              disabled={updateFavorite.isLoading}
             >
-              {/* {isFavorite ? ( */}
-              {/* <FavoriteIcon className="text-red-500 mr-1" /> */}
-              {/* ) : ( */}
-              <FavoriteBorderIcon className="mr-1" />
-              {/* )} */}
+              {isFetching || updateFavorite.isLoading ? (
+                <CircularProgress size={24} />
+              ) : note.is_favorited ? (
+                <FavoriteIcon className="text-red-500 mr-1" />
+              ) : (
+                <FavoriteBorderIcon className="mr-1" />
+              )}
             </button>
-            <p className="w-[1em]">
-              {/* {note.note_favorites && note.note_favorites.length > 0
-              ? note.note_favorites.length
-              : ""} */}
-              1
-            </p>
+            <p className="w-[1em]">{note.favorites_count}</p>
             <button>
-              <BookmarkBorderIcon className="" />
+              <BookmarkBorderIcon />
             </button>
           </div>
         </div>

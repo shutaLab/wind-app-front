@@ -18,6 +18,8 @@ export interface NoteWithFavorites {
   title: string;
   content: string;
   date: string;
+  is_favorited: boolean;
+  favorites_count: number;
   note_favorites: Favorite[];
 }
 
