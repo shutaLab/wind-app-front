@@ -48,7 +48,6 @@ const NoteHeader = () => {
   useEffect(() => {
     setCurrentLocation(location.pathname);
   }, []);
-  console.log(modalOpen);
   const clickModalOpen = () => {
     setModalOpen(true);
   };
