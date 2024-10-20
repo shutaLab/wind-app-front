@@ -48,7 +48,7 @@ const NoteHeader = () => {
   useEffect(() => {
     setCurrentLocation(location.pathname);
   }, []);
-
+  console.log(modalOpen);
   const clickModalOpen = () => {
     setModalOpen(true);
   };
@@ -142,7 +142,7 @@ const NoteHeader = () => {
           currentLocation={currentLocation}
         />
       </div>
-      {searchOpen == true && (
+      {searchOpen === true && (
         <div className=" text-center mb-2 mx-4">
           <input
             className="w-full h-10  bg-custom-white rounded-md border border-gray-700 px-2"

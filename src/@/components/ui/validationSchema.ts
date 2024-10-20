@@ -16,7 +16,7 @@ export const signUpValidationShema = z.object({
 export const NoteValidationShema = z.object({
   title: z.string({ required_error: "タイトルを入力してください" }),
   content: z.string({ required_error: "内容を入力してください" }),
-  // date: z.coerce.date().optional(),
+  date: z.string({ required_error: "出艇日を入力してください" }),
 });
 
 export const createQuestionValidationShema = z.object({

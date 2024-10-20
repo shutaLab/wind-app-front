@@ -3,7 +3,7 @@ import { User } from "./user";
 
 export interface Note {
   title: string;
-  // date: Date | null;
+  date: string;
   content: string;
 }
 
@@ -17,6 +17,7 @@ export interface NoteWithFavorites {
   user: User;
   title: string;
   content: string;
+  date: string;
   note_favorites: Favorite[];
 }
 
