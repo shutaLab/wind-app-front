@@ -17,6 +17,7 @@ import { ShadTextarea } from "../@/components/ui/textarea";
 import { WindAnswer } from "../types/Question";
 import { createAnswer } from "../api/answerApi";
 import { useCreateAnswer } from "../queries/AnswerQuery";
+import { Dialog, DialogContent } from "../@/components/ui/dialog";
 
 interface ModalProps {
   modalOpen: boolean;
@@ -42,12 +43,7 @@ const AnserModal: React.FC<ModalProps> = ({
 
   return (
     <div>
-      {/* <Dialog
-        open={modalOpen}
-        onClose={clickModalClose}
-        maxWidth="xl"
-        fullWidth
-      >
+      <Dialog open={modalOpen} onOpenChange={clickModalClose}>
         <DialogContent>
           <Form {...form}>
             <h1 className="mb-4 text-center font-bold">質問に回答する</h1>
@@ -74,7 +70,7 @@ const AnserModal: React.FC<ModalProps> = ({
             </form>
           </Form>
         </DialogContent>
-      </Dialog> */}
+      </Dialog>
     </div>
   );
 };

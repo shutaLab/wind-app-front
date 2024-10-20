@@ -1,4 +1,3 @@
-// import { Dialog, DialogContent } from "@mui/material";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { DeleteNote, Note } from "../types/Note";
@@ -16,6 +15,15 @@ import { Input } from "../@/components/ui/input";
 import { Button } from "../@/components/ui/button";
 import { ShadTextarea } from "../@/components/ui/textarea";
 import { useUpdateNote } from "../queries/NoteQuery";
+import { Dialog, DialogContent } from "../@/components/ui/dialog";
+import { Popover } from "../@/components/popover";
+import { PopoverContent, PopoverTrigger } from "../@/components/ui/popover";
+import { format } from "date-fns";
+import { cn } from "../@/lib/utils";
+import { ja } from "date-fns/locale";
+import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
+import { Calendar } from "../@/components/ui/calendar";
+import dayjs from "dayjs";
 
 interface EditNoteModalProps {
   modalOpen: boolean;
@@ -46,12 +54,7 @@ const EditNoteModal: React.FC<EditNoteModalProps> = ({
 
   return (
     <div>
-      {/* <Dialog
-        open={modalOpen}
-        onClose={clickModalClose}
-        maxWidth="xl"
-        fullWidth
-      >
+      <Dialog open={modalOpen} onOpenChange={clickModalClose}>
         <DialogContent>
           <Form {...form}>
             <h1 className="mb-4 text-center font-bold">ノートを編集する</h1>
@@ -85,6 +88,55 @@ const EditNoteModal: React.FC<EditNoteModalProps> = ({
                   </FormItem>
                 )}
               />
+              <FormField
+                control={form.control}
+                name="date"
+                defaultValue={note.date}
+                render={({ field }) => (
+                  <FormItem className="flex flex-col">
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <FormControl>
+                          <Button
+                            variant={"outline"}
+                            className={cn(
+                              "w-full pl-3 text-left font-normal",
+                              !field.value && "text-muted-foreground"
+                            )}
+                          >
+                            {field.value ? (
+                              format(new Date(field.value), "yyyy-MM-dd", {
+                                locale: ja,
+                              })
+                            ) : (
+                              <span>出艇日</span>
+                            )}
+                            <CalendarTodayOutlinedIcon className="ml-auto h-4 w-4 opacity-50" />
+                          </Button>
+                        </FormControl>
+                      </PopoverTrigger>
+                      <PopoverContent
+                        className="w-auto p-0 z-[9999]"
+                        align="start"
+                      >
+                        <Calendar
+                          mode="single"
+                          selected={
+                            field.value
+                              ? dayjs(field.value).toDate()
+                              : undefined
+                          }
+                          onSelect={(date) =>
+                            field.onChange(dayjs(date).format("YYYY-MM-DD"))
+                          }
+                          initialFocus
+                        />
+                      </PopoverContent>
+                    </Popover>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
               <div className="flex justify-end items-center">
                 <a onClick={clickModalClose}>キャンセル</a>
@@ -95,7 +147,7 @@ const EditNoteModal: React.FC<EditNoteModalProps> = ({
             </form>
           </Form>
         </DialogContent>
-      </Dialog> */}
+      </Dialog>
     </div>
   );
 };

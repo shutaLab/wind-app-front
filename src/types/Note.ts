@@ -11,6 +11,7 @@ export interface DeleteNote {
   id: number;
   title: string;
   content: string;
+  date: string;
 }
 export interface NoteWithFavorites {
   id: number;
