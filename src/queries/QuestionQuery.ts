@@ -31,6 +31,7 @@ export const useUpdateQuestion = () => {
   return useMutation(api.updateQuestion, {
     onSuccess: () => {
       queryClient.invalidateQueries("questions");
+      queryClient.invalidateQueries("question");
       toast.success("質問を編集しました");
     },
     onError: () => {

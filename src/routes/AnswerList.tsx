@@ -22,6 +22,7 @@ import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import relativeTime from "dayjs/plugin/relativeTime";
+import EditQuestionModal from "../components/EditQuestionModal";
 dayjs.extend(utc);
 dayjs.extend(timezone);
 dayjs.extend(relativeTime);
@@ -57,7 +58,7 @@ const AnswerList = () => {
 
   const relativeTimeFromNow = dayjs(question?.created_at).fromNow();
 
-  if (isLoading) return <div>Loading...</div>;
+  if (!question) return <div>Loading...</div>;
 
   return (
     <RequireAuth>
@@ -124,6 +125,11 @@ const AnswerList = () => {
         isDialogOpen={isDialogOpen}
         setIsDialogOpen={setIsDialogOpen}
         questionId={questionId}
+      />
+      <EditQuestionModal
+        modalOpen={modalOpen}
+        clickModalClose={clickModalClose}
+        question={question}
       />
     </RequireAuth>
   );

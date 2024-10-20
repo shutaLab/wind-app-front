@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-import { useShowNote } from "../queries/NoteQuery";
+import { useShowNote, useUpdateFavorite } from "../queries/NoteQuery";
 import { Note, NoteWithFavorites } from "../types/Note";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import Footer from "../components/Footer";
 import {
@@ -20,6 +19,10 @@ import NoteHeader from "../components/NoteHeader";
 import HeaderTab from "../components/HeaderTab";
 import RequireAuth from "../components/RequireAuth";
 import { useGetUser } from "../queries/UserQuery";
+import CircularProgress from "@mui/material/CircularProgress";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import dayjs from "dayjs";
 
 const WindNote = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -27,8 +30,9 @@ const WindNote = () => {
   const [isAnswerOpen, setIsAnswerOpen] = useState(false);
   const { id } = useParams();
   const noteId = Number(id);
-  const { data: note } = useShowNote(noteId);
-  const { data: user, status } = useGetUser();
+  const { data: note, isFetching } = useShowNote(noteId);
+  const { data: user } = useGetUser();
+  const updateFavorite = useUpdateFavorite();
   const clickModalOpen = () => {
     setModalOpen(true);
   };
@@ -47,7 +51,13 @@ const WindNote = () => {
   const clickAnswerClose = () => {
     setIsAnswerOpen(false);
   };
-  console.log(user);
+
+  if (!note || !user) {
+    return <div>読み込み中...</div>;
+  }
+  const handleFavoriteClick = () => {
+    updateFavorite.mutate(note.id);
+  };
   return (
     <RequireAuth>
       <NoteHeader />
@@ -55,10 +65,10 @@ const WindNote = () => {
       <div className=" p-2 mb-[100px]">
         <div className="flex p-2 items-start justify-between">
           <div>
-            <h1 className="font-bold text-lg">{note?.title}</h1>
-            <p className="whitespace-pre-line break-all">{note?.content}</p>
+            <h1 className="font-bold text-lg">{note.title}</h1>
+            <p className="whitespace-pre-line break-all">{note.content}</p>
           </div>
-          {user?.id === note?.user.id && (
+          {user?.id === note.user.id && (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <button>
@@ -82,15 +92,30 @@ const WindNote = () => {
             </DropdownMenu>
           )}
         </div>
-        <div className="flex px-1">
-          <FavoriteBorderIcon className="text-gray-500 mr-1" />
-          <p className="mr-2">3</p>
-          <BookmarkBorderIcon className="text-gray-500 mr-2" />
-          <p className="flex mr-2">
+        <div className="flex items-center justify-end space-x-3 text-gray-500">
+          <p>{dayjs(note.date).format("YYYY年M月D日")}</p>
+          <div className="flex items-center">
             {/* <Avatar sx={{ height: "25px", width: "25px" }} /> */}
-            <p className="text-gray-500 ml-2">山田脩太</p>
-          </p>
-          <p className="text-gray-500">4月20日</p>
+            <p className="text-gray-500">{note.user?.user_profile?.name}</p>
+          </div>
+          <div className="flex items-center">
+            <button
+              onClick={handleFavoriteClick}
+              disabled={updateFavorite.isLoading}
+            >
+              {isFetching || updateFavorite.isLoading ? (
+                <CircularProgress size={24} />
+              ) : note.is_favorited ? (
+                <FavoriteIcon className="text-red-500 mr-1" />
+              ) : (
+                <FavoriteBorderIcon className="mr-1" />
+              )}
+            </button>
+            <p className="w-[1em]">{note.favorites_count}</p>
+            <button>
+              <BookmarkBorderIcon />
+            </button>
+          </div>
         </div>
       </div>
       <Footer />
@@ -99,11 +124,11 @@ const WindNote = () => {
         setIsDialogOpen={setIsDialogOpen}
         noteId={noteId}
       />
-      {/* <EditNoteModal
+      <EditNoteModal
         modalOpen={modalOpen}
         clickModalClose={clickModalClose}
         note={note}
-      /> */}
+      />
     </RequireAuth>
   );
 };

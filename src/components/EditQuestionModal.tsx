@@ -16,6 +16,7 @@ import { Button } from "../@/components/ui/button";
 import { ShadTextarea } from "../@/components/ui/textarea";
 import { WindIdQuestion, WindQuestion } from "../types/Question";
 import { useUpdateQuestion } from "../queries/QuestionQuery";
+import { Dialog, DialogContent } from "../@/components/ui/dialog";
 
 interface ModalProps {
   modalOpen: boolean;
@@ -42,12 +43,7 @@ const EditQuestionModal: React.FC<ModalProps> = ({
 
   return (
     <div>
-      {/* <Dialog
-        open={modalOpen}
-        onClose={clickModalClose}
-        maxWidth="xl"
-        fullWidth
-      >
+      <Dialog open={modalOpen} onOpenChange={clickModalClose}>
         <DialogContent>
           <Form {...form}>
             <h1 className="mb-4 text-center font-bold">質問を編集する</h1>
@@ -75,7 +71,7 @@ const EditQuestionModal: React.FC<ModalProps> = ({
             </form>
           </Form>
         </DialogContent>
-      </Dialog> */}
+      </Dialog>
     </div>
   );
 };

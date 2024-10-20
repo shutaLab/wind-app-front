@@ -7,7 +7,8 @@ export const useCreateAnswer = () => {
 
   return useMutation(api.createAnswer, {
     onSuccess: () => {
-      queryClient.invalidateQueries("questions");
+      queryClient.invalidateQueries("question");
+      queryClient.invalidateQueries("answers");
       toast.success("回答しました");
     },
     onError: () => {
