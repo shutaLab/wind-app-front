@@ -17,6 +17,7 @@ import { User } from "../types/user";
 import dayjs from "dayjs";
 import { useUpdateFavorite } from "../queries/NoteQuery";
 import CircularProgress from "@mui/material/CircularProgress";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 
 const WindNote = ({
   note,
@@ -51,8 +52,8 @@ const WindNote = ({
 
   return (
     <>
-      <div className="border-b p-2">
-        <div className="flex p-2 justify-between">
+      <div className="border-b p-2 py-4">
+        <div className="flex justify-between items-stretch">
           <Link to={`/windNote/${note.id}`}>
             <h1 className="font-bold text-lg">{note.title}</h1>
             <p>
@@ -65,7 +66,7 @@ const WindNote = ({
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <button>
-                  <MoreVertIcon className="text-gray-600" />
+                  <MoreHorizIcon className="text-gray-600" />
                 </button>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-56">
