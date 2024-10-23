@@ -5,6 +5,7 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/ja";
 import { Link } from "react-router-dom";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -39,14 +40,18 @@ const Answer: React.FC<AnswerProps> = ({ answer }) => {
   const relativeTimeFromNow = dayjs(answer.created_at).fromNow();
   console.log(user?.id === answer.user?.id);
   return (
-    <div className="border-b p-2">
-      <div className=" flex p-2 justify-between">
-        <h1 className="">{answer.content}</h1>
+    <div className="border-b p-2 py-4">
+      <div className="flex justify-between">
+        <div className="bg-red-600 rounded-lg w-[17%] items-center my-auto">
+          <p className="text-white text-sm text-center">
+            {relativeTimeFromNow}
+          </p>
+        </div>
         {user?.id === answer.user?.id && (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <button>
-                <MoreVertIcon className=" text-gray-600" />
+                <MoreHorizIcon className="text-gray-600" />
               </button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-56">
@@ -63,7 +68,10 @@ const Answer: React.FC<AnswerProps> = ({ answer }) => {
           </DropdownMenu>
         )}
       </div>
-      <div className="flex items-center space-x-3">
+      <div className="px-3 my-5">
+        <h1 className="whitespace-pre-line break-all">{answer.content}</h1>
+      </div>
+      <div className="flex items-center justify-end space-x-3">
         <p className="mr-2"></p>
 
         {/* <button
@@ -79,9 +87,7 @@ const Answer: React.FC<AnswerProps> = ({ answer }) => {
           </button> */}
         <p className="flex">
           {/* <Avatar sx={{ height: "25px", width: "25px" }} /> */}
-          <p className="text-gray-500 ">
-            {/* {note.user?.user_profile?.name || "匿名ユーザー"} */}
-          </p>
+          <p className="text-gray-500 ">{answer.user?.user_profile?.name}</p>
         </p>
         <p className="text-gray-500 w-[50%]">
           {dayjs(answer.created_at).format("YYYY年MM月DD日HH:mm")}

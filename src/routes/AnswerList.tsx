@@ -96,7 +96,7 @@ const AnswerList = () => {
           )}
         </div>
         <div className="px-3 my-5">
-          <p>{question?.content}</p>
+          <p className="whitespace-pre-line break-all">{question?.content}</p>
         </div>
         <div className=" flex justify-end px-2 text-gray-500 space-x-3">
           <p>{dayjs(question?.created_at).format("YYYY年MM月DD日HH:mm")}</p>
@@ -112,7 +112,7 @@ const AnswerList = () => {
             <ChatBubbleOutlineIcon />
           </button>
         </div>
-        <p className="text-gray-600">返信</p>
+        <p className="text-gray-600">回答</p>
       </div>
       {answers?.map((answer) => <Answer answer={answer} />)}
       <Footer />
