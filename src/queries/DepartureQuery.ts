@@ -3,10 +3,10 @@ import * as api from "../api/departureApi";
 import { toast } from "react-toastify";
 
 export const useGetDepartures = (
-  userId?: string,
+  userId?: number,
   year?: string,
   month?: string,
-  date?: string,
+  date?: string
 ) => {
   return useQuery(["departures", userId, year, month, date], () =>
     api.getDepartures(userId, year, month, date)

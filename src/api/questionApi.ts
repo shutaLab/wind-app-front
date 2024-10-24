@@ -1,9 +1,14 @@
 import axios from "axios";
 import { WindIdQuestion, WindQuestion } from "../types/Question";
 
-export const getQuestions = async () => {
-  const { data } = await axios.get<WindQuestion[]>(
-    "http://localhost:8000/api/question"
+export const getQuestions = async (userId?: number) => {
+  const { data } = await axios.get<WindIdQuestion[]>(
+    "http://localhost:8000/api/question",
+    {
+      params: {
+        user_id: userId,
+      },
+    }
   );
   return data;
 };

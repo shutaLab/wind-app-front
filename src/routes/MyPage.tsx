@@ -30,8 +30,12 @@ export function MyPage() {
           </div>
         </div>
         <div className="flex justify-between">
-          <Button variant="outline">プロフィールを編集</Button>
-          <Button variant="outline">このアプリをシェア</Button>
+          <Button className="w-[45%]" variant="outline">
+            プロフィールを編集
+          </Button>
+          <Button className="w-[45%]" variant="outline">
+            このアプリをシェア
+          </Button>
         </div>
       </div>
       <div className="mt-6">
@@ -54,9 +58,31 @@ export function MyPage() {
                 ? "text-black w-[30%] text-center border-b-2 pb-2 border-black"
                 : "text-gray-400 w-[30%] text-center"
             }
-            to="myNote"
+            to="note"
           >
-            マイノート
+            ノート
+          </NavLink>
+          <NavLink
+            id="MyPageTab"
+            className={({ isActive }) =>
+              isActive
+                ? "text-black w-[30%] text-center border-b-2 pb-2 border-black"
+                : "text-gray-400 w-[30%] text-center"
+            }
+            to="question"
+          >
+            質問
+          </NavLink>
+          <NavLink
+            id="MyPageTab"
+            className={({ isActive }) =>
+              isActive
+                ? "text-black w-[30%] text-center border-b-2 pb-2 border-black"
+                : "text-gray-400 w-[30%] text-center"
+            }
+            to="answer"
+          >
+            回答
           </NavLink>
           <NavLink
             id="MyPageTab"
