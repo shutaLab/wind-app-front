@@ -1,6 +1,18 @@
 import axios from "axios";
 import { WindAnswer, WindIdAnswer } from "../types/Question";
 
+export const getAnswers = async (userId?: number) => {
+  const { data } = await axios.get<WindIdAnswer[]>(
+    "http://localhost:8000/api/answers",
+    {
+      params: {
+        user_id: userId,
+      },
+    }
+  );
+  return data;
+};
+
 export const createAnswer = async ({
   question_id,
   values,
