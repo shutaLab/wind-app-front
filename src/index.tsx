@@ -29,6 +29,8 @@ import { MyPage } from "./routes/MyPage";
 import IntraList from "./components/IntraList";
 import MyPageDepartureList from "./components/MyPageDepartureList";
 import MyPageNoteList from "./components/MyPageNoteList";
+import MyPageQuestionList from "./components/MyPageQuestionList";
+import MyPageAnswerList from "./components/MyPageAnswerList";
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
@@ -60,8 +62,8 @@ root.render(
         <Route path="/myPage" element={<MyPage />}>
           <Route path="intra" element={<IntraList />} />
           <Route path="note" element={<MyPageNoteList />} />
-          <Route path="question" element={<></>} />
-          <Route path="answer" element={<></>} />
+          <Route path="question" element={<MyPageQuestionList />} />
+          <Route path="answer" element={<MyPageAnswerList />} />
           <Route path="departure" element={<MyPageDepartureList />} />
         </Route>
         <Route path="/departure" element={<Departure />} />

@@ -3,8 +3,8 @@ import * as api from "../api/questionApi";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export const useQuestions = () => {
-  return useQuery("questions", () => api.getQuestions());
+export const useQuestions = (userId?: number) => {
+  return useQuery(["questions", userId], () => api.getQuestions(userId));
 };
 
 export const useCreateQuestion = () => {
