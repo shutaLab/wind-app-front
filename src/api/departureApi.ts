@@ -1,7 +1,12 @@
 import axios from "axios";
 import { DepartureType, DepartureWithTotalTime } from "../types/Departure";
 
-export const getDepartures = async (userId?: string, year?: string, month?: string, date?: string) => {
+export const getDepartures = async (
+  userId?: number,
+  year?: string,
+  month?: string,
+  date?: string
+) => {
   const { data } = await axios.get<DepartureType[]>(
     "http://localhost:8000/api/departures",
     {

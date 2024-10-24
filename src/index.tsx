@@ -28,6 +28,7 @@ import SignIn from "./routes/Login";
 import { MyPage } from "./routes/MyPage";
 import IntraList from "./components/IntraList";
 import MyPageDepartureList from "./components/MyPageDepartureList";
+import MyPageNoteList from "./components/MyPageNoteList";
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
@@ -44,28 +45,30 @@ const queryClient = new QueryClient({
 });
 
 root.render(
-    <QueryClientProvider client={queryClient}>
-      <Meta />
-      <BrowserRouter>
-        <ToastContainer hideProgressBar={true} />
-        <Routes>
-          <Route index element={<App />} />
-          <Route path="/signUp" element={<SignUp />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/windNote" element={<WindNoteList />} />
-          <Route path="/windNote/:id" element={<WindNote />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/calendar" element={<WindCalendar />} />
-          <Route path="/myPage" element={<MyPage />}>
-            <Route path="intra" element={<IntraList />} />
-            <Route path="myNote" element={<div>マイノートの内容</div>} />
-            <Route path="departure" element={<MyPageDepartureList />} />
-          </Route>
-          <Route path="/departure" element={<Departure />} />
-          <Route path="/question" element={<QuestionList />} />
-          <Route path="/timeline" element={<NoteTimeline />} />
-          <Route path="/question/:id/answer" element={<Answer />} />
-        </Routes>
-      </BrowserRouter>
-    </QueryClientProvider>
+  <QueryClientProvider client={queryClient}>
+    <Meta />
+    <BrowserRouter>
+      <ToastContainer hideProgressBar={true} />
+      <Routes>
+        <Route index element={<App />} />
+        <Route path="/signUp" element={<SignUp />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/windNote" element={<WindNoteList />} />
+        <Route path="/windNote/:id" element={<WindNote />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/calendar" element={<WindCalendar />} />
+        <Route path="/myPage" element={<MyPage />}>
+          <Route path="intra" element={<IntraList />} />
+          <Route path="note" element={<MyPageNoteList />} />
+          <Route path="question" element={<></>} />
+          <Route path="answer" element={<></>} />
+          <Route path="departure" element={<MyPageDepartureList />} />
+        </Route>
+        <Route path="/departure" element={<Departure />} />
+        <Route path="/question" element={<QuestionList />} />
+        <Route path="/timeline" element={<NoteTimeline />} />
+        <Route path="/question/:id/answer" element={<Answer />} />
+      </Routes>
+    </BrowserRouter>
+  </QueryClientProvider>
 );

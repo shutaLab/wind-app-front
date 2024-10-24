@@ -3,8 +3,8 @@ import * as api from "../api/noteApi";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export const useNotes = () => {
-  return useQuery("notes", () => api.getNotes());
+export const useNotes = (userId?: number) => {
+  return useQuery(["notes", userId], () => api.getNotes(userId));
 };
 
 export const useCreateNote = () => {
