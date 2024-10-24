@@ -1,6 +1,10 @@
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import * as api from "../api/answerApi";
 import { toast } from "react-toastify";
+
+export const useGetAnswers = (userId?: number) => {
+  return useQuery(["answers", userId], () => api.getAnswers(userId));
+};
 
 export const useCreateAnswer = () => {
   const queryClient = useQueryClient();
