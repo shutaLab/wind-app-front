@@ -16,25 +16,29 @@ const IntraClaim = ({
   const handleClose = () => {
     setOpen(false);
   };
-  const start = intraClaim.departure?.start
-    ? dayjs.utc(intraClaim.departure.start)
-    : undefined;
-  const end = intraClaim.departure?.end
-    ? dayjs.utc(intraClaim.departure.end)
-    : undefined;
   return (
     <>
       <div className="w-full p-3 pr-6 rounded shadow-md bg-white hover:shadow-xl transition cursor-pointer">
         <div className="flex items-center space-x-2">
           <div>
             <p className="text-sm">
-              {start ? start.format("M/D") : "日付不明"}
+              {intraClaim.departure.start
+                ? dayjs(intraClaim.departure.start).format("M/D")
+                : "日付不明"}
             </p>
           </div>
           <div className="flex flex-col items-center text-xs">
-            <p>{start ? start.format("H:mm") : "日付不明"}</p>
+            <p>
+              {intraClaim.departure.start
+                ? dayjs(intraClaim.departure.start).format("H:mm")
+                : "日付不明"}
+            </p>
             <p>l</p>
-            <p>{end ? end.format("H:mm") : "日付不明"}</p>
+            <p>
+              {intraClaim.departure.end
+                ? dayjs(intraClaim.departure.end).format("H:mm")
+                : "日付不明"}
+            </p>
           </div>
           <div className="text-xs">
             {intraClaim.status === "pending" &&
