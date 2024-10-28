@@ -6,8 +6,8 @@ import { CreateNoteModalProps } from "../types/ModalProps";
 import { Input } from "../@/components/ui/input";
 import { Button } from "../@/components/ui/button";
 import dayjs from "dayjs";
-import utc from 'dayjs/plugin/utc';
-import timezone from 'dayjs/plugin/timezone';
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
 import {
   Dialog,
   DialogContent,
@@ -49,8 +49,12 @@ const CreateDepartureModal: React.FC<CreateNoteModalProps> = ({
 
   function onsubmit(values: z.infer<typeof DepartureValidationShema>) {
     console.log(values);
-    const startDateTime = dayjs.tz(`${selectedDate}T${values.start}`, "Asia/Tokyo").format();
-    const endDateTime = dayjs.tz(`${selectedDate}T${values.end}`, "Asia/Tokyo").format();
+    const startDateTime = dayjs
+      .tz(`${selectedDate}T${values.start}`, "Asia/Tokyo")
+      .format();
+    const endDateTime = dayjs
+      .tz(`${selectedDate}T${values.end}`, "Asia/Tokyo")
+      .format();
 
     const departure: Omit<DepartureType, "date"> = {
       start: startDateTime,

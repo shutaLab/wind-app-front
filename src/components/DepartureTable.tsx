@@ -13,14 +13,12 @@ import { useGetDepartures } from "../queries/DepartureQuery";
 const DepartureTable = () => {
   const [open, setOpen] = useState(false);
   const { data } = useGetDepartures();
-
-
-  const resources = data?.map((departure: DepartureType) => ({
+  const resources = data?.departures?.map((departure: DepartureType) => ({
     id: departure.user?.id?.toString() ?? "",
     title: departure.user?.user_profile?.name || "Unknown",
   }));
 
-  const events = data?.map((departure: DepartureType) => ({
+  const events = data?.departures?.map((departure: DepartureType) => ({
     id: departure.id?.toString(),
     resourceId: departure.user?.id?.toString() ?? "",
     start: departure.start,
@@ -40,7 +38,6 @@ const DepartureTable = () => {
   const handleClose = () => {
     setOpen(false);
   };
-
   return (
     <div className="">
       <div className="px-3">

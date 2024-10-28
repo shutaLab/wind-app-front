@@ -7,7 +7,7 @@ export const getDepartures = async (
   month?: string,
   date?: string
 ) => {
-  const { data } = await axios.get<DepartureType[]>(
+  const { data } = await axios.get<DepartureWithTotalTime>(
     "http://localhost:8000/api/departures",
     {
       params: {
