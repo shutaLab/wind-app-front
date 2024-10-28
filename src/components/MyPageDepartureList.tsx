@@ -12,6 +12,7 @@ import {
   TableHeader,
   TableRow,
 } from "../@/components/ui/table";
+import { useGetDepartures } from "../queries/DepartureQuery";
 
 type DepartureListContextType = { user: User };
 
@@ -23,14 +24,14 @@ const MyPageDepartureList = () => {
   const [date, setDate] = useState("");
   const [page, setPage] = useState("1");
   const { user } = useOutletContext<DepartureListContextType>();
-  // const {
-  //   data: departures,
-  //   isLoading,
-  //   error,
-  // } = useGetDepartures(String(user.id), year, month, date, page);
+  const {
+    data: departures,
+    isLoading,
+    error,
+  } = useGetDepartures(user.id, year, month, date);
 
-  // if (isLoading) return <div>Loading...</div>;
-  // if (error) return <div>Error loading departures</div>;
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error loading departures</div>;
 
   return (
     <div className="px-4 mt-2 space-y-2">
@@ -63,17 +64,17 @@ const MyPageDepartureList = () => {
         <div className="text-right">
           {year === "" ? (
             <>
-              {/* <p>全ての出艇回数: {departures?.total_items}回</p>
-              <p>全ての出艇時間: {departures?.total_time}</p> */}
+              <p>全ての出艇回数: {departures?.departures.length}回</p>
+              <p>全ての出艇時間: {departures?.total_time}</p>
             </>
           ) : (
             <>
-              {/* <p>
-                {nowMonth}月の出艇回数: {departures?.total_items}回
+              <p>
+                {nowMonth}月の出艇回数: {departures?.departures.length}回
               </p>
               <p>
                 {nowMonth}月の出艇時間: {departures?.total_time}
-              </p> */}
+              </p>
             </>
           )}
         </div>
@@ -86,9 +87,9 @@ const MyPageDepartureList = () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {/* {departures?.departures.map((departure) => (
+            {departures?.departures.map((departure) => (
               <Departure departure={departure} />
-            ))} */}
+            ))}
           </TableBody>
         </Table>
       </div>
