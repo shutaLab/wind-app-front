@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import Footer from "../components/Footer";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
@@ -18,7 +18,7 @@ import { Calendar } from "../types/Calendar";
 import RequireAuth from "../components/RequireAuth";
 const WindCalendar = () => {
   const [open, setOpen] = useState(false);
-  const { data } = useGetCalendarEvent();
+  const { data: calendarEvents } = useGetCalendarEvent();
   const [selectedDate, setSelectedDate] = useState(new Date());
   const today = format(selectedDate, "MM月dd日", { locale: ja });
 
@@ -31,7 +31,7 @@ const WindCalendar = () => {
   };
 
   // 今日の日付に対応するイベントをフィルタリング
-  const eventsOnSelectedDate = data?.filter((event: Calendar) => {
+  const eventsOnSelectedDate = calendarEvents?.filter((event: Calendar) => {
     const eventStart = new Date(event.start);
     const eventEnd = new Date(event.end);
     const todayStart = new Date(selectedDate);
@@ -59,6 +59,15 @@ const WindCalendar = () => {
     return [];
   };
 
+  const formattedEvents = useMemo(() => {
+    if (!calendarEvents) return [];
+
+    return calendarEvents.map((event: Calendar) => ({
+      ...event,
+      id: event.id.toString(),
+    }));
+  }, [calendarEvents]);
+
   return (
     <RequireAuth>
       <div className="flex flex-col min-h-screen">
@@ -77,7 +86,7 @@ const WindCalendar = () => {
                 initialView="dayGridMonth"
                 selectable={true}
                 locale="ja"
-                events={data}
+                events={formattedEvents}
                 businessHours={true}
                 displayEventTime={false}
                 schedulerLicenseKey="CC-Attribution-NonCommercial-NoDerivatives"

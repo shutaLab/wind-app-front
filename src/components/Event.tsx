@@ -9,6 +9,7 @@ import {
 import EventsAlertDialog from "./EventsAlertDialog";
 import EventNoteOutlinedIcon from "@mui/icons-material/EventNoteOutlined";
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
+import { useGetUser } from "../queries/UserQuery";
 interface EventProps {
   event: Calendar;
 }
@@ -16,6 +17,7 @@ interface EventProps {
 const Event: React.FC<EventProps> = ({ event }) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
+  const { data: user } = useGetUser();
 
   const openDialog = () => {
     setIsDialogOpen(true);
@@ -42,24 +44,29 @@ const Event: React.FC<EventProps> = ({ event }) => {
           </div>
         </div>
         <div>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <button>
-                <MoreVertOutlinedIcon />
-              </button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56">
-              <DropdownMenuItem className="text-gray-600" onSelect={openDialog}>
-                削除
-              </DropdownMenuItem>
-              <DropdownMenuItem
-                onClick={clickModalOpen}
-                className="text-gray-600"
-              >
-                編集
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          {user?.id === event.user.id && (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button>
+                  <MoreVertOutlinedIcon />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-56">
+                <DropdownMenuItem
+                  className="text-gray-600"
+                  onSelect={openDialog}
+                >
+                  削除
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={clickModalOpen}
+                  className="text-gray-600"
+                >
+                  編集
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          )}
         </div>
       </div>
       {event.id && (

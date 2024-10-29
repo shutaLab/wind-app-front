@@ -26,7 +26,6 @@ import { format } from "date-fns";
 import { ja } from "date-fns/locale";
 import { Calendar } from "../@/components/ui/calendar";
 import { Checkbox } from "../@/components/ui/checkbox";
-import { useCreateCalendaarEvent } from "../queries/CalenarQuery";
 import {
   Dialog,
   DialogContent,
@@ -34,6 +33,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "../@/components/ui/dialog";
+import { useCreateCalendarEvent } from "../queries/CalenarQuery";
 
 const CreateCalendarEvent: React.FC<CreateNoteModalProps> = ({
   open,
@@ -44,7 +44,7 @@ const CreateCalendarEvent: React.FC<CreateNoteModalProps> = ({
     mode: "onChange",
   });
 
-  const createEvent = useCreateCalendaarEvent();
+  const createEvent = useCreateCalendarEvent();
 
   function onsubmit(values: z.infer<typeof CalendarEventValidationShema>) {
     const formatISODate = (date: string | null) =>
