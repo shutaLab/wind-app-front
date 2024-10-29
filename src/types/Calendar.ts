@@ -1,3 +1,5 @@
+import { User } from "./user";
+
 export interface CreateCalendar {
   title: string;
   start: string;
@@ -7,6 +9,7 @@ export interface CreateCalendar {
 }
 export interface Calendar {
   id: number;
+  user: User;
   title: string;
   start: string;
   end: string;

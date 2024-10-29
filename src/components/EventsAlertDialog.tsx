@@ -8,16 +8,23 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "../@/components/ui/alert-dialog";
+import { useDeleteCalendarEvent } from "../queries/CalenarQuery";
 interface EventsAlertDialogProps {
   isDialogOpen: boolean;
   setIsDialogOpen: (isOpen: boolean) => void;
-  eventId: string;
+  eventId: number;
 }
 const EventsAlertDialog: React.FC<EventsAlertDialogProps> = ({
   isDialogOpen,
   setIsDialogOpen,
   eventId,
 }) => {
+  const deleteCalendarEvent = useDeleteCalendarEvent();
+
+  const handleDeleteCalendarEvent = () => {
+    deleteCalendarEvent.mutate(eventId);
+  };
+  console.log(eventId);
   return (
     <div>
       <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
@@ -31,7 +38,9 @@ const EventsAlertDialog: React.FC<EventsAlertDialogProps> = ({
             <AlertDialogCancel onClick={() => setIsDialogOpen(false)}>
               キャンセル
             </AlertDialogCancel>
-            <AlertDialogAction>削除</AlertDialogAction>
+            <AlertDialogAction onClick={handleDeleteCalendarEvent}>
+              削除
+            </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
