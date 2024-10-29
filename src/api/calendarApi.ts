@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Calendar } from "../types/Calendar";
+import { Calendar, CreateCalendar } from "../types/Calendar";
 
 export const getCalendarEvent = async () => {
   const { data } = await axios.get<Calendar[]>(
@@ -8,8 +8,8 @@ export const getCalendarEvent = async () => {
   return data;
 };
 
-export const createCalendarEvent = async (values: Calendar) => {
-  const { data } = await axios.post<Calendar>(
+export const createCalendarEvent = async (values: CreateCalendar) => {
+  const { data } = await axios.post<CreateCalendar>(
     "http://localhost:8000/api/calendar",
     {
       title: values.title,
@@ -18,6 +18,13 @@ export const createCalendarEvent = async (values: Calendar) => {
       end: values.end,
       is_absent: values.is_absent,
     }
+  );
+  return data;
+};
+
+export const deleteEvent = async (id: number) => {
+  const { data } = await axios.delete<Calendar>(
+    `http://localhost:8000/api/calendar/${id}`
   );
   return data;
 };
