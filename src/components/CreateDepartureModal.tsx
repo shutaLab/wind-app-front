@@ -48,7 +48,6 @@ const CreateDepartureModal: React.FC<CreateNoteModalProps> = ({
   };
 
   function onsubmit(values: z.infer<typeof DepartureValidationShema>) {
-    console.log(values);
     const startDateTime = dayjs
       .tz(`${selectedDate}T${values.start}`, "Asia/Tokyo")
       .format();

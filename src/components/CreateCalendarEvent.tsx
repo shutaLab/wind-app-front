@@ -22,7 +22,7 @@ import {
 } from "../@/components/popover";
 import { cn } from "../@/lib/utils";
 import { format } from "date-fns";
-import { ja } from "date-fns/locale";
+import { fi, ja } from "date-fns/locale";
 import { Calendar } from "../@/components/ui/calendar";
 import { Checkbox } from "../@/components/ui/checkbox";
 import {
@@ -34,6 +34,7 @@ import {
 } from "../@/components/ui/dialog";
 import { useCreateCalendarEvent } from "../queries/CalenarQuery";
 import { CalendarType } from "../types/Calendar";
+import dayjs from "dayjs";
 
 const CreateCalendarEvent: React.FC<CreateNoteModalProps> = ({
   open,
@@ -47,24 +48,11 @@ const CreateCalendarEvent: React.FC<CreateNoteModalProps> = ({
   const createEvent = useCreateCalendarEvent();
 
   function onsubmit(values: z.infer<typeof CalendarEventValidationShema>) {
-    const formatISODate = (date: string | null) =>
-      date ? new Date(date).toISOString().split(".")[0] + "Z" : "";
-
-    const addOneDay = (date: string | null) => {
-      if (!date) return "";
-      const newDate = new Date(date);
-      newDate.setDate(newDate.getDate() + 1);
-      return newDate.toISOString().split(".")[0] + "Z";
-    };
-
-    const formattedValues = {
+    const formatValues = {
       ...values,
-      start: formatISODate(values.start),
-      end: addOneDay(values.end),
+      end: dayjs(values.end).add(1, "day").format("YYYY-MM-DD"),
     };
-
-    console.log(formattedValues);
-    createEvent.mutate(formattedValues);
+    createEvent.mutate(formatValues);
     handleClose();
   }
 
@@ -143,14 +131,12 @@ const CreateCalendarEvent: React.FC<CreateNoteModalProps> = ({
                             <Calendar
                               mode="single"
                               selected={
-                                field.value ? new Date(field.value) : undefined
+                                field.value
+                                  ? dayjs(field.value).toDate()
+                                  : undefined
                               }
                               onSelect={(date) =>
-                                field.onChange(
-                                  date
-                                    ? date.toISOString().split(".")[0] + "Z"
-                                    : ""
-                                )
+                                field.onChange(dayjs(date).format("YYYY-MM-DD"))
                               }
                               initialFocus
                             />
@@ -193,14 +179,12 @@ const CreateCalendarEvent: React.FC<CreateNoteModalProps> = ({
                             <Calendar
                               mode="single"
                               selected={
-                                field.value ? new Date(field.value) : undefined
+                                field.value
+                                  ? dayjs(field.value).toDate()
+                                  : undefined
                               }
                               onSelect={(date) =>
-                                field.onChange(
-                                  date
-                                    ? date.toISOString().split(".")[0] + "Z"
-                                    : ""
-                                )
+                                field.onChange(dayjs(date).format("YYYY-MM-DD"))
                               }
                               initialFocus
                             />
