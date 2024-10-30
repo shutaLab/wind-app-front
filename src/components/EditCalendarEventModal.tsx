@@ -1,4 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
+import { CalendarType, CalendarWithoutId } from "../types/Calendar";
+import { useUpdateCalendarEvent } from "../queries/CalenarQuery";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { CalendarEventValidationShema } from "../utils/validationSchema";
+import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
+
+import { z } from "zod";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "../@/components/ui/dialog";
 import {
   Form,
   FormControl,
@@ -7,46 +22,46 @@ import {
   FormLabel,
   FormMessage,
 } from "../@/components/ui/form";
-import { useForm, useFormState } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { CalendarEventValidationShema } from "../@/components/ui/validationSchema";
-import { CreateNoteModalProps } from "../types/ModalProps";
-import { Input } from "../@/components/ui/input";
-import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import { Button } from "../@/components/ui/button";
-import { z } from "zod";
+import { Input } from "../@/components/ui/input";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "../@/components/popover";
 import { cn } from "../@/lib/utils";
-import { format } from "date-fns";
-import { ja } from "date-fns/locale";
 import { Calendar } from "../@/components/ui/calendar";
 import { Checkbox } from "../@/components/ui/checkbox";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "../@/components/ui/dialog";
-import { useCreateCalendarEvent } from "../queries/CalenarQuery";
-import { CalendarType } from "../types/Calendar";
 
-const CreateCalendarEvent: React.FC<CreateNoteModalProps> = ({
-  open,
-  handleClose,
+interface ModalProps {
+  modalOpen: boolean;
+  clickModalClose: () => void;
+  calendarEvent: CalendarType;
+}
+
+const EditCalendarEventModal: React.FC<ModalProps> = ({
+  modalOpen,
+  clickModalClose,
+  calendarEvent,
 }) => {
+  const updateCalendarEvent = useUpdateCalendarEvent();
+
   const form = useForm<CalendarType>({
     resolver: zodResolver(CalendarEventValidationShema),
-    mode: "onChange",
+    defaultValues: {
+      title: calendarEvent.title,
+      content: calendarEvent.content,
+      start: calendarEvent.start,
+      end: calendarEvent.end,
+      is_absent: calendarEvent.is_absent,
+    },
   });
 
-  const createEvent = useCreateCalendarEvent();
-
-  function onsubmit(values: z.infer<typeof CalendarEventValidationShema>) {
+  function onSubmit(values: z.infer<typeof CalendarEventValidationShema>) {
+    console.log(values);
     const formatISODate = (date: string | null) =>
       date ? new Date(date).toISOString().split(".")[0] + "Z" : "";
 
@@ -62,24 +77,27 @@ const CreateCalendarEvent: React.FC<CreateNoteModalProps> = ({
       start: formatISODate(values.start),
       end: addOneDay(values.end),
     };
-
-    console.log(formattedValues);
-    createEvent.mutate(formattedValues);
-    handleClose();
+    updateCalendarEvent.mutate({
+      id: calendarEvent.id,
+      values: formattedValues,
+    });
+    clickModalClose();
   }
 
-  const { isSubmitting, isValid } = useFormState(form);
+  dayjs.extend(utc);
+  dayjs.extend(timezone);
+  dayjs.tz.setDefault("Asia/Tokyo");
 
   return (
-    <Dialog open={open} onOpenChange={handleClose}>
+    <Dialog open={modalOpen} onOpenChange={clickModalClose}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle className="mb-5">予定を追加する</DialogTitle>
-          <DialogDescription className="">
+          <DialogTitle className="mb-5">予定を編集する</DialogTitle>
+          <DialogDescription>
             <Form {...form}>
               <form
                 className="space-y-6"
-                onSubmit={form.handleSubmit(onsubmit)}
+                onSubmit={form.handleSubmit(onSubmit)}
               >
                 <FormField
                   control={form.control}
@@ -126,9 +144,7 @@ const CreateCalendarEvent: React.FC<CreateNoteModalProps> = ({
                                 )}
                               >
                                 {field.value ? (
-                                  format(new Date(field.value), "yyyy-MM-dd", {
-                                    locale: ja,
-                                  })
+                                  dayjs(field.value).format("YYYY-MM-DD")
                                 ) : (
                                   <span>開始日付</span>
                                 )}
@@ -148,7 +164,8 @@ const CreateCalendarEvent: React.FC<CreateNoteModalProps> = ({
                               onSelect={(date) =>
                                 field.onChange(
                                   date
-                                    ? date.toISOString().split(".")[0] + "Z"
+                                    ? dayjs(date).toISOString().split(".")[0] +
+                                        "Z"
                                     : ""
                                 )
                               }
@@ -176,9 +193,7 @@ const CreateCalendarEvent: React.FC<CreateNoteModalProps> = ({
                                 )}
                               >
                                 {field.value ? (
-                                  format(new Date(field.value), "yyyy-MM-dd", {
-                                    locale: ja,
-                                  })
+                                  dayjs(field.value).format("YYYY-MM-DD")
                                 ) : (
                                   <span>終了日付</span>
                                 )}
@@ -198,7 +213,8 @@ const CreateCalendarEvent: React.FC<CreateNoteModalProps> = ({
                               onSelect={(date) =>
                                 field.onChange(
                                   date
-                                    ? date.toISOString().split(".")[0] + "Z"
+                                    ? dayjs(date).toISOString().split(".")[0] +
+                                        "Z"
                                     : ""
                                 )
                               }
@@ -233,14 +249,7 @@ const CreateCalendarEvent: React.FC<CreateNoteModalProps> = ({
                     </FormItem>
                   )}
                 />
-                <Button
-                  type="submit"
-                  disabled={isSubmitting || !isValid}
-                  className="w-full py-4"
-                >
-                  {isSubmitting && (
-                    <span className="spinner-border spinner-border-sm mr-1"></span>
-                  )}
+                <Button type="submit" className="w-full py-4">
                   投稿する
                 </Button>
               </form>
@@ -252,4 +261,4 @@ const CreateCalendarEvent: React.FC<CreateNoteModalProps> = ({
   );
 };
 
-export default CreateCalendarEvent;
+export default EditCalendarEventModal;

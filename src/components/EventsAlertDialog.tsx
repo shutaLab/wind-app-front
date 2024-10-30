@@ -24,7 +24,6 @@ const EventsAlertDialog: React.FC<EventsAlertDialogProps> = ({
   const handleDeleteCalendarEvent = () => {
     deleteCalendarEvent.mutate(eventId);
   };
-  console.log(eventId);
   return (
     <div>
       <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>

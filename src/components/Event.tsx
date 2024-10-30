@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Calendar } from "../types/Calendar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,8 +9,10 @@ import EventsAlertDialog from "./EventsAlertDialog";
 import EventNoteOutlinedIcon from "@mui/icons-material/EventNoteOutlined";
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
 import { useGetUser } from "../queries/UserQuery";
+import EditCalendarEventModal from "./EditCalendarEventModal";
+import { CalendarType } from "../types/Calendar";
 interface EventProps {
-  event: Calendar;
+  event: CalendarType;
 }
 
 const Event: React.FC<EventProps> = ({ event }) => {
@@ -32,6 +33,7 @@ const Event: React.FC<EventProps> = ({ event }) => {
   const clickModalClose = () => {
     setModalOpen(false);
   };
+  console.log(modalOpen);
   return (
     <>
       <div className="flex p-2 justify-between">
@@ -69,13 +71,16 @@ const Event: React.FC<EventProps> = ({ event }) => {
           )}
         </div>
       </div>
-      {event.id && (
-        <EventsAlertDialog
-          isDialogOpen={isDialogOpen}
-          setIsDialogOpen={setIsDialogOpen}
-          eventId={event.id}
-        />
-      )}
+      <EventsAlertDialog
+        isDialogOpen={isDialogOpen}
+        setIsDialogOpen={setIsDialogOpen}
+        eventId={event.id}
+      />
+      <EditCalendarEventModal
+        modalOpen={modalOpen}
+        clickModalClose={clickModalClose}
+        calendarEvent={event}
+      />
     </>
   );
 };

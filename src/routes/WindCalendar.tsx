@@ -14,8 +14,8 @@ import { EventApi } from "@fullcalendar/core";
 import "../App";
 import NoteHeader from "../components/NoteHeader";
 import axios from "axios";
-import { Calendar } from "../types/Calendar";
 import RequireAuth from "../components/RequireAuth";
+import { CalendarType } from "../types/Calendar";
 const WindCalendar = () => {
   const [open, setOpen] = useState(false);
   const { data: calendarEvents } = useGetCalendarEvent();
@@ -31,7 +31,7 @@ const WindCalendar = () => {
   };
 
   // 今日の日付に対応するイベントをフィルタリング
-  const eventsOnSelectedDate = calendarEvents?.filter((event: Calendar) => {
+  const eventsOnSelectedDate = calendarEvents?.filter((event: CalendarType) => {
     const eventStart = new Date(event.start);
     const eventEnd = new Date(event.end);
     const todayStart = new Date(selectedDate);
@@ -62,7 +62,7 @@ const WindCalendar = () => {
   const formattedEvents = useMemo(() => {
     if (!calendarEvents) return [];
 
-    return calendarEvents.map((event: Calendar) => ({
+    return calendarEvents.map((event: CalendarType) => ({
       ...event,
       id: event.id.toString(),
     }));
