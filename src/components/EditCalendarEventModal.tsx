@@ -1,7 +1,7 @@
 import React from "react";
 import { CalendarType, CalendarWithoutId } from "../types/Calendar";
 import { useUpdateCalendarEvent } from "../queries/CalenarQuery";
-import { useForm } from "react-hook-form";
+import { useForm, useFormState } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CalendarEventValidationShema } from "../utils/validationSchema";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
@@ -35,6 +35,8 @@ import {
 import { cn } from "../@/lib/utils";
 import { Calendar } from "../@/components/ui/calendar";
 import { Checkbox } from "../@/components/ui/checkbox";
+import { format } from "date-fns";
+import { ja } from "date-fns/locale";
 
 interface ModalProps {
   modalOpen: boolean;
@@ -60,40 +62,26 @@ const EditCalendarEventModal: React.FC<ModalProps> = ({
     },
   });
 
+  const { isSubmitting, isValid } = useFormState(form);
+
   function onSubmit(values: z.infer<typeof CalendarEventValidationShema>) {
-    console.log(values);
-    const formatISODate = (date: string | null) =>
-      date ? new Date(date).toISOString().split(".")[0] + "Z" : "";
-
-    const addOneDay = (date: string | null) => {
-      if (!date) return "";
-      const newDate = new Date(date);
-      newDate.setDate(newDate.getDate() + 1);
-      return newDate.toISOString().split(".")[0] + "Z";
-    };
-
-    const formattedValues = {
+    const formatValues = {
       ...values,
-      start: formatISODate(values.start),
-      end: addOneDay(values.end),
+      end: dayjs(values.end).add(1, "day").format("YYYY-MM-DD"),
     };
     updateCalendarEvent.mutate({
       id: calendarEvent.id,
-      values: formattedValues,
+      values: formatValues,
     });
     clickModalClose();
   }
-
-  dayjs.extend(utc);
-  dayjs.extend(timezone);
-  dayjs.tz.setDefault("Asia/Tokyo");
 
   return (
     <Dialog open={modalOpen} onOpenChange={clickModalClose}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle className="mb-5">予定を編集する</DialogTitle>
-          <DialogDescription>
+          <DialogTitle className="mb-5">予定を追加する</DialogTitle>
+          <DialogDescription className="">
             <Form {...form}>
               <form
                 className="space-y-6"
@@ -144,7 +132,9 @@ const EditCalendarEventModal: React.FC<ModalProps> = ({
                                 )}
                               >
                                 {field.value ? (
-                                  dayjs(field.value).format("YYYY-MM-DD")
+                                  format(new Date(field.value), "yyyy-MM-dd", {
+                                    locale: ja,
+                                  })
                                 ) : (
                                   <span>開始日付</span>
                                 )}
@@ -159,15 +149,12 @@ const EditCalendarEventModal: React.FC<ModalProps> = ({
                             <Calendar
                               mode="single"
                               selected={
-                                field.value ? new Date(field.value) : undefined
+                                field.value
+                                  ? dayjs(field.value).toDate()
+                                  : undefined
                               }
                               onSelect={(date) =>
-                                field.onChange(
-                                  date
-                                    ? dayjs(date).toISOString().split(".")[0] +
-                                        "Z"
-                                    : ""
-                                )
+                                field.onChange(dayjs(date).format("YYYY-MM-DD"))
                               }
                               initialFocus
                             />
@@ -193,7 +180,9 @@ const EditCalendarEventModal: React.FC<ModalProps> = ({
                                 )}
                               >
                                 {field.value ? (
-                                  dayjs(field.value).format("YYYY-MM-DD")
+                                  format(new Date(field.value), "yyyy-MM-dd", {
+                                    locale: ja,
+                                  })
                                 ) : (
                                   <span>終了日付</span>
                                 )}
@@ -208,15 +197,12 @@ const EditCalendarEventModal: React.FC<ModalProps> = ({
                             <Calendar
                               mode="single"
                               selected={
-                                field.value ? new Date(field.value) : undefined
+                                field.value
+                                  ? dayjs(field.value).toDate()
+                                  : undefined
                               }
                               onSelect={(date) =>
-                                field.onChange(
-                                  date
-                                    ? dayjs(date).toISOString().split(".")[0] +
-                                        "Z"
-                                    : ""
-                                )
+                                field.onChange(dayjs(date).format("YYYY-MM-DD"))
                               }
                               initialFocus
                             />
@@ -249,7 +235,14 @@ const EditCalendarEventModal: React.FC<ModalProps> = ({
                     </FormItem>
                   )}
                 />
-                <Button type="submit" className="w-full py-4">
+                <Button
+                  type="submit"
+                  disabled={isSubmitting || !isValid}
+                  className="w-full py-4"
+                >
+                  {isSubmitting && (
+                    <span className="spinner-border spinner-border-sm mr-1"></span>
+                  )}
                   投稿する
                 </Button>
               </form>
