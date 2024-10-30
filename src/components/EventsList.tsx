@@ -1,7 +1,7 @@
-import { Calendar } from "../types/Calendar";
+import { CalendarType } from "../types/Calendar";
 import Event from "./Event";
 interface EventListProps {
-  events: Calendar[];
+  events: CalendarType[];
   date: string;
 }
 

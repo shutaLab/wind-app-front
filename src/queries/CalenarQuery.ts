@@ -20,6 +20,20 @@ export const useCreateCalendarEvent = () => {
   });
 };
 
+export const useUpdateCalendarEvent = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation(api.updateCalendarEvent, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("calendarEvents");
+      toast.success("カレンダーを編集しました");
+    },
+    onError: () => {
+      toast.error("カレンダーの編集に失敗しました");
+    },
+  });
+};
+
 export const useDeleteCalendarEvent = () => {
   const queryClient = useQueryClient();
 
