@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useCreateUserProfile, useGetUser } from "../queries/UserQuery";
 import { Link, useNavigate } from "react-router-dom";
 import RequireAuth from "../components/RequireAuth";
@@ -13,7 +13,6 @@ import { useForm } from "react-hook-form";
 import { Profile } from "../types/user";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { userProfileValidationSchema } from "../utils/validationSchema";
-import { z } from "zod";
 import { Input } from "../@/components/ui/input";
 import NoteHeader from "../components/NoteHeader";
 import Footer from "../components/Footer";
@@ -25,22 +24,46 @@ import {
   SelectValue,
 } from "../@/components/ui/select";
 import Button from "../components/Button";
+import { supabase } from "../utils/supabaseClient";
+import { Avatar, AvatarFallback, AvatarImage } from "../@/components/ui/avatar";
+import { z } from "zod";
 
 const MyPageProfile = () => {
   const navigate = useNavigate();
-  const { data: user, isLoading } = useGetUser();
+  const { data: user } = useGetUser();
   const createProfile = useCreateUserProfile(navigate);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
   const profile = user?.user_profile;
+
+  const uploadImage = async (file: File) => {
+    const fileName = `${Date.now()}_${file.name}`;
+    const { data, error } = await supabase.storage
+      .from("windap")
+      .upload(`ProfileImage/${fileName}`, file);
+
+    if (error) {
+      console.error("Image upload error:", error);
+      return undefined;
+    }
+    return (
+      supabase.storage.from("windap").getPublicUrl(`ProfileImage/${fileName}`)
+        .data.publicUrl ?? undefined
+    );
+  };
+
   const form = useForm<Profile>({
     resolver: zodResolver(userProfileValidationSchema),
     mode: "onChange",
   });
 
-  function onSubmit(values: z.infer<typeof userProfileValidationSchema>) {
-    console.log(values);
-    createProfile.mutate(values);
-  }
+  const onSubmit = async (
+    values: z.infer<typeof userProfileValidationSchema>
+  ) => {
+    const imageUrl = selectedFile ? await uploadImage(selectedFile) : undefined;
+    createProfile.mutate({ ...values, profile_image: imageUrl });
+  };
 
   return (
     <RequireAuth>
@@ -49,6 +72,39 @@ const MyPageProfile = () => {
         <div className="p-3">
           <h1 className="mb-4 text-center font-bold">プロフィールを編集する</h1>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <div className="flex justify-center">
+              <Avatar className="h-24 w-24">
+                <AvatarImage
+                  src={previewUrl || profile?.profile_image}
+                  alt={profile?.name || "Profile Image"}
+                />
+                <AvatarFallback>
+                  {profile?.name?.charAt(0) || "P"}
+                </AvatarFallback>
+              </Avatar>
+            </div>
+            <FormField
+              control={form.control}
+              name="profile_image"
+              render={() => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (file) {
+                          setSelectedFile(file);
+                          setPreviewUrl(URL.createObjectURL(file));
+                        }
+                      }}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <FormField
               control={form.control}
               name="name"
@@ -78,13 +134,14 @@ const MyPageProfile = () => {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="1">1</SelectItem>
-                      <SelectItem value="2">2</SelectItem>
-                      <SelectItem value="3">3</SelectItem>
-                      <SelectItem value="4">4</SelectItem>
+                      {[1, 2, 3, 4].map((grade) => (
+                        <SelectItem key={grade} value={`${grade}`}>
+                          {grade}
+                        </SelectItem>
+                      ))}
                     </SelectContent>
-                    <FormMessage />
                   </Select>
+                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -95,28 +152,25 @@ const MyPageProfile = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input {...field} placeholder="セールナンバー" />
+                    <Input
+                      {...field}
+                      placeholder="セールナンバー (ハイフン付きで入力してください)"
+                    />
                   </FormControl>
                   <FormMessage />
-                  <p className=" text-gray-400">
-                    ハイフン付きで入力してください
-                  </p>
                 </FormItem>
               )}
             />
             <FormField
               control={form.control}
               name="introduction"
-              defaultValue={profile?.introduction ?? undefined}
+              defaultValue={profile?.introduction}
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input {...field} placeholder="自己紹介" />
+                    <Input {...field} placeholder="自己紹介 (255文字以内)" />
                   </FormControl>
                   <FormMessage />
-                  <p className=" text-gray-400">
-                    255文字以内で入力してください
-                  </p>
                 </FormItem>
               )}
             />

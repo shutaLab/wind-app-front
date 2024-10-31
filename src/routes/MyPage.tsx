@@ -10,6 +10,7 @@ import RequireAuth from "../components/RequireAuth";
 export function MyPage() {
   const { data: user } = useGetUser();
   const [open, setOpen] = useState(false);
+  console.log(user?.user_profile?.profile_image);
   const close = () => {
     setOpen(false);
   };
@@ -21,8 +22,13 @@ export function MyPage() {
           <div className="flex items-center justify-between">
             <p className="text-xl font-bold">{user?.user_profile?.name}</p>
             <Avatar className="h-16 w-16">
-              <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-              <AvatarFallback>CN</AvatarFallback>
+              <AvatarImage
+                src={user?.user_profile?.profile_image}
+                alt={user?.user_profile?.name || "Profile Image"}
+              />
+              <AvatarFallback>
+                {user?.user_profile?.name?.charAt(0)}
+              </AvatarFallback>
             </Avatar>
           </div>
           <div>
