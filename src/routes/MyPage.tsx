@@ -3,7 +3,7 @@ import Footer from "../components/Footer";
 import { Avatar, AvatarFallback, AvatarImage } from "../@/components/ui/avatar";
 import NoteHeader from "../components/NoteHeader";
 import { Button } from "../@/components/ui/button";
-import { NavLink, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet } from "react-router-dom";
 import { useGetUser } from "../queries/UserQuery";
 import RequireAuth from "../components/RequireAuth";
 
@@ -31,7 +31,7 @@ export function MyPage() {
         </div>
         <div className="flex justify-between">
           <Button className="w-[45%]" variant="outline">
-            プロフィールを編集
+            <Link to="/myPage/profile">プロフィールを編集</Link>
           </Button>
           <Button className="w-[45%]" variant="outline">
             このアプリをシェア
