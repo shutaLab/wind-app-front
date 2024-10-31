@@ -31,6 +31,7 @@ import MyPageDepartureList from "./components/MyPageDepartureList";
 import MyPageNoteList from "./components/MyPageNoteList";
 import MyPageQuestionList from "./components/MyPageQuestionList";
 import MyPageAnswerList from "./components/MyPageAnswerList";
+import MyPageProfile from "./routes/MyPageProfile";
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
@@ -66,6 +67,7 @@ root.render(
           <Route path="answer" element={<MyPageAnswerList />} />
           <Route path="departure" element={<MyPageDepartureList />} />
         </Route>
+        <Route path="myPage/profile" element={<MyPageProfile />} />
         <Route path="/departure" element={<Departure />} />
         <Route path="/question" element={<QuestionList />} />
         <Route path="/timeline" element={<NoteTimeline />} />

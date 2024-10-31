@@ -7,8 +7,8 @@ export type User = {
 
 export type Profile = {
   name: string;
-  grade: number;
-  sailNo: string;
-  introduction: string;
-  user_profileImage: string;
+  grade: string;
+  sail_no: string;
+  introduction?: string;
+  profile_image?: string;
 };

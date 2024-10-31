@@ -13,6 +13,17 @@ export const signUpValidationShema = z.object({
   //   .regex(/^[A-Za-z0-9]+-[A-Za-z0-9]+$/, "ハイフンは必須です"),
 });
 
+export const userProfileValidationSchema = z.object({
+  name: z.string().min(1, { message: "名前は必須です" }),
+  grade: z.string().min(1, { message: "学年は必須です" }),
+  sail_no: z
+    .string()
+    .min(1, { message: "セールナンバーは必須です" })
+    .regex(/^[A-Za-z0-9]+-[A-Za-z0-9]+$/, "ハイフンは必須です"),
+  introduction: z.string().optional(),
+  profile_image: z.string().optional(),
+});
+
 export const NoteValidationShema = z.object({
   title: z.string({ required_error: "タイトルを入力してください" }),
   content: z.string({ required_error: "内容を入力してください" }),
