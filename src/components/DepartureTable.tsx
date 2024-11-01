@@ -9,6 +9,7 @@ import DepartureEventModal from "./DepartureEventModal";
 import { DepartureType, DepartureWithTotalTime } from "../types/Departure";
 import { EventInput } from "@fullcalendar/core";
 import { useGetDepartures } from "../queries/DepartureQuery";
+import dayjs from "dayjs";
 
 const DepartureTable = () => {
   const [open, setOpen] = useState(false);
@@ -49,7 +50,7 @@ const DepartureTable = () => {
             resources={resources}
             height="70vh"
             events={events}
-            initialDate="2024-10-16"
+            initialDate={dayjs().format("YYYY-MM-DD")}
             slotMinTime="07:00:00"
             slotMaxTime="17:00:00"
             allDaySlot={false}
