@@ -1,12 +1,14 @@
 import React from "react";
-import { CalendarType, CalendarWithoutId } from "../types/Calendar";
+import { CalendarType } from "../types/Calendar";
 import { useUpdateCalendarEvent } from "../queries/CalenarQuery";
 import { useForm, useFormState } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CalendarEventValidationShema } from "../utils/validationSchema";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
+import dayjs from "dayjs";
+import { format } from "date-fns";
+import { ja } from "date-fns/locale";
 
-import { z } from "zod";
 import {
   Dialog,
   DialogContent,
@@ -24,9 +26,6 @@ import {
 } from "../@/components/ui/form";
 import { Button } from "../@/components/ui/button";
 import { Input } from "../@/components/ui/input";
-import dayjs from "dayjs";
-import utc from "dayjs/plugin/utc";
-import timezone from "dayjs/plugin/timezone";
 import {
   Popover,
   PopoverContent,
@@ -35,8 +34,7 @@ import {
 import { cn } from "../@/lib/utils";
 import { Calendar } from "../@/components/ui/calendar";
 import { Checkbox } from "../@/components/ui/checkbox";
-import { format } from "date-fns";
-import { ja } from "date-fns/locale";
+import { z } from "zod";
 
 interface ModalProps {
   modalOpen: boolean;
@@ -53,13 +51,7 @@ const EditCalendarEventModal: React.FC<ModalProps> = ({
 
   const form = useForm<CalendarType>({
     resolver: zodResolver(CalendarEventValidationShema),
-    defaultValues: {
-      title: calendarEvent.title,
-      content: calendarEvent.content,
-      start: calendarEvent.start,
-      end: calendarEvent.end,
-      is_absent: calendarEvent.is_absent,
-    },
+    mode: "onChange",
   });
 
   const { isSubmitting, isValid } = useFormState(form);
@@ -69,19 +61,19 @@ const EditCalendarEventModal: React.FC<ModalProps> = ({
       ...values,
       end: dayjs(values.end).add(1, "day").format("YYYY-MM-DD"),
     };
+    console.log(formatValues);
     updateCalendarEvent.mutate({
       id: calendarEvent.id,
       values: formatValues,
     });
     clickModalClose();
   }
-
   return (
     <Dialog open={modalOpen} onOpenChange={clickModalClose}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle className="mb-5">予定を追加する</DialogTitle>
-          <DialogDescription className="">
+          <DialogDescription>
             <Form {...form}>
               <form
                 className="space-y-6"
@@ -90,6 +82,7 @@ const EditCalendarEventModal: React.FC<ModalProps> = ({
                 <FormField
                   control={form.control}
                   name="title"
+                  defaultValue={calendarEvent.title || ""}
                   render={({ field }) => (
                     <FormItem>
                       <FormControl>
@@ -106,6 +99,7 @@ const EditCalendarEventModal: React.FC<ModalProps> = ({
                 <FormField
                   control={form.control}
                   name="content"
+                  defaultValue={calendarEvent.content || ""}
                   render={({ field }) => (
                     <FormItem>
                       <FormControl>
@@ -119,6 +113,7 @@ const EditCalendarEventModal: React.FC<ModalProps> = ({
                   <FormField
                     control={form.control}
                     name="start"
+                    defaultValue={calendarEvent.start}
                     render={({ field }) => (
                       <FormItem className="flex flex-col w-[50%]">
                         <Popover>
@@ -167,6 +162,11 @@ const EditCalendarEventModal: React.FC<ModalProps> = ({
                   <FormField
                     control={form.control}
                     name="end"
+                    defaultValue={
+                      dayjs(calendarEvent.end)
+                        .add(-1, "day")
+                        .format("YYYY-MM-DD") || ""
+                    }
                     render={({ field }) => (
                       <FormItem className="flex flex-col w-[50%]">
                         <Popover>
@@ -216,18 +216,19 @@ const EditCalendarEventModal: React.FC<ModalProps> = ({
                 <FormField
                   control={form.control}
                   name="is_absent"
+                  defaultValue={calendarEvent.is_absent || false}
                   render={({ field }) => (
                     <FormItem className="rounded-md border p-2 shadow">
                       <div className="flex items-center w-full">
                         <FormControl>
                           <Checkbox
-                            checked={field.value}
+                            checked={field.value || false}
                             onCheckedChange={(checked) =>
                               field.onChange(checked as boolean)
                             }
                           />
                         </FormControl>
-                        <FormLabel className="w-full ml-3 text-left text-gray-500 ">
+                        <FormLabel className="w-full ml-3 text-left text-gray-500">
                           欠席連絡
                         </FormLabel>
                       </div>
@@ -237,8 +238,8 @@ const EditCalendarEventModal: React.FC<ModalProps> = ({
                 />
                 <Button
                   type="submit"
-                  disabled={isSubmitting || !isValid}
                   className="w-full py-4"
+                  disabled={isSubmitting || !isValid}
                 >
                   {isSubmitting && (
                     <span className="spinner-border spinner-border-sm mr-1"></span>
