@@ -107,9 +107,9 @@ const CreateDepartureModal: React.FC<CreateNoteModalProps> = ({
                                   : ""
                               }`}
                             >
-                              <div className="flex mx-auto">
+                              <div className="flex justify-center space-x-3 mx-auto">
                                 <p className="">今日</p>
-                                <div className="">8/8(水)</div>
+                                <div className="">{dayjs().format("M/D")}</div>
                               </div>
                             </label>
                           </FormItem>
@@ -132,9 +132,11 @@ const CreateDepartureModal: React.FC<CreateNoteModalProps> = ({
                                   : ""
                               }`}
                             >
-                              <div className="flex mx-auto">
+                              <div className="flex justify-center space-x-3 mx-auto">
                                 <p className="">明日</p>
-                                <div className="">8/9(木)</div>
+                                <div className="">
+                                  {dayjs().add(1, "day").format("M/D")}
+                                </div>
                               </div>
                             </label>
                           </FormItem>
