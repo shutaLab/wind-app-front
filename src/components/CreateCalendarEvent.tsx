@@ -52,6 +52,7 @@ const CreateCalendarEvent: React.FC<CreateNoteModalProps> = ({
       ...values,
       end: dayjs(values.end).add(1, "day").format("YYYY-MM-DD"),
     };
+    console.log(formatValues);
     createEvent.mutate(formatValues);
     handleClose();
   }

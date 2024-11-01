@@ -65,6 +65,9 @@ const WindCalendar = () => {
     return calendarEvents.map((event: CalendarType) => ({
       ...event,
       id: event.id.toString(),
+      end: new Date(new Date(event.end).setDate(new Date(event.end).getDate()))
+        .toISOString()
+        .split("T")[0],
     }));
   }, [calendarEvents]);
 
