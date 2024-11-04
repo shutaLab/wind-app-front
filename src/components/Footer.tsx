@@ -1,7 +1,4 @@
-import { LinkBreak1Icon } from "@radix-ui/react-icons";
-import React, { useEffect, useState } from "react";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+import { NavLink } from "react-router-dom";
 import TripOriginIcon from "@mui/icons-material/TripOrigin";
 import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
 import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
@@ -10,18 +7,6 @@ const Footer = () => {
   return (
     <div className="fixed bottom-0 w-full mt-[30px] bg-white border-solid border-t ">
       <div className="flex justify-center ">
-        <NavLink
-          id="footer"
-          className="p-1 text-gray-600  text-center w-[20%]"
-          to="/home"
-        >
-          <div className="flex justify-center flex-col items-center text-sm ">
-            <div>
-              <HomeOutlinedIcon />
-            </div>
-            <p className="text-xs">ホーム</p>
-          </div>
-        </NavLink>
         <NavLink
           id="footer"
           className="p-1 text-gray-600 text-center w-[20%]"

@@ -7,7 +7,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SignUp from "./routes/SignUp";
 import Login from "./routes/Login";
 import WindNoteList from "./routes/WindNoteList";
-import Home from "./routes/Home";
 import WindCalendar from "./routes/WindCalendar";
 import Departure from "./routes/Departure";
 import Meta from "./components/Meta";
@@ -58,7 +57,6 @@ root.render(
         <Route path="/login" element={<Login />} />
         <Route path="/windNote" element={<WindNoteList />} />
         <Route path="/windNote/:id" element={<WindNote />} />
-        <Route path="/home" element={<Home />} />
         <Route path="/calendar" element={<WindCalendar />} />
         <Route path="/myPage" element={<MyPage />}>
           <Route path="intra" element={<IntraList />} />
