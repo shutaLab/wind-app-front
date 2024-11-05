@@ -3,7 +3,7 @@ import { WindIdQuestion, WindQuestion } from "../types/Question";
 
 export const getQuestions = async (userId?: number) => {
   const { data } = await axios.get<WindIdQuestion[]>(
-    "http://localhost:8000/api/question",
+    "https://api.windap.jp/api/api/question",
     {
       params: {
         user_id: userId,
@@ -15,7 +15,7 @@ export const getQuestions = async (userId?: number) => {
 
 export const createQuestion = async (values: WindQuestion) => {
   const { data } = await axios.post<WindQuestion>(
-    "http://localhost:8000/api/question",
+    "https://api.windap.jp/api/api/question",
     {
       content: values.content,
     }

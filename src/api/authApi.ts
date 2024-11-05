@@ -3,7 +3,7 @@ import { User } from "../types/user";
 axios.defaults.withCredentials = true;
 
 export const getUser = async () => {
-  const { data } = await axios.get<User>("http://localhost:8000/api/user");
+  const { data } = await axios.get<User>("https://api.windap.jp/api/api/user");
   return data;
 };
 
@@ -15,7 +15,7 @@ export const getCsrfCookie = async () => {
 export const login = async (values: User) => {
   try {
     await getCsrfCookie();
-    const response = await axios.post("http://localhost:8000/api/login", {
+    const response = await axios.post("https://api.windap.jp/api/api/login", {
       email: values.email,
       password: values.password,
     });
@@ -27,16 +27,23 @@ export const login = async (values: User) => {
 };
 
 export const signUp = async (values: User) => {
-  const { data } = await axios.post<User>("http://localhost:8000/api/register", values);
+  const { data } = await axios.post<User>(
+    "https://api.windap.jp/api/api/register",
+    values
+  );
   return data;
 };
 
 export const logout = async () => {
-  const { data } = await axios.post<User>("http://localhost:8000/api/logout");
+  const { data } = await axios.post<User>(
+    "https://api.windap.jp/api/api/logout"
+  );
   return data;
 };
 
 export const notification = async () => {
-  const { data } = await axios.get("http://localhost:8000/api/notifications");
+  const { data } = await axios.get(
+    "https://api.windap.jp/api/api/notifications"
+  );
   return data;
 };

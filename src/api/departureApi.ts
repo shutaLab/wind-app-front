@@ -8,7 +8,7 @@ export const getDepartures = async (
   date?: string
 ) => {
   const { data } = await axios.get<DepartureWithTotalTime>(
-    "http://localhost:8000/api/departures",
+    "https://api.windap.jp/api/api/departures",
     {
       params: {
         user_id: userId,
@@ -25,7 +25,7 @@ export const createDepartureEvent = async (
   values: Omit<DepartureType, "date">
 ) => {
   const { data } = await axios.post<Omit<DepartureType, "date">>(
-    "http://localhost:8000/api/departure",
+    "https://api.windap.jp/api/api/departure",
     {
       intra_user_id: values.intra_user_id,
       start: values.start,
@@ -38,7 +38,7 @@ export const createDepartureEvent = async (
 
 export const showDeparture = async (id: number) => {
   const { data } = await axios.get<DepartureType>(
-    `http://localhost:8000/api/departure/${id}`
+    `https://api.windap.jp/api/api/departure/${id}`
   );
   return data;
 };
