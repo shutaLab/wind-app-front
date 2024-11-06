@@ -31,3 +31,9 @@ export const useCreateDepartureEvent = () => {
 export const useShowDeparture = (id: number) => {
   return useQuery(["departures", id], () => api.showDeparture(id));
 };
+
+export const useGetDepartureRankings = (year?: string, month?: string) => {
+  return useQuery(["departureRankings", year, month], () =>
+    api.getDepartureRanking(year, month)
+  );
+};

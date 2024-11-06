@@ -9,6 +9,7 @@ import CreateDepartureModal from "../components/CreateDepartureModal";
 import RequireAuth from "../components/RequireAuth";
 import DepartureChartDrawer from "../components/DepartureChartDrawer";
 import { NavLink } from "react-router-dom";
+import DepartureTab from "../components/DepartureTab";
 
 const Departure = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -32,22 +33,7 @@ const Departure = () => {
   return (
     <RequireAuth>
       <NoteHeader />
-      <div className="flex justify-center mb-3">
-        <NavLink
-          id="tab"
-          className="p-1 border rounded-lg w-[30%] text-center ml-2"
-          to="/departure"
-        >
-          出艇
-        </NavLink>
-        <NavLink
-          id="tab"
-          className="p-1 border rounded-lg w-[30%] text-center ml-2"
-          to="/departure/ranking"
-        >
-          ランキング
-        </NavLink>
-      </div>
+      <DepartureTab />
       <DepartureTable />
       <div className="px-3 my-3">
         <Button
