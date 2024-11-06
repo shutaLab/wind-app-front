@@ -1,5 +1,9 @@
 import axios from "axios";
-import { DepartureType, DepartureWithTotalTime } from "../types/Departure";
+import {
+  DepartureRankingType,
+  DepartureType,
+  DepartureWithTotalTime,
+} from "../types/Departure";
 
 export const getDepartures = async (
   userId?: number,
@@ -43,4 +47,15 @@ export const showDeparture = async (id: number) => {
   return data;
 };
 
-// http://localhost:8000
+export const getDepartureRanking = async (year?: string, month?: string) => {
+  const { data } = await axios.get<DepartureRankingType[]>(
+    "http://localhost:8000/api/departures/rankings",
+    {
+      params: {
+        year: year,
+        month: month,
+      },
+    }
+  );
+  return data;
+};

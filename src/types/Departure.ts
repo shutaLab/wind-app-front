@@ -15,3 +15,8 @@ export interface DepartureWithTotalTime {
   departures: DepartureType[];
   total_time?: string;
 }
+
+export interface DepartureRankingType {
+  user: User;
+  departures_count: number;
+}

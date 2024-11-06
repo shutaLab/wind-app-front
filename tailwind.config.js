@@ -22,6 +22,7 @@ module.exports = {
         "custom-blue": "#5BBABA",
         "custom-red": "#E34449",
         "custom-gray": "#444444",
+        "custom-gray2": "#5a656a",
         "custom-white": "#FEFCF6",
         "custom-green": "#238F76",
         border: "hsl(var(--border))",
