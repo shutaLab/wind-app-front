@@ -1,4 +1,6 @@
+import { Calendar } from "@fullcalendar/core";
 import { User } from "./user";
+import { CalendarType } from "./Calendar";
 
 export interface DepartureType {
   id?: number;
@@ -19,4 +21,14 @@ export interface DepartureWithTotalTime {
 export interface DepartureRankingType {
   user: User;
   departures_count: number;
+}
+
+export interface DepartureStatus {
+  notified: NotifiedStatus[];
+  no_notification: User[];
+}
+
+export interface NotifiedStatus {
+  user: User;
+  events: CalendarType[];
 }

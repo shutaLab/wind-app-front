@@ -1,5 +1,3 @@
-// Departure.jsx
-
 import React, { useState } from "react";
 import Footer from "../components/Footer";
 import Button from "../components/Button";
@@ -8,13 +6,20 @@ import NoteHeader from "../components/NoteHeader";
 import CreateDepartureModal from "../components/CreateDepartureModal";
 import RequireAuth from "../components/RequireAuth";
 import DepartureChartDrawer from "../components/DepartureChartDrawer";
-import { NavLink } from "react-router-dom";
 import DepartureTab from "../components/DepartureTab";
+import { useGetDepartureStatus } from "../queries/DepartureQuery";
+import dayjs from "dayjs";
+dayjs.locale("ja");
 
 const Departure = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [chartOpen, setChartOpen] = useState(false);
 
+  const isSunday = dayjs().day() === 0;
+  console.log(isSunday);
+
+  const { data: departureStatuses } = useGetDepartureStatus(isSunday);
+  console.log(departureStatuses?.notified);
   const clickChartOpen = () => {
     setChartOpen(true);
   };
@@ -42,7 +47,41 @@ const Departure = () => {
           onClick={clickChartOpen}
         />
       </div>
-      <div className="mt-15">
+      {departureStatuses && (
+        <div>
+          <p>今週の未連絡の未出艇者</p>
+          <div className="flex flex-wrap space-x-3">
+            {departureStatuses?.no_notification ? (
+              <>
+                {departureStatuses?.no_notification.map((notified) => (
+                  <p key={notified.id}>{notified.user_profile?.name}</p>
+                ))}
+              </>
+            ) : (
+              <p>未連絡の未出艇者はいません</p>
+            )}
+          </div>
+          <p>今週の連絡があった未出艇者</p>
+          {departureStatuses?.no_notification ? (
+            <>
+              {departureStatuses?.notified.map((notifiedEvent) => (
+                <div key={notifiedEvent.user.id} className="flex space-x-3">
+                  <p>{notifiedEvent.user.user_profile?.name}</p>
+                  {notifiedEvent.events.map((event) => (
+                    <div key={event.id} className="flex space-x-3">
+                      <p>{event.title}</p>
+                      <p>{event.content}</p>
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </>
+          ) : (
+            <p>連絡のあった未出艇者はいません</p>
+          )}
+        </div>
+      )}
+      <div className="mt-52">
         <Footer />
       </div>
       <CreateDepartureModal open={modalOpen} handleClose={clickModalClose} />

@@ -1,6 +1,7 @@
 import axios from "axios";
 import {
   DepartureRankingType,
+  DepartureStatus,
   DepartureType,
   DepartureWithTotalTime,
 } from "../types/Departure";
@@ -56,6 +57,13 @@ export const getDepartureRanking = async (year?: string, month?: string) => {
         month: month,
       },
     }
+  );
+  return data;
+};
+
+export const getDepartureStatus = async () => {
+  const { data } = await axios.get<DepartureStatus>(
+    "http://localhost:8000/api/departures/status"
   );
   return data;
 };
