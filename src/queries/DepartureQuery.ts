@@ -37,3 +37,9 @@ export const useGetDepartureRankings = (year?: string, month?: string) => {
     api.getDepartureRanking(year, month)
   );
 };
+
+export const useGetDepartureStatus = (enabled: boolean) => {
+  return useQuery("departureStatus", () => api.getDepartureStatus(), {
+    enabled: enabled,
+  });
+};
