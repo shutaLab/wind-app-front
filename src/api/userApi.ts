@@ -2,20 +2,20 @@ import axios from "axios";
 import { Profile, User } from "../types/user";
 
 export const getUser = async () => {
-  const { data } = await axios.get<User>("http://localhost:8000/api/user");
+  const { data } = await axios.get<User>("https://api.windap.jp/api/api/user");
   return data;
 };
 
 export const getSeniorUsers = async () => {
   const { data } = await axios.get<User[]>(
-    "http://localhost:8000/api/users/gradeFilter"
+    "https://api.windap.jp/api/api/users/gradeFilter"
   );
   return data;
 };
 
 export const createUserProfile = async (values: Profile) => {
   const { data } = await axios.post<Profile>(
-    "http://localhost:8000/api/profile",
+    "https://api.windap.jp/api/api/profile",
     {
       name: values.name,
       grade: values.grade,
