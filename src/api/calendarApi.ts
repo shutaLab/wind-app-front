@@ -3,14 +3,14 @@ import { CalendarType, CalendarWithoutId } from "../types/Calendar";
 
 export const getCalendarEvent = async () => {
   const { data } = await axios.get<CalendarType[]>(
-    "https://api.windap.jp/api/api/calendar"
+    "https://api.windap.jp/api/calendar"
   );
   return data;
 };
 
 export const createCalendarEvent = async (values: CalendarWithoutId) => {
   const { data } = await axios.post<CalendarWithoutId>(
-    "https://api.windap.jp/api/api/calendar",
+    "https://api.windap.jp/api/calendar",
     {
       title: values.title,
       content: values.content,
@@ -30,7 +30,7 @@ export const updateCalendarEvent = async ({
   values: CalendarWithoutId;
 }) => {
   const { data } = await axios.put<CalendarWithoutId>(
-    `https://api.windap.jp/api/api/calendar/${id}`,
+    `https://api.windap.jp/api/calendar/${id}`,
     {
       title: values.title,
       content: values.content,
@@ -44,7 +44,7 @@ export const updateCalendarEvent = async ({
 
 export const deleteEvent = async (id: number) => {
   const { data } = await axios.delete<CalendarType>(
-    `https://api.windap.jp/api/api/calendar/${id}`
+    `https://api.windap.jp/api/calendar/${id}`
   );
   return data;
 };

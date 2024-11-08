@@ -15668,15 +15668,13 @@
                   (this.mutateOptions = t),
                   this.currentMutation &&
                     this.currentMutation.removeObserver(this),
-                  (this.currentMutation = this.client
-                    .getMutationCache()
-                    .build(
-                      this.client,
-                      (0, h.A)({}, this.options, {
-                        variables:
-                          "undefined" !== typeof e ? e : this.options.variables,
-                      })
-                    )),
+                  (this.currentMutation = this.client.getMutationCache().build(
+                    this.client,
+                    (0, h.A)({}, this.options, {
+                      variables:
+                        "undefined" !== typeof e ? e : this.options.variables,
+                    })
+                  )),
                   this.currentMutation.addObserver(this),
                   this.currentMutation.execute()
                 );
@@ -16186,12 +16184,10 @@
                         e(t.currentResult);
                       }),
                     e.cache &&
-                      t.client
-                        .getQueryCache()
-                        .notify({
-                          query: t.currentQuery,
-                          type: "observerResultsUpdated",
-                        });
+                      t.client.getQueryCache().notify({
+                        query: t.currentQuery,
+                        type: "observerResultsUpdated",
+                      });
                 });
               }),
               t
@@ -26025,9 +26021,7 @@
       const ss = as;
       (ss.defaults.withCredentials = !0), (ss.defaults.withCredentials = !0);
       const ls = async () => {
-          const { data: e } = await ss.get(
-            "https://api.windap.jp/api/api/user"
-          );
+          const { data: e } = await ss.get("https://api.windap.jp/api/user");
           return e;
         },
         cs = async (e) => {
@@ -26036,7 +26030,7 @@
               await ss.get("https://windap-api.vercel.app/sanctum/csrf-cookie");
             })();
             return (
-              await ss.post("https://api.windap.jp/api/api/login", {
+              await ss.post("https://api.windap.jp/api/login", {
                 email: e.email,
                 password: e.password,
               })
@@ -26047,15 +26041,13 @@
         },
         us = async (e) => {
           const { data: t } = await ss.post(
-            "https://api.windap.jp/api/api/register",
+            "https://api.windap.jp/api/register",
             e
           );
           return t;
         },
         ds = async () => {
-          const { data: e } = await ss.post(
-            "https://api.windap.jp/api/api/logout"
-          );
+          const { data: e } = await ss.post("https://api.windap.jp/api/logout");
           return e;
         };
       var fs = n(8387);
@@ -33402,20 +33394,20 @@
       const gm = async (e) => {
           let { id: t, values: n } = e;
           const { data: r } = await ss.put(
-            "https://api.windap.jp/api/api/windNote/".concat(t),
+            "https://api.windap.jp/api/windNote/".concat(t),
             n
           );
           return r;
         },
         vm = async (e) => {
           const { data: t } = await ss.delete(
-            "https://api.windap.jp/api/api/windNote/".concat(e)
+            "https://api.windap.jp/api/windNote/".concat(e)
           );
           return t;
         },
         ym = async (e) => {
           const { data: t } = await ss.put(
-            "https://api.windap.jp/api/api/windNote/".concat(e, "/favorite")
+            "https://api.windap.jp/api/windNote/".concat(e, "/favorite")
           );
           return t;
         },
@@ -33423,7 +33415,7 @@
           (0, Zo.useQuery)("notes", () =>
             (async () => {
               const { data: e } = await ss.get(
-                "https://api.windap.jp/api/api/windNote"
+                "https://api.windap.jp/api/windNote"
               );
               return e;
             })()
@@ -33432,7 +33424,7 @@
           (0, Zo.useQuery)(["notes", e], () =>
             (async (e) => {
               const { data: t } = await ss.get(
-                "https://api.windap.jp/api/api/windNote/".concat(e)
+                "https://api.windap.jp/api/windNote/".concat(e)
               );
               return t;
             })(e)
@@ -33472,7 +33464,7 @@
           (0, Zo.useQuery)(["favorites", e], () =>
             (async (e) => {
               const { data: t } = await ss.get(
-                "https://api.windap.jp/api/api/windNote/".concat(e, "/favorite")
+                "https://api.windap.jp/api/windNote/".concat(e, "/favorite")
               );
               return t;
             })(e)
@@ -34452,7 +34444,7 @@
       bv.displayName = "Textarea";
       const wv = async (e) => {
           const { data: t } = await ss.delete(
-            "https://api.windap.jp/api/api/question/".concat(e)
+            "https://api.windap.jp/api/question/".concat(e)
           );
           return t;
         },
@@ -34460,7 +34452,7 @@
           (0, Zo.useQuery)("questions", () =>
             (async () => {
               const { data: e } = await ss.get(
-                "https://api.windap.jp/api/api/question"
+                "https://api.windap.jp/api/question"
               );
               return e;
             })()
@@ -34469,7 +34461,7 @@
           (0, Zo.useQuery)(["question", e], () =>
             (async (e) => {
               const { data: t } = await ss.get(
-                "https://api.windap.jp/api/api/question/".concat(e)
+                "https://api.windap.jp/api/question/".concat(e)
               );
               return t;
             })(e)
@@ -34512,7 +34504,7 @@
         Av = n(1702);
       const Dv = async (e) => {
           const { data: t } = await ss.post(
-            "https://api.windap.jp/api/api/notifications/".concat(e, "/read")
+            "https://api.windap.jp/api/notifications/".concat(e, "/read")
           );
           return t;
         },
@@ -34520,7 +34512,7 @@
           (0, Zo.useQuery)("notifications", () =>
             (async () => {
               const { data: e } = await ss.get(
-                "https://api.windap.jp/api/api/notifications"
+                "https://api.windap.jp/api/notifications"
               );
               return e;
             })()
@@ -35337,13 +35329,13 @@
         Dy = n.n(Ay);
       const Ry = async (e) => {
           const { data: t } = await ss.post(
-            "https://api.windap.jp/api/api/approveClaim/".concat(e)
+            "https://api.windap.jp/api/approveClaim/".concat(e)
           );
           return t;
         },
         Ny = async (e) => {
           const { data: t } = await ss.post(
-            "https://api.windap.jp/api/api/rejectClaim/".concat(e)
+            "https://api.windap.jp/api/rejectClaim/".concat(e)
           );
           return t;
         },
@@ -35351,7 +35343,7 @@
           (0, Zo.useQuery)("intraClaims", () =>
             (async () => {
               const { data: e } = await ss.get(
-                "https://api.windap.jp/api/api/intraClaims"
+                "https://api.windap.jp/api/intraClaims"
               );
               return e;
             })()
@@ -52074,7 +52066,7 @@
       ET.displayName = wT.displayName;
       const ST = async (e) => {
           const { data: t } = await ss.post(
-            "https://api.windap.jp/api/api/calendar",
+            "https://api.windap.jp/api/calendar",
             {
               title: e.title,
               content: e.content,
@@ -52089,7 +52081,7 @@
           (0, Zo.useQuery)("calenarEvents", () =>
             (async () => {
               const { data: e } = await ss.get(
-                "https://api.windap.jp/api/api/calendar"
+                "https://api.windap.jp/api/calendar"
               );
               return e;
             })()
@@ -56685,7 +56677,7 @@
           (0, Zo.useQuery)("users", () =>
             (async () => {
               const { data: e } = await ss.get(
-                "https://api.windap.jp/api/api/user"
+                "https://api.windap.jp/api/user"
               );
               return e;
             })()
@@ -56694,7 +56686,7 @@
           (0, Zo.useQuery)("users", () =>
             (async () => {
               const { data: e } = await ss.get(
-                "https://api.windap.jp/api/api/users/gradeFilter"
+                "https://api.windap.jp/api/users/gradeFilter"
               );
               return e;
             })()
@@ -57037,7 +57029,7 @@
       mI.displayName = fI.displayName;
       const gI = async (e) => {
           const { data: t } = await ss.post(
-            "https://api.windap.jp/api/api/departure",
+            "https://api.windap.jp/api/departure",
             {
               intra_user_id: e.intra_user_id,
               start: e.start,
@@ -57666,7 +57658,7 @@
       const _I = async (e) => {
           let { question_id: t, values: n } = e;
           const { data: r } = await ss.post(
-            "https://api.windap.jp/api/api/answer",
+            "https://api.windap.jp/api/answer",
             { question_id: t, content: n.content }
           );
           return r;
