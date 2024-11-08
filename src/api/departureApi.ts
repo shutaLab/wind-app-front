@@ -13,7 +13,7 @@ export const getDepartures = async (
   date?: string
 ) => {
   const { data } = await axios.get<DepartureWithTotalTime>(
-    "https://api.windap.jp/api/departures",
+    "https://api.windap.jp/api/api/departures",
     {
       params: {
         user_id: userId,
@@ -30,7 +30,7 @@ export const createDepartureEvent = async (
   values: Omit<DepartureType, "date">
 ) => {
   const { data } = await axios.post<Omit<DepartureType, "date">>(
-    "https://api.windap.jp/api/departure",
+    "https://api.windap.jp/api/api/departure",
     {
       intra_user_id: values.intra_user_id,
       start: values.start,
@@ -43,14 +43,14 @@ export const createDepartureEvent = async (
 
 export const showDeparture = async (id: number) => {
   const { data } = await axios.get<DepartureType>(
-    `https://api.windap.jp/api/departure/${id}`
+    `https://api.windap.jp/api/api/departure/${id}`
   );
   return data;
 };
 
 export const getDepartureRanking = async (year?: string, month?: string) => {
   const { data } = await axios.get<DepartureRankingType[]>(
-    "https://api.windap.jp/api/departures/rankings",
+    "https://api.windap.jp/api/api/departures/rankings",
     {
       params: {
         year: year,
@@ -63,7 +63,7 @@ export const getDepartureRanking = async (year?: string, month?: string) => {
 
 export const getDepartureStatus = async () => {
   const { data } = await axios.get<DepartureStatus>(
-    "https://api.windap.jp/api/departures/status"
+    "https://api.windap.jp/api/api/departures/status"
   );
   return data;
 };

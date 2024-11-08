@@ -3,7 +3,7 @@ import { DeleteNote, Favorite, Note, NoteWithFavorites } from "../types/Note";
 
 export const getNotes = async (useId?: number) => {
   const { data } = await axios.get<NoteWithFavorites[]>(
-    "https://api.windap.jp/api/windNote",
+    "https://api.windap.jp/api/api/windNote",
     {
       params: {
         user_id: useId,
@@ -14,7 +14,7 @@ export const getNotes = async (useId?: number) => {
 };
 export const createNote = async (values: Note) => {
   const { data } = await axios.post<Note>(
-    "https://api.windap.jp/api/windNote",
+    "https://api.windap.jp/api/api/windNote",
     {
       title: values.title,
       content: values.content,
@@ -26,7 +26,7 @@ export const createNote = async (values: Note) => {
 
 export const showNote = async (id: number) => {
   const { data } = await axios.get<NoteWithFavorites>(
-    `https://api.windap.jp/api/windNote/${id}`
+    `https://api.windap.jp/api/api/windNote/${id}`
   );
   return data;
 };
@@ -39,35 +39,35 @@ export const updateNote = async ({
   values: Note;
 }) => {
   const { data } = await axios.put<Note>(
-    `https://api.windap.jp/api/windNote/${id}`,
+    `https://api.windap.jp/api/api/windNote/${id}`,
     values
   );
   return data;
 };
 export const deleteNote = async (id: number) => {
   const { data } = await axios.delete<DeleteNote>(
-    `https://api.windap.jp/api/windNote/${id}`
+    `https://api.windap.jp/api/api/windNote/${id}`
   );
   return data;
 };
 
 export const getFavorites = async (id: number) => {
   const { data } = await axios.get<Favorite[]>(
-    `https://api.windap.jp/api/windNote/${id}/favorites`
+    `https://api.windap.jp/api/api/windNote/${id}/favorites`
   );
   return data;
 };
 
 export const checkFavorite = async (id: number) => {
   const { data } = await axios.get<Favorite>(
-    `https://api.windap.jp/api/windNote/${id}/favorite`
+    `https://api.windap.jp/api/api/windNote/${id}/favorite`
   );
   return data;
 };
 
 export const updateFavorite = async (id: number) => {
   const { data } = await axios.put<Favorite>(
-    `https://api.windap.jp/api/windNote/${id}/favorite`
+    `https://api.windap.jp/api/api/windNote/${id}/favorite`
   );
   return data;
 };
