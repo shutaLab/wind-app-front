@@ -12,20 +12,18 @@ export const getDepartures = async (
   month?: string,
   date?: string
 ) => {
-  try {
-    const { data } = await axios.get<DepartureWithTotalTime>(
-      "https://api.windap.jp/api/api/departures",
-      {
-        params: { user_id: userId, year, month, date },
-      }
-    );
-    return data;
-  } catch (error: any) {
-    // エラーメッセージを表示
-    const message =
-      error.response?.data?.message || "データの取得に失敗しました";
-    throw new Error(message);
-  }
+  const { data } = await axios.get<DepartureWithTotalTime>(
+    "https://api.windap.jp/api/api/departures",
+    {
+      params: {
+        user_id: userId,
+        year: year,
+        month: month,
+        date: date,
+      },
+    }
+  );
+  return data;
 };
 
 export const createDepartureEvent = async (
