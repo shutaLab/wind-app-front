@@ -13,7 +13,7 @@ export const getDepartures = async (
   date?: string
 ) => {
   try {
-    const { data } = await axios.get(
+    const { data } = await axios.get<DepartureWithTotalTime>(
       "https://api.windap.jp/api/api/departures",
       {
         params: { user_id: userId, year, month, date },
