@@ -13,7 +13,8 @@ import dayjs from "dayjs";
 
 const DepartureTable = () => {
   const [open, setOpen] = useState(false);
-  const { data } = useGetDepartures();
+  const { data, error } = useGetDepartures();
+  console.log(error);
   const resources = data?.departures?.map((departure: DepartureType) => ({
     id: departure.user?.id?.toString() ?? "",
     title: departure.user?.user_profile?.name || "Unknown",
