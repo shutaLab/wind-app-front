@@ -1,7 +1,9 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useNavigate } from "react-router-dom";
 import * as api from "../api/authApi";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { User } from "../types/user";
 
 export const useGetUser = () => {
   return useQuery("user", () => api.getUser());
@@ -22,14 +24,21 @@ export const useLogin = () => {
 
 export const useSignUp = () => {
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
+  const loginMutation = useLogin();
+
   return useMutation(api.signUp, {
-    onSuccess: (user) => {
+    onSuccess: async (user, variables) => {
+      await loginMutation.mutateAsync({
+        email: variables.email,
+        password: variables.password,
+      });
       queryClient.invalidateQueries("user");
-      toast.success("サインアップしました");
-      console.log(user);
+      toast.success("アカウントを作成しました");
+      navigate("/departure");
     },
     onError: () => {
-      toast.error("サインアップに失敗しました");
+      toast.error("アカウント作成に失敗しました");
     },
   });
 };
