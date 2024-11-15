@@ -1,7 +1,8 @@
 import "./App.css";
+import RequireAuth from "./components/RequireAuth";
 
 function App() {
-  return <div></div>;
+  return <RequireAuth></RequireAuth>;
 }
 
 export default App;
