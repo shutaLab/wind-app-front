@@ -46,17 +46,34 @@ const MyPageProfile = () => {
 
   const profile = user?.user_profile;
 
-  const uploadImage = async (file: File) => {
+  const sanitizeFileName = (originalName: string): string => {
     const timestamp = Date.now();
-    const sanitizedName = sanitizeFileName(file.name);
-    const fileName = `${timestamp}_${sanitizedName}`;
 
+    // 拡張子を抽出して小文字に
+    const extension = originalName.split(".").pop()?.toLowerCase() || "webp";
+
+    // ファイル名を英数字のみに制限
+    const baseName = originalName
+      .split(".")[0] // 拡張子を除去
+      .replace(/[^a-zA-Z0-9]/g, "") // 英数字以外を完全に除去
+      .substring(0, 30) // 30文字に制限
+      .toLowerCase(); // 小文字に変換
+
+    // タイムスタンプとファイル名を組み合わせ
+    return `${timestamp}${baseName}.${extension}`;
+  };
+
+  const uploadImage = async (file: File) => {
     try {
+      const fileName = sanitizeFileName(file.name);
+      console.log("Sanitized filename:", fileName); // デバッグ用
+
       const { data, error } = await supabase.storage
         .from("windap")
         .upload(`ProfileImage/${fileName}`, file, {
           cacheControl: "3600",
-          upsert: false,
+          upsert: true, // 既存ファイルは上書き
+          contentType: file.type,
         });
 
       if (error) {
