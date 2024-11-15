@@ -1,7 +1,7 @@
 import React from "react";
-import { useGetUser } from "../queries/UserQuery";
 import { useQuestions } from "../queries/QuestionQuery";
 import Question from "./Question";
+import { useGetUser } from "../queries/AuthQuery";
 
 const MyPageQuestionList = () => {
   const { data: user } = useGetUser();

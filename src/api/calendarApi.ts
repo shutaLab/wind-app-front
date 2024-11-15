@@ -1,16 +1,17 @@
 import axios from "axios";
 import { CalendarType, CalendarWithoutId } from "../types/Calendar";
+import { API_ROUTES, apiClient } from "./commonApi";
 
 export const getCalendarEvent = async () => {
-  const { data } = await axios.get<CalendarType[]>(
-    "https://api.windap.jp/api/api/calendar"
+  const { data } = await apiClient.get<CalendarType[]>(
+    API_ROUTES.CALENDAR.LIST
   );
   return data;
 };
 
 export const createCalendarEvent = async (values: CalendarWithoutId) => {
-  const { data } = await axios.post<CalendarWithoutId>(
-    "https://api.windap.jp/api/api/calendar",
+  const { data } = await apiClient.post<CalendarWithoutId>(
+    API_ROUTES.CALENDAR.BASE,
     {
       title: values.title,
       content: values.content,
@@ -29,8 +30,8 @@ export const updateCalendarEvent = async ({
   id: number;
   values: CalendarWithoutId;
 }) => {
-  const { data } = await axios.put<CalendarWithoutId>(
-    `https://api.windap.jp/api/api/calendar/${id}`,
+  const { data } = await apiClient.put<CalendarWithoutId>(
+    `${API_ROUTES.CALENDAR.BASE}/${id}`,
     {
       title: values.title,
       content: values.content,
@@ -43,8 +44,8 @@ export const updateCalendarEvent = async ({
 };
 
 export const deleteEvent = async (id: number) => {
-  const { data } = await axios.delete<CalendarType>(
-    `https://api.windap.jp/api/api/calendar/${id}`
+  const { data } = await apiClient.delete<CalendarType>(
+    `${API_ROUTES.CALENDAR.BASE}/${id}`
   );
   return data;
 };

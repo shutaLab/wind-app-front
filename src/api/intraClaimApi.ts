@@ -1,30 +1,31 @@
 import axios from "axios";
 import { IntraClaimType } from "../types/IntraClaim";
+import { API_ROUTES, apiClient } from "./commonApi";
 
 export const getIntraClaims = async () => {
-  const { data } = await axios.get<IntraClaimType[]>(
-    "https://api.windap.jp/api/api/intraClaims"
+  const { data } = await apiClient.get<IntraClaimType[]>(
+    API_ROUTES.INTRA_CLAIM.LIST
   );
   return data;
 };
 
 export const showIntraClaim = async (id: number) => {
-  const { data } = await axios.get<IntraClaimType>(
-    `https://api.windap.jp/api/api/intraClaim${id}`
+  const { data } = await apiClient.get<IntraClaimType>(
+    `${API_ROUTES.INTRA_CLAIM.BASE}/${id}`
   );
   return data;
 };
 
 export const IntraApproveClaim = async (id: number) => {
-  const { data } = await axios.post(
-    `https://api.windap.jp/api/api/approveClaim/${id}`
+  const { data } = await apiClient.post(
+    `${API_ROUTES.INTRA_CLAIM.APPROVE}/${id}`
   );
   return data;
 };
 
 export const rejectIntraClaim = async (id: number) => {
-  const { data } = await axios.post(
-    `https://api.windap.jp/api/api/rejectClaim/${id}`
+  const { data } = await apiClient.post(
+    `${API_ROUTES.INTRA_CLAIM.REJECT}/${id}`
   );
   return data;
 };

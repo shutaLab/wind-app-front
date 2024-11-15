@@ -8,9 +8,9 @@ import {
 import EventsAlertDialog from "./EventsAlertDialog";
 import EventNoteOutlinedIcon from "@mui/icons-material/EventNoteOutlined";
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
-import { useGetUser } from "../queries/UserQuery";
 import EditCalendarEventModal from "./EditCalendarEventModal";
 import { CalendarType } from "../types/Calendar";
+import { useGetUser } from "../queries/AuthQuery";
 interface EventProps {
   event: CalendarType;
 }

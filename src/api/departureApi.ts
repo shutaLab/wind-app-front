@@ -5,6 +5,7 @@ import {
   DepartureType,
   DepartureWithTotalTime,
 } from "../types/Departure";
+import { API_ROUTES, apiClient } from "./commonApi";
 
 export const getDepartures = async (
   userId?: number,
@@ -12,8 +13,8 @@ export const getDepartures = async (
   month?: string,
   date?: string
 ) => {
-  const { data } = await axios.get<DepartureWithTotalTime>(
-    "https://api.windap.jp/api/api/departures",
+  const { data } = await apiClient.get<DepartureWithTotalTime>(
+    API_ROUTES.DEPARTURE.LIST,
     {
       params: {
         user_id: userId,
@@ -29,8 +30,8 @@ export const getDepartures = async (
 export const createDepartureEvent = async (
   values: Omit<DepartureType, "date">
 ) => {
-  const { data } = await axios.post<Omit<DepartureType, "date">>(
-    "https://api.windap.jp/api/api/departure",
+  const { data } = await apiClient.post<Omit<DepartureType, "date">>(
+    API_ROUTES.DEPARTURE.BASE,
     {
       intra_user_id: values.intra_user_id,
       start: values.start,
@@ -42,15 +43,15 @@ export const createDepartureEvent = async (
 };
 
 export const showDeparture = async (id: number) => {
-  const { data } = await axios.get<DepartureType>(
-    `https://api.windap.jp/api/api/departure/${id}`
+  const { data } = await apiClient.get<DepartureType>(
+    `${API_ROUTES.DEPARTURE.BASE}/${id}`
   );
   return data;
 };
 
 export const getDepartureRanking = async (year?: string, month?: string) => {
-  const { data } = await axios.get<DepartureRankingType[]>(
-    "https://api.windap.jp/api/api/departures/rankings",
+  const { data } = await apiClient.get<DepartureRankingType[]>(
+    API_ROUTES.DEPARTURE.RANKINGS,
     {
       params: {
         year: year,
@@ -62,8 +63,8 @@ export const getDepartureRanking = async (year?: string, month?: string) => {
 };
 
 export const getDepartureStatus = async () => {
-  const { data } = await axios.get<DepartureStatus>(
-    "https://api.windap.jp/api/api/departures/status"
+  const { data } = await apiClient.get<DepartureStatus>(
+    API_ROUTES.DEPARTURE.STATUS
   );
   return data;
 };

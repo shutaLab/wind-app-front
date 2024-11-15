@@ -1,15 +1,14 @@
 import axios from "axios";
+import { API_ROUTES, apiClient } from "./commonApi";
 
 export const getNotifications = async () => {
-  const { data } = await axios.get(
-    "https://api.windap.jp/api/api/notifications"
-  );
+  const { data } = await apiClient.get(API_ROUTES.NOTIFICATION.LIST);
   return data;
 };
 
 export const readNotification = async (id: string) => {
   const { data } = await axios.post(
-    `https://api.windap.jp/api/api/notifications/${id}/read`
+    `${API_ROUTES.NOTIFICATION.READ}/${id}/read`
   );
   return data;
 };

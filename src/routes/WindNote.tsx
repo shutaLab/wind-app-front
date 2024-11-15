@@ -18,11 +18,11 @@ import EditNoteModal from "../components/EditNoteModal";
 import NoteHeader from "../components/NoteHeader";
 import HeaderTab from "../components/HeaderTab";
 import RequireAuth from "../components/RequireAuth";
-import { useGetUser } from "../queries/UserQuery";
 import CircularProgress from "@mui/material/CircularProgress";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import dayjs from "dayjs";
+import { useGetUser } from "../queries/AuthQuery";
 
 const WindNote = () => {
   const [modalOpen, setModalOpen] = useState(false);
