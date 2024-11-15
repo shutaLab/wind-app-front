@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useCreateUserProfile } from "../queries/UserQuery";
 import { Link, useNavigate } from "react-router-dom";
 import RequireAuth from "../components/RequireAuth";
@@ -23,11 +23,19 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../@/components/ui/select";
-import Button from "../components/Button";
 import { supabase } from "../utils/supabaseClient";
 import { Avatar, AvatarFallback, AvatarImage } from "../@/components/ui/avatar";
 import { z } from "zod";
 import { useGetUser } from "../queries/AuthQuery";
+import { toast } from "react-toastify";
+import Button from "../components/Button";
+
+const sanitizeFileName = (fileName: string): string => {
+  return fileName
+    .replace(/[^a-zA-Z0-9.-]/g, "_")
+    .replace(/_{2,}/g, "_")
+    .toLowerCase();
+};
 
 const MyPageProfile = () => {
   const navigate = useNavigate();
@@ -39,32 +47,102 @@ const MyPageProfile = () => {
   const profile = user?.user_profile;
 
   const uploadImage = async (file: File) => {
-    const fileName = `${Date.now()}_${file.name}`;
-    const { data, error } = await supabase.storage
-      .from("windap")
-      .upload(`ProfileImage/${fileName}`, file);
+    const timestamp = Date.now();
+    const sanitizedName = sanitizeFileName(file.name);
+    const fileName = `${timestamp}_${sanitizedName}`;
 
-    if (error) {
-      console.error("Image upload error:", error);
+    try {
+      const { data, error } = await supabase.storage
+        .from("windap")
+        .upload(`ProfileImage/${fileName}`, file, {
+          cacheControl: "3600",
+          upsert: false,
+        });
+
+      if (error) {
+        console.error("Image upload error:", error);
+        toast.error("画像のアップロードに失敗しました");
+        return undefined;
+      }
+
+      const { data: urlData } = supabase.storage
+        .from("windap")
+        .getPublicUrl(`ProfileImage/${fileName}`);
+
+      return urlData.publicUrl;
+    } catch (error) {
+      console.error("Upload failed:", error);
+      toast.error("画像のアップロードに失敗しました");
       return undefined;
     }
-    return (
-      supabase.storage.from("windap").getPublicUrl(`ProfileImage/${fileName}`)
-        .data.publicUrl ?? undefined
-    );
+  };
+
+  const validateFile = (file: File): boolean => {
+    const maxSize = 5 * 1024 * 1024; // 5MB
+    const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
+
+    if (!allowedTypes.includes(file.type)) {
+      toast.error("JPG, PNG, WEBPファイルのみアップロード可能です");
+      return false;
+    }
+
+    if (file.size > maxSize) {
+      toast.error("ファイルサイズは5MB以下にしてください");
+      return false;
+    }
+
+    return true;
   };
 
   const form = useForm<Profile>({
     resolver: zodResolver(userProfileValidationSchema),
     mode: "onChange",
+    defaultValues: {
+      name: profile?.name || "",
+      grade: profile?.grade || "",
+      sail_no: profile?.sail_no || "",
+      introduction: profile?.introduction || "",
+    },
   });
+
+  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!validateFile(file)) {
+      e.target.value = "";
+      return;
+    }
+
+    setSelectedFile(file);
+    const newPreviewUrl = URL.createObjectURL(file);
+    setPreviewUrl(newPreviewUrl);
+  };
 
   const onSubmit = async (
     values: z.infer<typeof userProfileValidationSchema>
   ) => {
-    const imageUrl = selectedFile ? await uploadImage(selectedFile) : undefined;
-    createProfile.mutate({ ...values, profile_image: imageUrl });
+    try {
+      const imageUrl = selectedFile
+        ? await uploadImage(selectedFile)
+        : profile?.profile_image;
+
+      createProfile.mutate({
+        ...values,
+        profile_image: imageUrl,
+      });
+    } catch (error) {
+      toast.error("プロフィールの更新に失敗しました");
+    }
   };
+
+  useEffect(() => {
+    return () => {
+      if (previewUrl) {
+        URL.revokeObjectURL(previewUrl);
+      }
+    };
+  }, [previewUrl]);
 
   return (
     <RequireAuth>
@@ -92,14 +170,8 @@ const MyPageProfile = () => {
                   <FormControl>
                     <Input
                       type="file"
-                      accept="image/*"
-                      onChange={(e) => {
-                        const file = e.target.files?.[0];
-                        if (file) {
-                          setSelectedFile(file);
-                          setPreviewUrl(URL.createObjectURL(file));
-                        }
-                      }}
+                      accept="image/jpeg,image/png,image/webp"
+                      onChange={handleFileSelect}
                     />
                   </FormControl>
                   <FormMessage />
@@ -109,7 +181,6 @@ const MyPageProfile = () => {
             <FormField
               control={form.control}
               name="name"
-              defaultValue={profile?.name}
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
@@ -122,13 +193,9 @@ const MyPageProfile = () => {
             <FormField
               control={form.control}
               name="grade"
-              defaultValue={profile?.grade}
               render={({ field }) => (
                 <FormItem>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={profile?.grade}
-                  >
+                  <Select onValueChange={field.onChange} value={field.value}>
                     <FormControl>
                       <SelectTrigger>
                         <SelectValue placeholder="学年" />
@@ -149,7 +216,6 @@ const MyPageProfile = () => {
             <FormField
               control={form.control}
               name="sail_no"
-              defaultValue={profile?.sail_no}
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
@@ -165,7 +231,6 @@ const MyPageProfile = () => {
             <FormField
               control={form.control}
               name="introduction"
-              defaultValue={profile?.introduction}
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
