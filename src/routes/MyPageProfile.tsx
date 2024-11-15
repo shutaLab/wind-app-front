@@ -30,11 +30,17 @@ import { useGetUser } from "../queries/AuthQuery";
 import { toast } from "react-toastify";
 import Button from "../components/Button";
 
-const sanitizeFileName = (fileName: string): string => {
-  return fileName
-    .replace(/[^a-zA-Z0-9.-]/g, "_")
-    .replace(/_{2,}/g, "_")
+const sanitizeFileName = (originalName: string): string => {
+  const timestamp = Date.now();
+  const extension = originalName.split(".").pop()?.toLowerCase() || "webp";
+
+  const baseName = originalName
+    .split(".")[0]
+    .replace(/[^a-zA-Z0-9]/g, "") // 英数字以外を除去
+    .substring(0, 30)
     .toLowerCase();
+
+  return `${timestamp}${baseName}.${extension}`;
 };
 
 const MyPageProfile = () => {
@@ -45,54 +51,6 @@ const MyPageProfile = () => {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
   const profile = user?.user_profile;
-
-  const sanitizeFileName = (originalName: string): string => {
-    const timestamp = Date.now();
-
-    // 拡張子を抽出して小文字に
-    const extension = originalName.split(".").pop()?.toLowerCase() || "webp";
-
-    // ファイル名を英数字のみに制限
-    const baseName = originalName
-      .split(".")[0] // 拡張子を除去
-      .replace(/[^a-zA-Z0-9]/g, "") // 英数字以外を完全に除去
-      .substring(0, 30) // 30文字に制限
-      .toLowerCase(); // 小文字に変換
-
-    // タイムスタンプとファイル名を組み合わせ
-    return `${timestamp}${baseName}.${extension}`;
-  };
-
-  const uploadImage = async (file: File) => {
-    try {
-      const fileName = sanitizeFileName(file.name);
-      console.log("Sanitized filename:", fileName); // デバッグ用
-
-      const { data, error } = await supabase.storage
-        .from("windap")
-        .upload(`ProfileImage/${fileName}`, file, {
-          cacheControl: "3600",
-          upsert: true, // 既存ファイルは上書き
-          contentType: file.type,
-        });
-
-      if (error) {
-        console.error("Image upload error:", error);
-        toast.error("画像のアップロードに失敗しました");
-        return undefined;
-      }
-
-      const { data: urlData } = supabase.storage
-        .from("windap")
-        .getPublicUrl(`ProfileImage/${fileName}`);
-
-      return urlData.publicUrl;
-    } catch (error) {
-      console.error("Upload failed:", error);
-      toast.error("画像のアップロードに失敗しました");
-      return undefined;
-    }
-  };
 
   const validateFile = (file: File): boolean => {
     const maxSize = 5 * 1024 * 1024; // 5MB
@@ -109,6 +67,37 @@ const MyPageProfile = () => {
     }
 
     return true;
+  };
+
+  const uploadImage = async (file: File) => {
+    try {
+      const fileName = sanitizeFileName(file.name);
+      console.log("Uploading file:", fileName);
+
+      const { data, error } = await supabase.storage
+        .from("windap")
+        .upload(`ProfileImage/${fileName}`, file, {
+          cacheControl: "3600",
+          upsert: true,
+          contentType: file.type,
+        });
+
+      if (error) {
+        console.error("Upload error:", error);
+        toast.error("画像のアップロードに失敗しました");
+        return undefined;
+      }
+
+      const { data: urlData } = supabase.storage
+        .from("windap")
+        .getPublicUrl(`ProfileImage/${fileName}`);
+
+      return urlData.publicUrl;
+    } catch (error) {
+      console.error("Upload failed:", error);
+      toast.error("画像のアップロードに失敗しました");
+      return undefined;
+    }
   };
 
   const form = useForm<Profile>({
@@ -132,6 +121,11 @@ const MyPageProfile = () => {
     }
 
     setSelectedFile(file);
+
+    // 古いプレビューURLを解放してから新しいURLを設定
+    if (previewUrl) {
+      URL.revokeObjectURL(previewUrl);
+    }
     const newPreviewUrl = URL.createObjectURL(file);
     setPreviewUrl(newPreviewUrl);
   };
@@ -149,10 +143,12 @@ const MyPageProfile = () => {
         profile_image: imageUrl,
       });
     } catch (error) {
+      console.error("Profile update error:", error);
       toast.error("プロフィールの更新に失敗しました");
     }
   };
 
+  // コンポーネントのアンマウント時にプレビューURLを解放
   useEffect(() => {
     return () => {
       if (previewUrl) {
