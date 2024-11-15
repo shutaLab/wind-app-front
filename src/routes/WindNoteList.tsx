@@ -4,7 +4,7 @@ import { useNotes } from "../queries/NoteQuery";
 import NoteHeader from "../components/NoteHeader";
 import HeaderTab from "../components/HeaderTab";
 import RequireAuth from "../components/RequireAuth";
-import { useGetUser } from "../queries/UserQuery";
+import { useGetUser } from "../queries/AuthQuery";
 
 const WindNoteList = () => {
   const { data: notes, isLoading, isFetching } = useNotes();

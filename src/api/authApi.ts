@@ -1,21 +1,22 @@
 import axios from "axios";
 import { User } from "../types/user";
+import { API_ROUTES, apiClient } from "./commonApi";
 axios.defaults.withCredentials = true;
 
 export const getUser = async () => {
-  const { data } = await axios.get<User>("https://api.windap.jp/api/api/user");
+  const { data } = await apiClient.get<User>(API_ROUTES.AUTH.USER);
   return data;
 };
 
 export const getCsrfCookie = async () => {
-  await axios.get("https://api.windap.jp/api/sanctum/csrf-cookie");
+  await apiClient.get(API_ROUTES.AUTH.CSRF);
 };
 
 // ログインリクエストを送信する関数
 export const login = async (values: User) => {
   try {
     await getCsrfCookie();
-    const response = await axios.post("https://api.windap.jp/api/api/login", {
+    const response = await apiClient.post(API_ROUTES.AUTH.LOGIN, {
       email: values.email,
       password: values.password,
     });
@@ -27,23 +28,11 @@ export const login = async (values: User) => {
 };
 
 export const signUp = async (values: User) => {
-  const { data } = await axios.post<User>(
-    "https://api.windap.jp/api/api/register",
-    values
-  );
+  const { data } = await apiClient.post<User>(API_ROUTES.AUTH.REGISTER, values);
   return data;
 };
 
 export const logout = async () => {
-  const { data } = await axios.post<User>(
-    "https://api.windap.jp/api/api/logout"
-  );
-  return data;
-};
-
-export const notification = async () => {
-  const { data } = await axios.get(
-    "https://api.windap.jp/api/api/notifications"
-  );
+  const { data } = await apiClient.post<User>(API_ROUTES.AUTH.LOGOUT);
   return data;
 };

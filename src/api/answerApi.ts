@@ -1,15 +1,13 @@
 import axios from "axios";
 import { WindAnswer, WindIdAnswer } from "../types/Question";
+import { API_ROUTES, apiClient } from "./commonApi";
 
 export const getAnswers = async (userId?: number) => {
-  const { data } = await axios.get<WindIdAnswer[]>(
-    "https://api.windap.jp/api/api/answers",
-    {
-      params: {
-        user_id: userId,
-      },
-    }
-  );
+  const { data } = await apiClient.get<WindIdAnswer[]>(API_ROUTES.ANSWER.LIST, {
+    params: {
+      user_id: userId,
+    },
+  });
   return data;
 };
 
@@ -20,12 +18,9 @@ export const createAnswer = async ({
   question_id: number;
   values: WindAnswer;
 }) => {
-  const { data } = await axios.post<WindAnswer>(
-    "https://api.windap.jp/api/api/answer",
-    {
-      question_id: question_id,
-      content: values.content,
-    }
-  );
+  const { data } = await apiClient.post<WindAnswer>(API_ROUTES.ANSWER.BASE, {
+    question_id: question_id,
+    content: values.content,
+  });
   return data;
 };

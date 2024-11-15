@@ -6,7 +6,7 @@ import { WindIdQuestion, WindQuestion } from "../types/Question";
 import NoteHeader from "../components/NoteHeader";
 import HeaderTab from "../components/HeaderTab";
 import RequireAuth from "../components/RequireAuth";
-import { useGetUser } from "../queries/UserQuery";
+import { useGetUser } from "../queries/AuthQuery";
 
 const QuestionList = () => {
   const { data: user } = useGetUser();

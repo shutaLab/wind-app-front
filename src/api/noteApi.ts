@@ -1,9 +1,10 @@
 import axios from "axios";
 import { DeleteNote, Favorite, Note, NoteWithFavorites } from "../types/Note";
+import { API_ROUTES, apiClient } from "./commonApi";
 
 export const getNotes = async (useId?: number) => {
-  const { data } = await axios.get<NoteWithFavorites[]>(
-    "https://api.windap.jp/api/api/windNote",
+  const { data } = await apiClient.get<NoteWithFavorites[]>(
+    API_ROUTES.WIND_NOTE.LIST,
     {
       params: {
         user_id: useId,
@@ -13,20 +14,17 @@ export const getNotes = async (useId?: number) => {
   return data;
 };
 export const createNote = async (values: Note) => {
-  const { data } = await axios.post<Note>(
-    "https://api.windap.jp/api/api/windNote",
-    {
-      title: values.title,
-      content: values.content,
-      date: values.date,
-    }
-  );
+  const { data } = await apiClient.post<Note>(API_ROUTES.WIND_NOTE.BASE, {
+    title: values.title,
+    content: values.content,
+    date: values.date,
+  });
   return data;
 };
 
 export const showNote = async (id: number) => {
-  const { data } = await axios.get<NoteWithFavorites>(
-    `https://api.windap.jp/api/api/windNote/${id}`
+  const { data } = await apiClient.get<NoteWithFavorites>(
+    `${API_ROUTES.WIND_NOTE.BASE}/${id}`
   );
   return data;
 };
@@ -38,36 +36,36 @@ export const updateNote = async ({
   id: number;
   values: Note;
 }) => {
-  const { data } = await axios.put<Note>(
-    `https://api.windap.jp/api/api/windNote/${id}`,
+  const { data } = await apiClient.put<Note>(
+    `${API_ROUTES.WIND_NOTE.BASE}/${id}`,
     values
   );
   return data;
 };
 export const deleteNote = async (id: number) => {
-  const { data } = await axios.delete<DeleteNote>(
-    `https://api.windap.jp/api/api/windNote/${id}`
+  const { data } = await apiClient.delete<DeleteNote>(
+    `${API_ROUTES.WIND_NOTE.BASE}/${id}`
   );
   return data;
 };
 
 export const getFavorites = async (id: number) => {
-  const { data } = await axios.get<Favorite[]>(
-    `https://api.windap.jp/api/api/windNote/${id}/favorites`
+  const { data } = await apiClient.get<Favorite[]>(
+    `${API_ROUTES.WIND_NOTE.BASE}/${id}/favorites`
   );
   return data;
 };
 
 export const checkFavorite = async (id: number) => {
-  const { data } = await axios.get<Favorite>(
-    `https://api.windap.jp/api/api/windNote/${id}/favorite`
+  const { data } = await apiClient.get<Favorite>(
+    `${API_ROUTES.WIND_NOTE.BASE}/${id}/favorite`
   );
   return data;
 };
 
 export const updateFavorite = async (id: number) => {
-  const { data } = await axios.put<Favorite>(
-    `https://api.windap.jp/api/api/windNote/${id}/favorite`
+  const { data } = await apiClient.put<Favorite>(
+    `${API_ROUTES.WIND_NOTE.BASE}/${id}/favorite`
   );
   return data;
 };

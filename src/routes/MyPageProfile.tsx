@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useCreateUserProfile, useGetUser } from "../queries/UserQuery";
+import { useCreateUserProfile } from "../queries/UserQuery";
 import { Link, useNavigate } from "react-router-dom";
 import RequireAuth from "../components/RequireAuth";
 import {
@@ -27,6 +27,7 @@ import Button from "../components/Button";
 import { supabase } from "../utils/supabaseClient";
 import { Avatar, AvatarFallback, AvatarImage } from "../@/components/ui/avatar";
 import { z } from "zod";
+import { useGetUser } from "../queries/AuthQuery";
 
 const MyPageProfile = () => {
   const navigate = useNavigate();

@@ -4,8 +4,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "../@/components/ui/avatar";
 import NoteHeader from "../components/NoteHeader";
 import { Button } from "../@/components/ui/button";
 import { Link, NavLink, Outlet } from "react-router-dom";
-import { useGetUser } from "../queries/UserQuery";
 import RequireAuth from "../components/RequireAuth";
+import { useGetUser } from "../queries/AuthQuery";
 
 export function MyPage() {
   const { data: user } = useGetUser();

@@ -3,6 +3,10 @@ import * as api from "../api/authApi";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+export const useGetUser = () => {
+  return useQuery("user", () => api.getUser());
+};
+
 export const useLogin = () => {
   const queryClient = useQueryClient();
   return useMutation(api.login, {

@@ -12,7 +12,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "../@/components/ui/dropdown-menu";
-import { useGetUser } from "../queries/UserQuery";
+import { useGetUser } from "../queries/AuthQuery";
 dayjs.extend(relativeTime);
 dayjs.locale("ja");
 interface AnswerProps {
