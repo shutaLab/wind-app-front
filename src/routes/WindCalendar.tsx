@@ -4,7 +4,6 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import Button from "../components/Button";
-import CreateCalendarEvent from "../components/CreateCalendarEvent";
 import { useGetCalendarEvent } from "../queries/CalenarQuery";
 import { format } from "date-fns";
 import { ja } from "date-fns/locale";
@@ -21,14 +20,6 @@ const WindCalendar = () => {
   const { data: calendarEvents } = useGetCalendarEvent();
   const [selectedDate, setSelectedDate] = useState(new Date());
   const today = format(selectedDate, "MM月dd日", { locale: ja });
-
-  const clickModalOpen = () => {
-    setOpen(true);
-  };
-
-  const clickModalClose = () => {
-    setOpen(false);
-  };
 
   // 今日の日付に対応するイベントをフィルタリング
   const eventsOnSelectedDate = calendarEvents?.filter((event: CalendarType) => {
@@ -99,14 +90,8 @@ const WindCalendar = () => {
             </StyleWrapper>
           </div>
           <EventList events={eventsOnSelectedDate || []} date={today} />
-          <Button
-            className="h-full w-full mt-2 bg-custom-gray text-white mb-20"
-            text="予定を追加"
-            onClick={clickModalOpen}
-          />
         </div>
         <Footer />
-        <CreateCalendarEvent open={open} handleClose={clickModalClose} />
       </div>
     </RequireAuth>
   );
