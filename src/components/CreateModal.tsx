@@ -39,6 +39,14 @@ const CreateModal: React.FC<CreateHeaderModalProps> = ({
             clickModalClose={clickModalClose}
           />
         );
+      case "/calendar":
+        return (
+          <CreateCalendarEvent
+            currentLocation={currentLocation}
+            modalOpen={modalOpen}
+            clickModalClose={clickModalClose}
+          />
+        );
       default:
         return null;
     }
