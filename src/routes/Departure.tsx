@@ -84,7 +84,6 @@ const Departure = () => {
       <div className="mt-52">
         <Footer />
       </div>
-      <CreateDepartureModal open={modalOpen} handleClose={clickModalClose} />
       <DepartureChartDrawer open={chartOpen} handleClose={clickChartClose} />
     </RequireAuth>
   );
