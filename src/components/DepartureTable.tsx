@@ -4,12 +4,12 @@ import resourceTimeGridPlugin from "@fullcalendar/resource-timegrid";
 import { format, parseISO, subHours } from "date-fns";
 import { EventClickArg } from "@fullcalendar/core";
 import { useState } from "react";
-import StyleWrapper from "./StyleWrapper";
 import DepartureEventModal from "./DepartureEventModal";
 import { DepartureType, DepartureWithTotalTime } from "../types/Departure";
 import { EventInput } from "@fullcalendar/core";
 import { useGetDepartures } from "../queries/DepartureQuery";
 import dayjs from "dayjs";
+import DepartureStyleWrapper from "./DepartureStyleWrapper";
 
 const DepartureTable = () => {
   const [open, setOpen] = useState(false);
@@ -42,7 +42,7 @@ const DepartureTable = () => {
   return (
     <div className="">
       <div className="px-3">
-        <StyleWrapper>
+        <DepartureStyleWrapper>
           <FullCalendar
             headerToolbar={{ start: "prev", center: "title", end: "next" }}
             plugins={[resourceTimeGridPlugin]}
@@ -59,7 +59,7 @@ const DepartureTable = () => {
             schedulerLicenseKey="CC-Attribution-NonCommercial-NoDerivatives"
             eventClick={handleEventClick}
           />
-        </StyleWrapper>
+        </DepartureStyleWrapper>
       </div>
       <DepartureEventModal open={open} handleClose={handleClose} />
 

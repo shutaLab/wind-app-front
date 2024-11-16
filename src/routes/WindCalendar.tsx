@@ -8,7 +8,6 @@ import CreateCalendarEvent from "../components/CreateCalendarEvent";
 import { useGetCalendarEvent } from "../queries/CalenarQuery";
 import { format } from "date-fns";
 import { ja } from "date-fns/locale";
-import StyleWrapper from "../components/StyleWrapper";
 import EventList from "../components/EventsList";
 import { EventApi } from "@fullcalendar/core";
 import "../App";
@@ -16,6 +15,7 @@ import NoteHeader from "../components/NoteHeader";
 import axios from "axios";
 import RequireAuth from "../components/RequireAuth";
 import { CalendarType } from "../types/Calendar";
+import StyleWrapper from "../components/StyleWrapper";
 const WindCalendar = () => {
   const [open, setOpen] = useState(false);
   const { data: calendarEvents } = useGetCalendarEvent();
