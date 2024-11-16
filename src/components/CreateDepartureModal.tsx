@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DepartureValidationShema } from "../@/components/ui/validationSchema";
-import { CreateNoteModalProps } from "../types/ModalProps";
+import {
+  CreateHeaderModalProps,
+  CreateNoteModalProps,
+} from "../types/ModalProps";
 import { Input } from "../@/components/ui/input";
 import { Button } from "../@/components/ui/button";
 import dayjs from "dayjs";
@@ -28,9 +31,8 @@ import { z } from "zod";
 import { useCreateDepartureEvent } from "../queries/DepartureQuery";
 import { DepartureType } from "../types/Departure";
 
-const CreateDepartureModal: React.FC<CreateNoteModalProps> = ({
-  open,
-  handleClose,
+const CreateDepartureModal: React.FC<CreateHeaderModalProps> = ({
+  clickModalClose,
 }) => {
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   dayjs.extend(utc);
@@ -62,151 +64,138 @@ const CreateDepartureModal: React.FC<CreateNoteModalProps> = ({
       description: values.description,
     };
     createDeparture.mutate(departure);
-    handleClose();
+    clickModalClose();
   }
 
   return (
-    <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle className="mb-5 font-bold">出艇を登録する</DialogTitle>
-          <DialogDescription>
-            <Form {...form}>
-              <form
-                className="space-y-6"
-                onSubmit={form.handleSubmit(onsubmit)}
-              >
-                <FormField
-                  control={form.control}
+    <Form {...form}>
+      <h1 className="mb-5 font-bold text-center">出艇を登録する</h1>
+      <form className="space-y-6" onSubmit={form.handleSubmit(onsubmit)}>
+        <FormField
+          control={form.control}
+          name="date"
+          render={({ field }) => (
+            <FormItem className="">
+              <FormControl className="gap-0">
+                <RadioGroup
                   name="date"
-                  render={({ field }) => (
-                    <FormItem className="">
-                      <FormControl className="gap-0">
-                        <RadioGroup
-                          name="date"
-                          className="flex"
-                          onValueChange={(value) => {
-                            field.onChange(value);
-                            handleDateChange(value);
-                          }}
-                          value={selectedDate || ""}
-                        >
-                          <FormItem className="flex items-center space-y-0 w-[50%]">
-                            <FormControl>
-                              <RadioGroupItem
-                                id="today"
-                                className="peer hidden"
-                                value={dayjs().format("YYYY-MM-DD")}
-                              />
-                            </FormControl>
-                            <label
-                              htmlFor="today"
-                              className={`inline-flex items-center justify-between w-full p-3 bg-white border border-gray-200 rounded-lg cursor-pointer hover:text-gray-600 hover:bg-gray-100 ${
-                                selectedDate === dayjs().format("YYYY-MM-DD")
-                                  ? "border-custom-green text-custom-green"
-                                  : ""
-                              }`}
-                            >
-                              <div className="flex justify-center space-x-3 mx-auto">
-                                <p className="">今日</p>
-                                <div className="">{dayjs().format("M/D")}</div>
-                              </div>
-                            </label>
-                          </FormItem>
-                          <FormItem className="flex items-center space-y-0 w-[50%]">
-                            <FormControl>
-                              <RadioGroupItem
-                                id="tomorrow"
-                                className="peer hidden"
-                                value={dayjs()
-                                  .add(1, "day")
-                                  .format("YYYY-MM-DD")}
-                              />
-                            </FormControl>
-                            <label
-                              htmlFor="tomorrow"
-                              className={`inline-flex items-center justify-between w-full p-3 bg-white border border-gray-200 rounded-lg cursor-pointer hover:text-gray-600 hover:bg-gray-100 ${
-                                selectedDate ===
-                                dayjs().add(1, "day").format("YYYY-MM-DD")
-                                  ? "border-custom-green text-custom-green"
-                                  : ""
-                              }`}
-                            >
-                              <div className="flex justify-center space-x-3 mx-auto">
-                                <p className="">明日</p>
-                                <div className="">
-                                  {dayjs().add(1, "day").format("M/D")}
-                                </div>
-                              </div>
-                            </label>
-                          </FormItem>
-                        </RadioGroup>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <div className="flex justify-center">
-                  <FormField
-                    control={form.control}
-                    name="start"
-                    render={({ field }) => (
-                      <FormItem className="w-[50%]">
-                        <FormControl>
-                          <Input className="mb-1" {...field} type="time" />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="end"
-                    render={({ field }) => (
-                      <FormItem className="w-[50%]">
-                        <FormControl>
-                          <Input className="mb-1" {...field} type="time" />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-                <FormField
-                  control={form.control}
-                  name="description"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Input className="mb-1" placeholder="詳細" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="intra_user_id"
-                  render={({ field }) => (
-                    <FormItem>
-                      <IntraUserCombobox
-                        value={field.value || null}
-                        onChange={field.onChange}
+                  className="flex"
+                  onValueChange={(value) => {
+                    field.onChange(value);
+                    handleDateChange(value);
+                  }}
+                  value={selectedDate || ""}
+                >
+                  <FormItem className="flex items-center space-y-0 w-[50%]">
+                    <FormControl>
+                      <RadioGroupItem
+                        id="today"
+                        className="peer hidden"
+                        value={dayjs().format("YYYY-MM-DD")}
                       />
-                    </FormItem>
-                  )}
-                />
+                    </FormControl>
+                    <label
+                      htmlFor="today"
+                      className={`inline-flex items-center justify-between w-full p-3 bg-white border border-gray-200 rounded-lg cursor-pointer hover:text-gray-600 hover:bg-gray-100 ${
+                        selectedDate === dayjs().format("YYYY-MM-DD")
+                          ? "border-custom-green text-custom-green"
+                          : ""
+                      }`}
+                    >
+                      <div className="flex justify-center space-x-3 mx-auto">
+                        <p className="">今日</p>
+                        <div className="">{dayjs().format("M/D")}</div>
+                      </div>
+                    </label>
+                  </FormItem>
+                  <FormItem className="flex items-center space-y-0 w-[50%]">
+                    <FormControl>
+                      <RadioGroupItem
+                        id="tomorrow"
+                        className="peer hidden"
+                        value={dayjs().add(1, "day").format("YYYY-MM-DD")}
+                      />
+                    </FormControl>
+                    <label
+                      htmlFor="tomorrow"
+                      className={`inline-flex items-center justify-between w-full p-3 bg-white border border-gray-200 rounded-lg cursor-pointer hover:text-gray-600 hover:bg-gray-100 ${
+                        selectedDate ===
+                        dayjs().add(1, "day").format("YYYY-MM-DD")
+                          ? "border-custom-green text-custom-green"
+                          : ""
+                      }`}
+                    >
+                      <div className="flex justify-center space-x-3 mx-auto">
+                        <p className="">明日</p>
+                        <div className="">
+                          {dayjs().add(1, "day").format("M/D")}
+                        </div>
+                      </div>
+                    </label>
+                  </FormItem>
+                </RadioGroup>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
-                <Button className="w-full bg-custom-green h-10" type="submit">
-                  投稿する
-                </Button>
-              </form>
-            </Form>
-          </DialogDescription>
-        </DialogHeader>
-      </DialogContent>
-    </Dialog>
+        <div className="flex justify-center">
+          <FormField
+            control={form.control}
+            name="start"
+            render={({ field }) => (
+              <FormItem className="w-[50%]">
+                <FormControl>
+                  <Input className="mb-1" {...field} type="time" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="end"
+            render={({ field }) => (
+              <FormItem className="w-[50%]">
+                <FormControl>
+                  <Input className="mb-1" {...field} type="time" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+        <FormField
+          control={form.control}
+          name="description"
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <Input className="mb-1" placeholder="詳細" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="intra_user_id"
+          render={({ field }) => (
+            <FormItem>
+              <IntraUserCombobox
+                value={field.value || null}
+                onChange={field.onChange}
+              />
+            </FormItem>
+          )}
+        />
+
+        <Button className="w-full bg-custom-green h-10" type="submit">
+          投稿する
+        </Button>
+      </form>
+    </Form>
   );
 };
 
