@@ -4,6 +4,7 @@ import * as api from "../api/authApi";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { User } from "../types/user";
+import { AxiosError } from "axios";
 
 export const useGetUser = () => {
   return useQuery("user", () => api.getUser());
@@ -35,10 +36,13 @@ export const useSignUp = () => {
       });
       queryClient.invalidateQueries("user");
       toast.success("アカウントを作成しました");
-      navigate("/departure");
+      navigate("/myPage/profile");
     },
-    onError: () => {
-      toast.error("アカウント作成に失敗しました");
+    onError: (error: AxiosError) => {
+      console.log(error?.response?.status);
+      error?.response?.status === 422
+        ? toast.error("メールアドレスが既に存在しています")
+        : toast.error("アカウントの作成に失敗しました");
     },
   });
 };
