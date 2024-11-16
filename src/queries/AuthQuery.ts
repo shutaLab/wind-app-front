@@ -17,8 +17,10 @@ export const useLogin = () => {
       queryClient.invalidateQueries("user");
       toast.success("ログインしました");
     },
-    onError: () => {
-      toast.error("ログインに失敗しました");
+    onError: (error: AxiosError) => {
+      error?.response?.status === 401
+        ? toast.error("メールアドレスかパスワードが間違っています")
+        : toast.error("ログインに失敗しました");
     },
   });
 };
@@ -39,7 +41,6 @@ export const useSignUp = () => {
       navigate("/myPage/profile");
     },
     onError: (error: AxiosError) => {
-      console.log(error?.response?.status);
       error?.response?.status === 422
         ? toast.error("メールアドレスが既に存在しています")
         : toast.error("アカウントの作成に失敗しました");
