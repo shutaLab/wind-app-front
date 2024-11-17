@@ -17,7 +17,6 @@ import NoteAlertDialog from "../components/DeleteAlertDialog";
 import EditNoteModal from "../components/EditNoteModal";
 import NoteHeader from "../components/NoteHeader";
 import HeaderTab from "../components/HeaderTab";
-import RequireAuth from "../components/RequireAuth";
 import CircularProgress from "@mui/material/CircularProgress";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -59,7 +58,7 @@ const WindNote = () => {
     updateFavorite.mutate(note.id);
   };
   return (
-    <RequireAuth>
+    <div>
       <NoteHeader />
       <HeaderTab />
       <div className=" p-2 mb-[100px]">
@@ -129,7 +128,7 @@ const WindNote = () => {
         clickModalClose={clickModalClose}
         note={note}
       />
-    </RequireAuth>
+    </div>
   );
 };
 

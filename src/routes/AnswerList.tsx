@@ -16,7 +16,6 @@ import Answer from "../components/Answer";
 import QuestionAlertDialog from "../components/QuestionAlertDialog";
 import NoteHeader from "../components/NoteHeader";
 import HeaderTab from "../components/HeaderTab";
-import RequireAuth from "../components/RequireAuth";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
@@ -61,7 +60,7 @@ const AnswerList = () => {
   if (!question) return <div>Loading...</div>;
 
   return (
-    <RequireAuth>
+    <div>
       <NoteHeader />
       <HeaderTab />
       <div className="border-b-2 pt-4 pb-2 px-2">
@@ -131,7 +130,7 @@ const AnswerList = () => {
         clickModalClose={clickModalClose}
         question={question}
       />
-    </RequireAuth>
+    </div>
   );
 };
 

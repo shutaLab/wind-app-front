@@ -4,7 +4,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "../@/components/ui/avatar";
 import NoteHeader from "../components/NoteHeader";
 import { Button } from "../@/components/ui/button";
 import { Link, NavLink, Outlet } from "react-router-dom";
-import RequireAuth from "../components/RequireAuth";
 import { useGetUser } from "../queries/AuthQuery";
 
 export function MyPage() {
@@ -15,7 +14,7 @@ export function MyPage() {
     setOpen(false);
   };
   return (
-    <RequireAuth>
+    <div>
       <NoteHeader />
       <div className="px-3 flex-row space-y-6">
         <div>
@@ -105,6 +104,6 @@ export function MyPage() {
         <Outlet context={{ user }} />
       </div>
       <Footer />
-    </RequireAuth>
+    </div>
   );
 }

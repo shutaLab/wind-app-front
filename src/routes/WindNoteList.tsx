@@ -3,14 +3,13 @@ import WindNote from "../components/WindNote";
 import { useNotes } from "../queries/NoteQuery";
 import NoteHeader from "../components/NoteHeader";
 import HeaderTab from "../components/HeaderTab";
-import RequireAuth from "../components/RequireAuth";
 import { useGetUser } from "../queries/AuthQuery";
 
 const WindNoteList = () => {
   const { data: notes, isLoading, isFetching } = useNotes();
   const { data: user } = useGetUser();
   return (
-    <RequireAuth>
+    <div>
       <NoteHeader />
       <HeaderTab />
       <div>
@@ -30,7 +29,7 @@ const WindNoteList = () => {
         )}
       </div>
       <Footer />
-    </RequireAuth>
+    </div>
   );
 };
 

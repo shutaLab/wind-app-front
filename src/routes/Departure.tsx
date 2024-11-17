@@ -4,7 +4,6 @@ import Button from "../components/Button";
 import DepartureTable from "../components/DepartureTable";
 import NoteHeader from "../components/NoteHeader";
 import CreateDepartureModal from "../components/CreateDepartureModal";
-import RequireAuth from "../components/RequireAuth";
 import DepartureChartDrawer from "../components/DepartureChartDrawer";
 import DepartureTab from "../components/DepartureTab";
 import { useGetDepartureStatus } from "../queries/DepartureQuery";
@@ -36,7 +35,7 @@ const Departure = () => {
   };
 
   return (
-    <RequireAuth>
+    <div>
       <NoteHeader />
       <DepartureTab />
       <DepartureTable />
@@ -85,7 +84,7 @@ const Departure = () => {
         <Footer />
       </div>
       <DepartureChartDrawer open={chartOpen} handleClose={clickChartClose} />
-    </RequireAuth>
+    </div>
   );
 };
 

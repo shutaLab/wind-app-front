@@ -20,7 +20,7 @@ import { DepartureRankingType } from "../types/Departure";
 const DepartureRanking = () => {
   const { data: departureRankings } = useGetDepartureRankings();
   return (
-    <RequireAuth>
+    <div>
       <NoteHeader />
       <div className="p-3">
         <DepartureTab />
@@ -47,7 +47,7 @@ const DepartureRanking = () => {
       </div>
 
       <Footer />
-    </RequireAuth>
+    </div>
   );
 };
 

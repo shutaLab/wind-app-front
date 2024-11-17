@@ -12,7 +12,6 @@ import { EventApi } from "@fullcalendar/core";
 import "../App";
 import NoteHeader from "../components/NoteHeader";
 import axios from "axios";
-import RequireAuth from "../components/RequireAuth";
 import { CalendarType } from "../types/Calendar";
 import StyleWrapper from "../components/StyleWrapper";
 const WindCalendar = () => {
@@ -63,7 +62,7 @@ const WindCalendar = () => {
   }, [calendarEvents]);
 
   return (
-    <RequireAuth>
+    <div>
       <div className="flex flex-col min-h-screen">
         <NoteHeader />
         <div className="flex-grow overflow-y-auto px-3">
@@ -93,7 +92,7 @@ const WindCalendar = () => {
         </div>
         <Footer />
       </div>
-    </RequireAuth>
+    </div>
   );
 };
 

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useCreateUserProfile } from "../queries/UserQuery";
 import { Link, useNavigate } from "react-router-dom";
-import RequireAuth from "../components/RequireAuth";
 import {
   Form,
   FormControl,
@@ -67,7 +66,7 @@ const MyPageProfile = () => {
   };
 
   return (
-    <RequireAuth>
+    <div>
       <NoteHeader />
       <Form {...form}>
         <div className="p-3">
@@ -189,7 +188,7 @@ const MyPageProfile = () => {
         </div>
       </Form>
       <Footer />
-    </RequireAuth>
+    </div>
   );
 };
 
