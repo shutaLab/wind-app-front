@@ -8,6 +8,7 @@ import DepartureChartDrawer from "../components/DepartureChartDrawer";
 import DepartureTab from "../components/DepartureTab";
 import { useGetDepartureStatus } from "../queries/DepartureQuery";
 import dayjs from "dayjs";
+import RequireAuth from "../components/RequireAuth";
 dayjs.locale("ja");
 
 const Departure = () => {
@@ -35,7 +36,7 @@ const Departure = () => {
   };
 
   return (
-    <div>
+    <RequireAuth>
       <NoteHeader />
       <DepartureTab />
       <DepartureTable />
@@ -84,7 +85,7 @@ const Departure = () => {
         <Footer />
       </div>
       <DepartureChartDrawer open={chartOpen} handleClose={clickChartClose} />
-    </div>
+    </RequireAuth>
   );
 };
 

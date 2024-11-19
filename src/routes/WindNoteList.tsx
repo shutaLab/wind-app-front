@@ -4,12 +4,13 @@ import { useNotes } from "../queries/NoteQuery";
 import NoteHeader from "../components/NoteHeader";
 import HeaderTab from "../components/HeaderTab";
 import { useGetUser } from "../queries/AuthQuery";
+import RequireAuth from "../components/RequireAuth";
 
 const WindNoteList = () => {
   const { data: notes, isLoading, isFetching } = useNotes();
   const { data: user } = useGetUser();
   return (
-    <div>
+    <RequireAuth>
       <NoteHeader />
       <HeaderTab />
       <div>
@@ -29,7 +30,7 @@ const WindNoteList = () => {
         )}
       </div>
       <Footer />
-    </div>
+    </RequireAuth>
   );
 };
 

@@ -22,6 +22,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import dayjs from "dayjs";
 import { useGetUser } from "../queries/AuthQuery";
+import RequireAuth from "../components/RequireAuth";
 
 const WindNote = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -58,7 +59,7 @@ const WindNote = () => {
     updateFavorite.mutate(note.id);
   };
   return (
-    <div>
+    <RequireAuth>
       <NoteHeader />
       <HeaderTab />
       <div className=" p-2 mb-[100px]">
@@ -128,7 +129,7 @@ const WindNote = () => {
         clickModalClose={clickModalClose}
         note={note}
       />
-    </div>
+    </RequireAuth>
   );
 };
 

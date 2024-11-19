@@ -22,6 +22,7 @@ import timezone from "dayjs/plugin/timezone";
 import relativeTime from "dayjs/plugin/relativeTime";
 import EditQuestionModal from "../components/EditQuestionModal";
 import { useGetUser } from "../queries/AuthQuery";
+import RequireAuth from "../components/RequireAuth";
 dayjs.extend(utc);
 dayjs.extend(timezone);
 dayjs.extend(relativeTime);
@@ -60,7 +61,7 @@ const AnswerList = () => {
   if (!question) return <div>Loading...</div>;
 
   return (
-    <div>
+    <RequireAuth>
       <NoteHeader />
       <HeaderTab />
       <div className="border-b-2 pt-4 pb-2 px-2">
@@ -130,7 +131,7 @@ const AnswerList = () => {
         clickModalClose={clickModalClose}
         question={question}
       />
-    </div>
+    </RequireAuth>
   );
 };
 

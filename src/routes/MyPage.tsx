@@ -5,6 +5,7 @@ import NoteHeader from "../components/NoteHeader";
 import { Button } from "../@/components/ui/button";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import { useGetUser } from "../queries/AuthQuery";
+import RequireAuth from "../components/RequireAuth";
 
 export function MyPage() {
   const { data: user } = useGetUser();
@@ -14,7 +15,7 @@ export function MyPage() {
     setOpen(false);
   };
   return (
-    <div>
+    <RequireAuth>
       <NoteHeader />
       <div className="px-3 flex-row space-y-6">
         <div>
@@ -104,6 +105,6 @@ export function MyPage() {
         <Outlet context={{ user }} />
       </div>
       <Footer />
-    </div>
+    </RequireAuth>
   );
 }

@@ -6,6 +6,7 @@ import { WindIdQuestion, WindQuestion } from "../types/Question";
 import NoteHeader from "../components/NoteHeader";
 import HeaderTab from "../components/HeaderTab";
 import { useGetUser } from "../queries/AuthQuery";
+import RequireAuth from "../components/RequireAuth";
 
 const QuestionList = () => {
   const { data: user } = useGetUser();
@@ -13,7 +14,7 @@ const QuestionList = () => {
     data: WindIdQuestion[] | undefined;
   };
   return (
-    <div>
+    <RequireAuth>
       <NoteHeader />
       <HeaderTab />
       <div>
@@ -22,7 +23,7 @@ const QuestionList = () => {
         ))}
       </div>
       <Footer />
-    </div>
+    </RequireAuth>
   );
 };
 

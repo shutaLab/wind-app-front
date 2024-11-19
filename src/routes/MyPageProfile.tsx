@@ -27,6 +27,7 @@ import { supabase } from "../utils/supabaseClient";
 import { Avatar, AvatarFallback, AvatarImage } from "../@/components/ui/avatar";
 import { z } from "zod";
 import { useGetUser } from "../queries/AuthQuery";
+import RequireAuth from "../components/RequireAuth";
 
 const MyPageProfile = () => {
   const navigate = useNavigate();
@@ -66,7 +67,7 @@ const MyPageProfile = () => {
   };
 
   return (
-    <div>
+    <RequireAuth>
       <NoteHeader />
       <Form {...form}>
         <div className="p-3">
@@ -188,7 +189,7 @@ const MyPageProfile = () => {
         </div>
       </Form>
       <Footer />
-    </div>
+    </RequireAuth>
   );
 };
 
