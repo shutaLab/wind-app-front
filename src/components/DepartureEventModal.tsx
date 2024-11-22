@@ -7,6 +7,7 @@ import {
   DialogTitle,
 } from "../@/components/ui/dialog";
 import {
+  useDeleteDeparture,
   useShowDeparture,
   useUpdateDeparture,
 } from "../queries/DepartureQuery";
@@ -46,7 +47,11 @@ const DepartureEventModal: React.FC<DepartureEventModalProps> = ({
   const [selectedDate, setSelectedDate] = useState<string | null>(
     dayjs(departure?.start).format("YYYY-MM-DD")
   );
-  console.log(departure);
+  const deleteDeparture = useDeleteDeparture();
+  const handleDeleteDeparture = () => {
+    deleteDeparture.mutate(departureId);
+    handleClose();
+  };
   dayjs.extend(utc);
   dayjs.extend(timezone);
   dayjs.tz.setDefault("Asia/Tokyo");
@@ -238,12 +243,22 @@ const DepartureEventModal: React.FC<DepartureEventModalProps> = ({
                     )}
                   />
                   {isEditable && (
-                    <Button
-                      className="w-full bg-custom-green h-10"
-                      type="submit"
-                    >
-                      編集する
-                    </Button>
+                    <div className="flex space-x-2">
+                      <Button
+                        className="w-full"
+                        variant="reject"
+                        type="button"
+                        onClick={() => handleDeleteDeparture()}
+                      >
+                        削除する
+                      </Button>
+                      <Button
+                        className="w-full bg-custom-green h-8"
+                        type="submit"
+                      >
+                        編集する
+                      </Button>
+                    </div>
                   )}
                 </form>
               </Form>
