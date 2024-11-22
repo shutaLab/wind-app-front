@@ -32,6 +32,20 @@ export const useShowDeparture = (id: number) => {
   return useQuery(["departures", id], () => api.showDeparture(id));
 };
 
+export const useUpdateDeparture = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation(api.updateDeparture, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("departures");
+      toast.success("出艇を編集しました");
+    },
+    onError: () => {
+      toast.error("出艇の編集に失敗しました");
+    },
+  });
+};
+
 export const useGetDepartureRankings = (year?: string, month?: string) => {
   return useQuery(["departureRankings", year, month], () =>
     api.getDepartureRanking(year, month)

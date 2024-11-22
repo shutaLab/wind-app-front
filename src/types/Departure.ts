@@ -8,7 +8,7 @@ export interface DepartureType {
   start: string;
   end: string;
   intra_user_id?: number;
-  intra_user?: User;
+  intraUser?: User;
   description?: string;
   user?: User;
 }

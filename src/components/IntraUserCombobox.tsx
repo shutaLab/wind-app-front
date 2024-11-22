@@ -18,17 +18,18 @@ import { User } from "../types/user";
 interface IntraUserComboboxProps {
   value: number | null;
   onChange: (value: number | null) => void;
+  disabled?: boolean;
 }
 
 const IntraUserCombobox: React.FC<IntraUserComboboxProps> = ({
   value,
   onChange,
+  disabled,
 }) => {
   const [open, setOpen] = React.useState(false);
   const { data: users } = useGetSeniorUsers() as {
     data: User[] | undefined;
   };
-  console.log(users);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -38,6 +39,7 @@ const IntraUserCombobox: React.FC<IntraUserComboboxProps> = ({
           role="combobox"
           aria-expanded={open}
           className="w-full justify-between h-10"
+          disabled={disabled}
         >
           {value !== null
             ? users?.find((user) => user.id === value)?.user_profile?.name

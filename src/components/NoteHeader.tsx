@@ -107,7 +107,7 @@ const NoteHeader = () => {
 
                     if (
                       notification.data.type === "request" &&
-                      !notification.data.departure.intra_user
+                      !notification.data.departure.intraUser
                     ) {
                       openIntraClaimModal(notification);
                     } else {
