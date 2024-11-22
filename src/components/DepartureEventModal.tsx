@@ -31,6 +31,14 @@ import { Input } from "../@/components/ui/input";
 import IntraUserCombobox from "./IntraUserCombobox";
 import { Button } from "../@/components/ui/button";
 import { useGetUser } from "../queries/AuthQuery";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../@/components/ui/select";
+import { timeArray } from "../utils/timeArray";
 type DepartureEventModalProps = {
   open: boolean;
   handleClose: () => void;
@@ -187,12 +195,26 @@ const DepartureEventModal: React.FC<DepartureEventModalProps> = ({
                     <FormField
                       control={form.control}
                       name="start"
-                      disabled={!isEditable}
                       render={({ field }) => (
-                        <FormItem className="w-[50%]">
-                          <FormControl>
-                            <Input className="mb-1" {...field} type="time" />
-                          </FormControl>
+                        <FormItem className="w-full">
+                          <Select
+                            onValueChange={field.onChange}
+                            {...field}
+                            disabled={!isEditable}
+                          >
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue placeholder="開始時間" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              {timeArray.map((start) => (
+                                <SelectItem key={start} value={`${start}`}>
+                                  {start}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
                           <FormMessage />
                         </FormItem>
                       )}
@@ -200,12 +222,26 @@ const DepartureEventModal: React.FC<DepartureEventModalProps> = ({
                     <FormField
                       control={form.control}
                       name="end"
-                      disabled={!isEditable}
                       render={({ field }) => (
-                        <FormItem className="w-[50%]">
-                          <FormControl>
-                            <Input className="mb-1" {...field} type="time" />
-                          </FormControl>
+                        <FormItem className="w-full">
+                          <Select
+                            onValueChange={field.onChange}
+                            {...field}
+                            disabled={!isEditable}
+                          >
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue placeholder="終了時間" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              {timeArray.map((end) => (
+                                <SelectItem key={end} value={`${end}`}>
+                                  {end}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
                           <FormMessage />
                         </FormItem>
                       )}

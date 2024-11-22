@@ -11,13 +11,7 @@ import { Button } from "../@/components/ui/button";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "../@/components/ui/dialog";
+
 import {
   Form,
   FormControl,
@@ -30,6 +24,14 @@ import { RadioGroup, RadioGroupItem } from "../@/components/ui/radio-group";
 import { z } from "zod";
 import { useCreateDepartureEvent } from "../queries/DepartureQuery";
 import { DepartureType } from "../types/Departure";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../@/components/ui/select";
+import { timeArray } from "../utils/timeArray";
 
 const CreateDepartureModal: React.FC<CreateHeaderModalProps> = ({
   clickModalClose,
@@ -145,10 +147,21 @@ const CreateDepartureModal: React.FC<CreateHeaderModalProps> = ({
             control={form.control}
             name="start"
             render={({ field }) => (
-              <FormItem className="w-[50%]">
-                <FormControl>
-                  <Input className="mb-1" {...field} type="time" />
-                </FormControl>
+              <FormItem className="w-full">
+                <Select onValueChange={field.onChange}>
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="開始時間" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {timeArray.map((start) => (
+                      <SelectItem key={start} value={`${start}`}>
+                        {start}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
                 <FormMessage />
               </FormItem>
             )}
@@ -157,10 +170,21 @@ const CreateDepartureModal: React.FC<CreateHeaderModalProps> = ({
             control={form.control}
             name="end"
             render={({ field }) => (
-              <FormItem className="w-[50%]">
-                <FormControl>
-                  <Input className="mb-1" {...field} type="time" />
-                </FormControl>
+              <FormItem className="w-full">
+                <Select onValueChange={field.onChange}>
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="終了時間" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {timeArray.map((end) => (
+                      <SelectItem key={end} value={`${end}`}>
+                        {end}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
                 <FormMessage />
               </FormItem>
             )}
