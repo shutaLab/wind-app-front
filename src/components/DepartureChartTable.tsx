@@ -13,7 +13,7 @@ const DepartureChartTable: FC<DepartureProps> = ({ departure }) => {
       </TableCell>
       <TableCell>{dayjs(departure.start).format("H:mm")}</TableCell>
       <TableCell>{dayjs(departure.end).format("H:mm")}</TableCell>
-      <TableCell>{departure.intra_user?.email}</TableCell>
+      <TableCell>{departure.intraUser?.email}</TableCell>
     </TableRow>
   );
 };

@@ -13,6 +13,7 @@ import DepartureStyleWrapper from "./DepartureStyleWrapper";
 
 const DepartureTable = () => {
   const [open, setOpen] = useState(false);
+  const [selectedDepartureId, setSelectedDepartureId] = useState<number>();
   const { data } = useGetDepartures();
   const resources = data?.departures?.map((departure: DepartureType) => ({
     id: departure.user?.id?.toString() ?? "",
@@ -24,7 +25,7 @@ const DepartureTable = () => {
     resourceId: departure.user?.id?.toString() ?? "",
     start: departure.start,
     end: departure.end,
-    title: departure.intra_user?.user_profile?.name || "",
+    title: departure.intraUser?.user_profile?.name || "",
     backgroundColor: departure.intra_user_id ? "#8EAAE5" : "#FF6347",
     extendedProps: {
       user: departure.user,
@@ -32,8 +33,8 @@ const DepartureTable = () => {
   }));
 
   const handleEventClick = (clickInfo: EventClickArg) => {
+    setSelectedDepartureId(Number(clickInfo.event.id));
     setOpen(true);
-    // イベントクリック時の処理
   };
 
   const handleClose = () => {
@@ -61,7 +62,13 @@ const DepartureTable = () => {
           />
         </DepartureStyleWrapper>
       </div>
-      <DepartureEventModal open={open} handleClose={handleClose} />
+      {selectedDepartureId && (
+        <DepartureEventModal
+          open={open}
+          handleClose={handleClose}
+          departureId={selectedDepartureId}
+        />
+      )}
 
       {/* total_time を表示
       {totalTime && (

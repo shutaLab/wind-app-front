@@ -47,7 +47,9 @@ export const CalendarEventValidationShema = z.object({
 });
 
 export const DepartureValidationShema = z.object({
+  date: z.string({ required_error: "日付を選択してください" }),
+  start: z.string({ required_error: "開始時間を入力してください" }),
+  end: z.string({ required_error: "終了時間を入力してください" }),
+  intra_user_id: z.number().optional(),
   description: z.string().optional(),
-  start: z.string({ required_error: "開始日を入力してください" }),
-  end: z.string({ required_error: "終了日を入力してください" }),
 });

@@ -49,6 +49,19 @@ export const showDeparture = async (id: number) => {
   return data;
 };
 
+export const updateDeparture = async ({
+  id,
+  values,
+}: {
+  id: number;
+  values: Omit<DepartureType, "date">;
+}) => {
+  const { data } = await apiClient.put<Omit<DepartureType, "date">>(
+    `${API_ROUTES.DEPARTURE.BASE}/${id}`,
+    values
+  );
+  return data;
+};
 export const getDepartureRanking = async (year?: string, month?: string) => {
   const { data } = await apiClient.get<DepartureRankingType[]>(
     API_ROUTES.DEPARTURE.RANKINGS,
