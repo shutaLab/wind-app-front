@@ -155,7 +155,7 @@ const CreateDepartureModal: React.FC<CreateHeaderModalProps> = ({
                       <SelectValue placeholder="開始時間" />
                     </SelectTrigger>
                   </FormControl>
-                  <SelectContent className=" min-h-52 overflow-y-auto">
+                  <SelectContent className=" max-h-52 overflow-y-auto">
                     {timeArray.map((start) => (
                       <SelectItem key={start} value={`${start}`}>
                         {start}
@@ -178,7 +178,7 @@ const CreateDepartureModal: React.FC<CreateHeaderModalProps> = ({
                       <SelectValue placeholder="終了時間" />
                     </SelectTrigger>
                   </FormControl>
-                  <SelectContent className=" min-h-52 overflow-y-auto">
+                  <SelectContent className=" max-h-52 overflow-y-auto">
                     {timeArray.map((end) => (
                       <SelectItem key={end} value={`${end}`}>
                         {end}
