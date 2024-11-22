@@ -74,6 +74,12 @@ export const getDepartureRanking = async (year?: string, month?: string) => {
   );
   return data;
 };
+export const deleteDeparture = async (id: number) => {
+  const { data } = await apiClient.delete<DepartureType>(
+    `${API_ROUTES.DEPARTURE.BASE}/${id}`
+  );
+  return data;
+};
 
 export const getDepartureStatus = async () => {
   const { data } = await apiClient.get<DepartureStatus>(
