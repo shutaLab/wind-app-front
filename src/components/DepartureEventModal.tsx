@@ -209,14 +209,12 @@ const DepartureEventModal: React.FC<DepartureEventModalProps> = ({
                                 <SelectValue placeholder="開始時間" />
                               </SelectTrigger>
                             </FormControl>
-                            <SelectContent className="">
-                              <ScrollArea className="h-60 w-64 rounded-md border">
-                                {timeArray.map((start) => (
-                                  <SelectItem key={start} value={`${start}`}>
-                                    {start}
-                                  </SelectItem>
-                                ))}
-                              </ScrollArea>
+                            <SelectContent className=" min-h-52 overflow-y-auto">
+                              {timeArray.map((start) => (
+                                <SelectItem key={start} value={`${start}`}>
+                                  {start}
+                                </SelectItem>
+                              ))}
                             </SelectContent>
                           </Select>
                           <FormMessage />
@@ -239,14 +237,12 @@ const DepartureEventModal: React.FC<DepartureEventModalProps> = ({
                                 <SelectValue placeholder="終了時間" />
                               </SelectTrigger>
                             </FormControl>
-                            <SelectContent className="">
-                              <ScrollArea className="h-60 w-64 rounded-md border">
-                                {timeArray.map((end) => (
-                                  <SelectItem key={end} value={`${end}`}>
-                                    {end}
-                                  </SelectItem>
-                                ))}
-                              </ScrollArea>
+                            <SelectContent className=" min-h-52 overflow-y-auto">
+                              {timeArray.map((end) => (
+                                <SelectItem key={end} value={`${end}`}>
+                                  {end}
+                                </SelectItem>
+                              ))}
                             </SelectContent>
                           </Select>
                           <FormMessage />
