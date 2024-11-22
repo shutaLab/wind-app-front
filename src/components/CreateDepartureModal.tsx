@@ -32,6 +32,7 @@ import {
   SelectValue,
 } from "../@/components/ui/select";
 import { timeArray } from "../utils/timeArray";
+import { ScrollArea } from "../@/components/ui/scroll-area";
 
 const CreateDepartureModal: React.FC<CreateHeaderModalProps> = ({
   clickModalClose,
@@ -154,12 +155,14 @@ const CreateDepartureModal: React.FC<CreateHeaderModalProps> = ({
                       <SelectValue placeholder="開始時間" />
                     </SelectTrigger>
                   </FormControl>
-                  <SelectContent>
-                    {timeArray.map((start) => (
-                      <SelectItem key={start} value={`${start}`}>
-                        {start}
-                      </SelectItem>
-                    ))}
+                  <SelectContent className="">
+                    <ScrollArea className="h-60 w-64 rounded-md border">
+                      {timeArray.map((start) => (
+                        <SelectItem key={start} value={`${start}`}>
+                          {start}
+                        </SelectItem>
+                      ))}
+                    </ScrollArea>
                   </SelectContent>
                 </Select>
                 <FormMessage />
@@ -177,12 +180,14 @@ const CreateDepartureModal: React.FC<CreateHeaderModalProps> = ({
                       <SelectValue placeholder="終了時間" />
                     </SelectTrigger>
                   </FormControl>
-                  <SelectContent>
-                    {timeArray.map((end) => (
-                      <SelectItem key={end} value={`${end}`}>
-                        {end}
-                      </SelectItem>
-                    ))}
+                  <SelectContent className="">
+                    <ScrollArea className="h-60 w-64 rounded-md border">
+                      {timeArray.map((end) => (
+                        <SelectItem key={end} value={`${end}`}>
+                          {end}
+                        </SelectItem>
+                      ))}
+                    </ScrollArea>
                   </SelectContent>
                 </Select>
                 <FormMessage />
