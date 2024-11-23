@@ -14,6 +14,7 @@ import {
 } from "../@/components/ui/dropdown-menu";
 import { useLogout } from "../queries/AuthQuery";
 import {
+  useAllReadNotifications,
   useGetNotifications,
   useReadNotification,
 } from "../queries/NotificationQuery";
@@ -26,6 +27,7 @@ import { readNotification } from "../api/notificationApi";
 import IntraClaimModal from "./IntraClaimModal";
 import { useShowDeparture } from "../queries/DepartureQuery";
 import { DepartureType } from "../types/Departure";
+import { Button } from "../@/components/ui/button";
 const NoteHeader = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -38,6 +40,7 @@ const NoteHeader = () => {
   const readNotification = useReadNotification();
   const logoutOutMutation = useLogout();
   const { data: notifications } = useGetNotifications();
+  const allReadNotifications = useAllReadNotifications();
 
   const unreadNotifications = notifications?.filter(
     (notification: NotificationItem) => notification.read_at === null
@@ -124,6 +127,12 @@ const NoteHeader = () => {
                 </DropdownMenuItem>
               ))}
               <div className=" text-center text-gray-500">通知は以上です</div>
+              <Button
+                className="w-full"
+                onClick={() => allReadNotifications.mutate()}
+              >
+                全て既読にする
+              </Button>
             </ScrollArea>
           </DropdownMenuContent>
         </DropdownMenu>

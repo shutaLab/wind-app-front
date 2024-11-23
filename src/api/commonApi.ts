@@ -45,6 +45,7 @@ export const API_ROUTES = {
   NOTIFICATION: {
     LIST: "/api/notifications",
     READ: "/api/notifications",
+    ALL_READ: "/api/notifications/read-all",
   },
   QUESTION: {
     LIST: "/api/questions",
