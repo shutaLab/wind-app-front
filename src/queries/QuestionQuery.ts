@@ -22,7 +22,7 @@ export const useCreateQuestion = () => {
 };
 
 export const useShowQuestion = (id: number) => {
-  return useQuery(["question", id], () => api.showQuestion(id));
+  return useQuery(["questions", id], () => api.showQuestion(id));
 };
 
 export const useUpdateQuestion = () => {
@@ -31,7 +31,6 @@ export const useUpdateQuestion = () => {
   return useMutation(api.updateQuestion, {
     onSuccess: () => {
       queryClient.invalidateQueries("questions");
-      queryClient.invalidateQueries("question");
       toast.success("質問を編集しました");
     },
     onError: () => {
