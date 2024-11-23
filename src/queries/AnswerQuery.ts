@@ -20,3 +20,18 @@ export const useCreateAnswer = () => {
     },
   });
 };
+
+export const useDeleteAnswer = (navigate: (path: string) => void) => {
+  const queryClient = useQueryClient();
+
+  return useMutation(api.deleteAnswer, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("notes");
+      toast.success("削除しました");
+      navigate("/question");
+    },
+    onError: () => {
+      toast.error("削除に失敗しました");
+    },
+  });
+};

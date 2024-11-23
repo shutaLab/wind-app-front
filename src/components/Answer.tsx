@@ -13,6 +13,7 @@ import {
   DropdownMenuTrigger,
 } from "../@/components/ui/dropdown-menu";
 import { useGetUser } from "../queries/AuthQuery";
+import AnswerDeleteAlertDialog from "./AnswerDeleteAlertDialog";
 dayjs.extend(relativeTime);
 dayjs.locale("ja");
 interface AnswerProps {
@@ -72,27 +73,15 @@ const Answer: React.FC<AnswerProps> = ({ answer }) => {
         <h1 className="whitespace-pre-line break-all">{answer.content}</h1>
       </div>
       <div className="flex items-center justify-end space-x-3">
-        <p className="mr-2"></p>
-
-        {/* <button
-            onClick={() => {
-              handleFavoriteClick();
-            }}
-          >
-            {isFavorite ? (
-              <FavoriteIcon className="text-red-500 mr-1" />
-            ) : (
-              <FavoriteBorderIcon className="text-gray-500 mr-1" />
-            )}
-          </button> */}
-        <p className="flex">
-          {/* <Avatar sx={{ height: "25px", width: "25px" }} /> */}
-          <p className="text-gray-500 ">{answer.user?.user_profile?.name}</p>
-        </p>
         <p className="text-gray-500 w-[50%]">
           {dayjs(answer.created_at).format("YYYY年MM月DD日HH:mm")}
         </p>
       </div>
+      <AnswerDeleteAlertDialog
+        isDialogOpen={isDialogOpen}
+        setIsDialogOpen={setIsDialogOpen}
+        answerId={answer.id}
+      />
     </div>
   );
 };
