@@ -14,7 +14,20 @@ export const useReadNotification = () => {
       queryClient.invalidateQueries("notifications");
     },
     onError: () => {
-      toast.error("作成に失敗しました");
+      toast.error("既読にできませんでした");
+    },
+  });
+};
+
+export const useAllReadNotifications = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation(api.allReadNotifications, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("notifications");
+    },
+    onError: () => {
+      toast.error("既読にできませんでした");
     },
   });
 };

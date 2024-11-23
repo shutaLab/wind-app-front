@@ -7,8 +7,13 @@ export const getNotifications = async () => {
 };
 
 export const readNotification = async (id: string) => {
-  const { data } = await axios.post(
+  const { data } = await apiClient.post(
     `${API_ROUTES.NOTIFICATION.READ}/${id}/read`
   );
+  return data;
+};
+
+export const allReadNotifications = async () => {
+  const { data } = await apiClient.post(API_ROUTES.NOTIFICATION.ALL_READ);
   return data;
 };
