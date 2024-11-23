@@ -24,3 +24,10 @@ export const createAnswer = async ({
   });
   return data;
 };
+
+export const deleteAnswer = async (id: number) => {
+  const { data } = await apiClient.delete<WindAnswer>(
+    `${API_ROUTES.ANSWER.BASE}/${id}`
+  );
+  return data;
+};
