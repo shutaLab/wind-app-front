@@ -25,6 +25,20 @@ export const createAnswer = async ({
   return data;
 };
 
+export const updateAnswer = async ({
+  id,
+  values,
+}: {
+  id: number;
+  values: WindAnswer;
+}) => {
+  const { data } = await apiClient.put<WindAnswer>(
+    `${API_ROUTES.ANSWER.BASE}/${id}`,
+    values
+  );
+  return data;
+};
+
 export const deleteAnswer = async (id: number) => {
   const { data } = await apiClient.delete<WindAnswer>(
     `${API_ROUTES.ANSWER.BASE}/${id}`

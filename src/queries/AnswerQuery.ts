@@ -11,7 +11,7 @@ export const useCreateAnswer = () => {
 
   return useMutation(api.createAnswer, {
     onSuccess: () => {
-      queryClient.invalidateQueries("question");
+      queryClient.invalidateQueries("questions");
       queryClient.invalidateQueries("answers");
       toast.success("回答しました");
     },
@@ -21,12 +21,27 @@ export const useCreateAnswer = () => {
   });
 };
 
+export const useUpdateAnswer = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation(api.updateAnswer, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("questions");
+      queryClient.invalidateQueries("answers");
+      toast.success("解答を編集しました");
+    },
+    onError: () => {
+      toast.error("解答の編集に失敗しました");
+    },
+  });
+};
+
 export const useDeleteAnswer = (navigate: (path: string) => void) => {
   const queryClient = useQueryClient();
 
   return useMutation(api.deleteAnswer, {
     onSuccess: () => {
-      queryClient.invalidateQueries("notes");
+      queryClient.invalidateQueries("questions");
       toast.success("削除しました");
       navigate("/question");
     },

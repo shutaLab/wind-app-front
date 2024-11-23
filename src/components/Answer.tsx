@@ -14,6 +14,7 @@ import {
 } from "../@/components/ui/dropdown-menu";
 import { useGetUser } from "../queries/AuthQuery";
 import AnswerDeleteAlertDialog from "./AnswerDeleteAlertDialog";
+import EditAnswerModal from "./EditAnswerModal";
 dayjs.extend(relativeTime);
 dayjs.locale("ja");
 interface AnswerProps {
@@ -39,7 +40,6 @@ const Answer: React.FC<AnswerProps> = ({ answer }) => {
   const { data: user } = useGetUser();
 
   const relativeTimeFromNow = dayjs(answer.created_at).fromNow();
-  console.log(user?.id === answer.user?.id);
   return (
     <div className="border-b p-2 py-4">
       <div className="flex justify-between">
@@ -81,6 +81,11 @@ const Answer: React.FC<AnswerProps> = ({ answer }) => {
         isDialogOpen={isDialogOpen}
         setIsDialogOpen={setIsDialogOpen}
         answerId={answer.id}
+      />
+      <EditAnswerModal
+        modalOpen={modalOpen}
+        clickModalClose={clickModalClose}
+        answer={answer}
       />
     </div>
   );
