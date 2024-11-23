@@ -34,10 +34,10 @@ const IntraClaimModal: React.FC<IntraClaimModalProps> = ({
   dayjs.extend(timezone);
 
   const start = notification?.data?.departure?.start
-    ? dayjs.utc(notification.data.departure.start)
+    ? dayjs(notification.data.departure.start).format("M月D日 H時mm分")
     : undefined;
   const end = notification?.data?.departure?.end
-    ? dayjs.utc(notification.data.departure.end)
+    ? dayjs(notification.data.departure.end).format("M月D日 H時mm分")
     : undefined;
 
   const approveIntraClaim = useIntraApproveClaim();
@@ -66,10 +66,10 @@ const IntraClaimModal: React.FC<IntraClaimModalProps> = ({
           <DialogDescription className="space-y-6">
             <div className="flex justify-center">
               <div className=" h-10 items-center w-[50%] rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus:outline-none disabled:cursor-not-allowed disabled:opacity-50">
-                {start ? start.format("M月D日 H時mm分") : "日付不明"}
+                {start ? start : "日付不明"}
               </div>
               <div className="h-10 items-center w-[50%] rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus:outline-none  disabled:cursor-not-allowed disabled:opacity-50">
-                {end ? end.format("M月D日 H時mm分") : "日付不明"}
+                {end ? end : "日付不明"}
               </div>
             </div>
             <div className="h-10 items-center w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus:outline-none  disabled:cursor-not-allowed disabled:opacity-50">
