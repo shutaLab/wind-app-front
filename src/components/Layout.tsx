@@ -10,7 +10,7 @@ const Layout = ({ children }: LayoutProps) => {
     <div className="min-h-screen bg-gray-200 flex justify-center relative">
       <div className="w-full max-w-md bg-white min-h-screen shadow-lg flex flex-col">
         {children}
-        <div className="fixed bottom-0 w-full">
+        <div className="fixed bottom-0 w-full z-10">
           <Footer />
         </div>
       </div>
