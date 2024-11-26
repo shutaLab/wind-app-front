@@ -9,6 +9,7 @@ import { useLogin, useSignUp } from "../queries/AuthQuery";
 import { z } from "zod";
 import { useNavigate } from "react-router-dom";
 import NoteHeader from "../components/NoteHeader";
+import Layout from "../components/Layout";
 const Login = () => {
   const {
     register,
@@ -33,7 +34,7 @@ const Login = () => {
     });
   };
   return (
-    <>
+    <Layout>
       <div className="flex flex-col items-center justify-center h-screen">
         <p className="mb-5 text-2xl">Windapにログイン</p>
         <div className="mb-5">
@@ -79,7 +80,7 @@ const Login = () => {
           </form>
         </div>
       </div>
-    </>
+    </Layout>
   );
 };
 

@@ -3,56 +3,65 @@ import TripOriginIcon from "@mui/icons-material/TripOrigin";
 import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
 import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
 import EditNoteOutlinedIcon from "@mui/icons-material/EditNoteOutlined";
+
 const Footer = () => {
   return (
-    <div className="fixed bottom-0 w-full mt-[30px] bg-white border-solid border-t ">
-      <div className="flex justify-center ">
+    <div className=" w-full max-w-md bg-white border-t sticky bottom-0">
+      <div className="flex justify-between">
         <NavLink
           id="footer"
-          className="p-1 text-gray-600 text-center w-[20%]"
+          className={({ isActive }) =>
+            isActive
+              ? "text-custom-pink text-center p-1 flex-1"
+              : "text-gray-600 text-center p-1 flex-1"
+          }
           to="/calendar"
         >
-          <div className="flex justify-center flex-col items-center text-sm">
-            <div>
-              <CalendarMonthOutlinedIcon />
-            </div>
-            <p className="text-xs">カレンダー</p>
+          <div className="flex flex-col items-center text-sm">
+            <CalendarMonthOutlinedIcon />
+            <p className="text-xs mt-1">カレンダー</p>
           </div>
         </NavLink>
         <NavLink
           id="footer"
-          className="p-1 text-gray-600 text-center w-[20%]"
+          className={({ isActive }) =>
+            isActive
+              ? "text-custom-pink text-center p-1 flex-1"
+              : "text-gray-600 text-center p-1 flex-1"
+          }
           to="/departure"
         >
-          <div className="flex justify-center flex-col items-center text-sm">
-            <div>
-              <TripOriginIcon />
-            </div>
-            <p className="text-xs">出艇</p>
+          <div className="flex flex-col items-center text-sm">
+            <TripOriginIcon />
+            <p className="text-xs mt-1">出艇</p>
           </div>
         </NavLink>
         <NavLink
-          id="footer"
-          className="p-1 text-gray-600 text-center w-[20%]"
+          id="footer1"
+          className={({ isActive }) =>
+            isActive
+              ? "text-custom-pink text-center p-1 flex-1"
+              : "text-gray-600 text-center p-1 flex-1"
+          }
           to="/windNote"
         >
-          <div className="flex justify-center flex-col items-center text-sm ">
-            <div>
-              <EditNoteOutlinedIcon />
-            </div>
-            <p className="text-xs">ノート</p>
+          <div className="flex flex-col items-center text-sm">
+            <EditNoteOutlinedIcon />
+            <p className="text-xs mt-1">ノート</p>
           </div>
         </NavLink>
         <NavLink
           id="footer"
-          className="p-1 text-gray-600 text-center w-[20%]"
+          className={({ isActive }) =>
+            isActive
+              ? "text-custom-pink text-center p-1 flex-1"
+              : "text-gray-600 text-center p-1 flex-1"
+          }
           to="/myPage/intra"
         >
-          <div className="flex justify-center flex-col items-center text-sm text-center">
-            <div>
-              <PermIdentityOutlinedIcon />
-            </div>
-            <p className="text-xs">マイページ</p>
+          <div className="flex flex-col items-center text-sm">
+            <PermIdentityOutlinedIcon />
+            <p className="text-xs mt-1">マイページ</p>
           </div>
         </NavLink>
       </div>
