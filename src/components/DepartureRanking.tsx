@@ -16,11 +16,12 @@ import {
 } from "../@/components/ui/table";
 import { useGetDepartureRankings } from "../queries/DepartureQuery";
 import { DepartureRankingType } from "../types/Departure";
+import Layout from "./Layout";
 
 const DepartureRanking = () => {
   const { data: departureRankings } = useGetDepartureRankings();
   return (
-    <div>
+    <Layout>
       <NoteHeader />
       <div className="p-3">
         <DepartureTab />
@@ -45,9 +46,7 @@ const DepartureRanking = () => {
           </TableBody>
         </Table>
       </div>
-
-      <Footer />
-    </div>
+    </Layout>
   );
 };
 
