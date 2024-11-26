@@ -6,7 +6,7 @@ import EditNoteOutlinedIcon from "@mui/icons-material/EditNoteOutlined";
 
 const Footer = () => {
   return (
-    <div className=" w-full max-w-md bg-white border-t sticky bottom-0">
+    <div className=" w-full max-w-md bg-white border-t sticky bottom-0 z-10">
       <div className="flex justify-between">
         <NavLink
           id="footer"

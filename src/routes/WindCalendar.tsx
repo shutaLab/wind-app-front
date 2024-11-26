@@ -68,7 +68,7 @@ const WindCalendar = () => {
         <div className="flex flex-col min-h-screen">
           <NoteHeader />
           <div className="flex-grow overflow-y-auto px-3">
-            <div className="mb-4">
+            <div className="mb-4 z-0">
               <StyleWrapper>
                 <FullCalendar
                   headerToolbar={{
