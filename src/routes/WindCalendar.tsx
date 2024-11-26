@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useMemo } from "react";
-import Footer from "../components/Footer";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
@@ -15,6 +14,7 @@ import axios from "axios";
 import { CalendarType } from "../types/Calendar";
 import StyleWrapper from "../components/StyleWrapper";
 import RequireAuth from "../components/RequireAuth";
+import Layout from "../components/Layout";
 const WindCalendar = () => {
   const [open, setOpen] = useState(false);
   const { data: calendarEvents } = useGetCalendarEvent();
@@ -63,37 +63,38 @@ const WindCalendar = () => {
   }, [calendarEvents]);
 
   return (
-    <RequireAuth>
-      <div className="flex flex-col min-h-screen">
-        <NoteHeader />
-        <div className="flex-grow overflow-y-auto px-3">
-          <div className="mb-4">
-            <StyleWrapper>
-              <FullCalendar
-                headerToolbar={{
-                  start: "prev",
-                  center: "title",
-                  end: "next",
-                }}
-                height="60vh"
-                plugins={[dayGridPlugin, interactionPlugin]}
-                initialView="dayGridMonth"
-                selectable={true}
-                locale="ja"
-                events={formattedEvents}
-                businessHours={true}
-                displayEventTime={false}
-                schedulerLicenseKey="CC-Attribution-NonCommercial-NoDerivatives"
-                dateClick={(info) => setSelectedDate(new Date(info.date))}
-                eventClassNames={eventClassNames}
-              />
-            </StyleWrapper>
+    <Layout>
+      <RequireAuth>
+        <div className="flex flex-col min-h-screen">
+          <NoteHeader />
+          <div className="flex-grow overflow-y-auto px-3">
+            <div className="mb-4">
+              <StyleWrapper>
+                <FullCalendar
+                  headerToolbar={{
+                    start: "prev",
+                    center: "title",
+                    end: "next",
+                  }}
+                  height="60vh"
+                  plugins={[dayGridPlugin, interactionPlugin]}
+                  initialView="dayGridMonth"
+                  selectable={true}
+                  locale="ja"
+                  events={formattedEvents}
+                  businessHours={true}
+                  displayEventTime={false}
+                  schedulerLicenseKey="CC-Attribution-NonCommercial-NoDerivatives"
+                  dateClick={(info) => setSelectedDate(new Date(info.date))}
+                  eventClassNames={eventClassNames}
+                />
+              </StyleWrapper>
+            </div>
+            <EventList events={eventsOnSelectedDate || []} date={today} />
           </div>
-          <EventList events={eventsOnSelectedDate || []} date={today} />
         </div>
-        <Footer />
-      </div>
-    </RequireAuth>
+      </RequireAuth>
+    </Layout>
   );
 };
 
