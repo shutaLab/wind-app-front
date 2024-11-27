@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Dialog,
   DialogContent,
@@ -39,12 +39,13 @@ import {
   SelectValue,
 } from "../@/components/ui/select";
 import { timeArray } from "../utils/timeArray";
-import { ScrollArea } from "../@/components/ui/scroll-area";
+
 type DepartureEventModalProps = {
   open: boolean;
   handleClose: () => void;
   departureId: number;
 };
+
 const DepartureEventModal: React.FC<DepartureEventModalProps> = ({
   open,
   handleClose,
@@ -53,17 +54,20 @@ const DepartureEventModal: React.FC<DepartureEventModalProps> = ({
   const { data: departure, isFetched } = useShowDeparture(departureId);
   const updateDeparture = useUpdateDeparture();
   const { data: user, isFetched: userIsFetched } = useGetUser();
-  const [selectedDate, setSelectedDate] = useState<string | null>(
-    dayjs(departure?.start).format("YYYY-MM-DD")
-  );
+  const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const deleteDeparture = useDeleteDeparture();
-  const handleDeleteDeparture = () => {
-    deleteDeparture.mutate(departureId);
-    handleClose();
-  };
+
   dayjs.extend(utc);
   dayjs.extend(timezone);
   dayjs.tz.setDefault("Asia/Tokyo");
+
+  useEffect(() => {
+    if (isFetched && departure?.start) {
+      const formattedDate = dayjs(departure.start).format("YYYY-MM-DD");
+      setSelectedDate(formattedDate);
+    }
+  }, [isFetched, departure]);
+
   const form = useForm<DepartureType>({
     resolver: zodResolver(DepartureValidationShema),
     values:
@@ -77,6 +81,11 @@ const DepartureEventModal: React.FC<DepartureEventModalProps> = ({
           }
         : undefined,
   });
+
+  const handleDeleteDeparture = () => {
+    deleteDeparture.mutate(departureId);
+    handleClose();
+  };
 
   const handleDateChange = (value: string) => {
     setSelectedDate(value);
@@ -102,12 +111,11 @@ const DepartureEventModal: React.FC<DepartureEventModalProps> = ({
   }
 
   const isEditable = user?.id === departure?.user?.id;
-  console.log(isEditable);
   return (
     <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent className="">
         <DialogHeader>
-          <DialogTitle className="mb-5">出艇詳細</DialogTitle>
+          <DialogTitle className="mb-5 text-center">出艇詳細</DialogTitle>
           <DialogDescription className="space-y-6">
             {!isFetched ? (
               <>loading</>
@@ -191,7 +199,6 @@ const DepartureEventModal: React.FC<DepartureEventModalProps> = ({
                       </FormItem>
                     )}
                   />
-
                   <div className="flex justify-center">
                     <FormField
                       control={form.control}
