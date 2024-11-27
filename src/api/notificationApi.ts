@@ -7,15 +7,10 @@ export const getNotifications = async () => {
 };
 
 export const readNotification = async (id: string) => {
-  try {
-    const { data } = await apiClient.post(
-      `${API_ROUTES.NOTIFICATION.READ}/${id}/read`
-    );
-    return data;
-  } catch (error) {
-    console.error("API Error:", error);
-    throw error;
-  }
+  const { data } = await apiClient.post(
+    `${API_ROUTES.NOTIFICATION.READ}/${id}/read`
+  );
+  return data;
 };
 
 export const allReadNotifications = async () => {
