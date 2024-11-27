@@ -107,7 +107,7 @@ const NoteHeader = () => {
                   onClick={() => {
                     readNotification.mutate(notification.id);
                     setSelectedNotification(notification);
-                    navigate("/mypage");
+                    navigate("/mypage/intra");
                   }}
                 >
                   <div className="relative">
