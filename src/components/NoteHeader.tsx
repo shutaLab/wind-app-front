@@ -114,7 +114,7 @@ const NoteHeader = () => {
                     ) {
                       openIntraClaimModal(notification);
                     } else {
-                      navigate("/mypage");
+                      navigate("/mypage/intra");
                     }
                   }}
                 >
