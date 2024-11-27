@@ -107,15 +107,7 @@ const NoteHeader = () => {
                   onClick={() => {
                     readNotification.mutate(notification.id);
                     setSelectedNotification(notification);
-
-                    if (
-                      notification.data.type === "request" &&
-                      !notification.data.departure.intraUser
-                    ) {
-                      openIntraClaimModal(notification);
-                    } else {
-                      navigate("/mypage/intra");
-                    }
+                    navigate("/mypage");
                   }}
                 >
                   <div className="relative">
