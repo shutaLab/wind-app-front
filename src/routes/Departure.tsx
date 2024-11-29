@@ -9,17 +9,16 @@ import { useGetDepartureStatus } from "../queries/DepartureQuery";
 import dayjs from "dayjs";
 import RequireAuth from "../components/RequireAuth";
 import Layout from "../components/Layout";
+import DepartureStatusTable from "../components/DepartureStatusTable";
 dayjs.locale("ja");
 
 const Departure = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [chartOpen, setChartOpen] = useState(false);
 
-  const isSunday = dayjs().day() === 0;
-  console.log(isSunday);
+  const isSunday = dayjs().day() === 5;
 
   const { data: departureStatuses } = useGetDepartureStatus(isSunday);
-  console.log(departureStatuses?.notified);
   const clickChartOpen = () => {
     setChartOpen(true);
   };
@@ -48,41 +47,8 @@ const Departure = () => {
             onClick={clickChartOpen}
           />
         </div>
-        {departureStatuses && (
-          <div>
-            <p>今週の未連絡の未出艇者</p>
-            <div className="flex flex-wrap space-x-3">
-              {departureStatuses?.no_notification ? (
-                <>
-                  {departureStatuses?.no_notification.map((notified) => (
-                    <p key={notified.id}>{notified.user_profile?.name}</p>
-                  ))}
-                </>
-              ) : (
-                <p>未連絡の未出艇者はいません</p>
-              )}
-            </div>
-            <p>今週の連絡があった未出艇者</p>
-            {departureStatuses?.no_notification ? (
-              <>
-                {departureStatuses?.notified.map((notifiedEvent) => (
-                  <div key={notifiedEvent.user.id} className="flex space-x-3">
-                    <p>{notifiedEvent.user.user_profile?.name}</p>
-                    {notifiedEvent.events.map((event) => (
-                      <div key={event.id} className="flex space-x-3">
-                        <p>{event.title}</p>
-                        <p>{event.content}</p>
-                      </div>
-                    ))}
-                  </div>
-                ))}
-              </>
-            ) : (
-              <p>連絡のあった未出艇者はいません</p>
-            )}
-          </div>
-        )}
-        <div className="mt-52"></div>
+
+        <DepartureStatusTable />
         <DepartureChartDrawer open={chartOpen} handleClose={clickChartClose} />
       </RequireAuth>
     </Layout>
