@@ -11,6 +11,7 @@ import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
 import EditCalendarEventModal from "./EditCalendarEventModal";
 import { CalendarType } from "../types/Calendar";
 import { useGetUser } from "../queries/AuthQuery";
+import { Avatar, AvatarFallback, AvatarImage } from "../@/components/ui/avatar";
 interface EventProps {
   event: CalendarType;
 }
@@ -33,16 +34,18 @@ const Event: React.FC<EventProps> = ({ event }) => {
   const clickModalClose = () => {
     setModalOpen(false);
   };
-  console.log(modalOpen);
   return (
     <>
       <div className="flex p-2 justify-between">
         <div className="flex">
           <EventNoteOutlinedIcon className="text-gray-500 mr-2" />
           <div className="flex flex-col text-left">
-            {event.is_absent ? <p className="">欠席連絡</p> : <></>}
+            {event.is_absent && <p className="">欠席連絡</p>}
             <p className="text-lg">{event.title}</p>
             <p className="text-sm">{event.content}</p>
+            <p className="text-sm text-gray-600">
+              {event.user.user_profile?.name}
+            </p>
           </div>
         </div>
         <div>
